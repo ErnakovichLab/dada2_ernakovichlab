@@ -1,10 +1,10 @@
-# dada2 tutorial with MiSeq dataset for Fierer Lab 
-*This tutorial created by Angela Oliverio and Hannah Holland-Moritz, and is maintained by current members of the Fierer Lab (Corinne Walsh, Matt Gebert, Kunkun Fan)*     
-*Updated March 2nd, 2020*
+# dada2 tutorial with NovaSeq dataset for Ernakovich Lab 
+*This tutorial originally created by Angela Oliverio and Hannah Holland-Moritz. It has been updated for the Ernakovich Lab. Other contributors to this pipeline include: Corinne Walsh, Matt Gebert, and Kunkun Fan*     
+*Updated October 28, 2021*
 
 ````{r setup, include=FALSE}
 # some setup options for outputing markdown files; feel free to ignore these
-knitr::opts_chunk$set(eval = TRUE, 
+knitr::opts_chunk$set(eval = FALSE, 
                       include = TRUE, 
                       warning = FALSE, 
                       message = FALSE,
@@ -15,7 +15,7 @@ knitr::opts_chunk$set(eval = TRUE,
                       out.height = '98%')
 ````
 
-This pipeline runs the dada2 workflow for Big Data (paired-end) from RStudio on the microbe server.
+This pipeline runs the dada2 workflow for Big Data (paired-end) with modifications for NovaSeq sequencing base calls
 
 We suggest opening the dada2 tutorial online to understand more about each step. The original pipeline on which this tutorial is based can be found here: [https://benjjneb.github.io/dada2/bigdata_paired.html](https://benjjneb.github.io/dada2/bigdata_paired.html)
    
@@ -35,7 +35,7 @@ We suggest opening the dada2 tutorial online to understand more about each step.
    is not being sequenced in one direction. When long _amplicons_ are not sequenced with a _read length_ that allows for substantial overlap between the forward and reverse read, you can potentially insert biases into the data.
    If you intend to merge your paired end reads, ensure that your read length is appropriate. For example, with a MiSeq 2 x 150, 300 cycle kit, you will get bidirectional reads of 150 base pairs. 
    
-3. Make note of which sequencing platform was used, as this can impact both read quality and downstream analysis. 
+3. Make note of which sequencing platform was used, as this can impact both read quality and downstream analysis. In particular, this pipeline is designed to process NovaSeq data which has very different quality scores than HiSeq or MiSeq data.
 
 4. Decide which database is best suited for your analysis needs. Note that DADA2 requires databases be in a custom format! If a custom database is required, further formatting will be needed to ensure that it can run correctly in dada2.
    
@@ -49,23 +49,6 @@ We suggest opening the dada2 tutorial online to understand more about each step.
    
 
 ## Set up (part 1) - Steps before starting pipeline ##
-
-If you are running it through Fierer Lab "microbe" server:
-#### Logging in: 
-
-To use the microbe server, open a terminal window, and type and hit return:
-
-```bash    
-ssh <your microbe user name>@microbe.colorado.edu 
-```
-
-#### For your first time:
-
-*Setting up your password:*
-
-When you log in for the first time, you will have to set a new password. First, log in using your temporary password. The command prompt will then ask you to write a new password. Type it in once and hit return, then type it in again to verify. When you set a new password, make sure that it is something secure (i.e. has at least letters and numbers in it). Note, nothing will show up on the screen when you enter passwords.
-
-Important: Please be respectful and do not give your PW out to other people. The server is currently accessible to the whole world, so if your PW falls into the wrong hands, this will make a lot more work for the folks who administer the server.
 
 #### Downloading this tutorial from github
 Once you have logged in, you can download a copy of the tutorial into your directory on the server. To retrieve the folder with this tutorial from github directly to the server, type the following into your terminal and hit return after each line.
@@ -178,7 +161,7 @@ you do not need to create the subdirectories but they are nice to have
 for organizational purposes. 
 
 ````{r }
-project.fp <- "/data/YOURUSERNAMEHERE/MicroMethods_dada2_tutorial" # CHANGE ME to project directory; don't append with a "/"
+project.fp <- "/data/cwalsh/MicroMethods_dada2_tutorial" # CHANGE ME to project directory; don't append with a "/"
 
 # Set up names of sub directories to stay organized
 preprocess.fp <- file.path(project.fp, "01_preprocess")
