@@ -54,10 +54,13 @@ names(filtRs) <- sample.names
 set.seed(100) # set seed to ensure that randomized steps are replicatable
 
 # Learn forward error rates (Notes: randomize default is FALSE)
-errF <- learnErrors(filtFs, nbases = 1e8, multithread = TRUE, randomize = TRUE)
+errF <- learnErrors(filtFs, nbases = 1e3, multithread = TRUE, randomize = TRUE)
 
 # Learn reverse error rates
-errR <- learnErrors(filtRs, nbases = 1e8, multithread = TRUE, randomize = TRUE)
+errR <- learnErrors(filtRs, nbases = 1e3, multithread = TRUE, randomize = TRUE)
+
+saveRDS(errF, paste0(filtpathF, "/errF.rds"))
+saveRDS(errR, paste0(filtpathR, "/errR.rds"))
 
 
 #' For NovaSeq Data only!
