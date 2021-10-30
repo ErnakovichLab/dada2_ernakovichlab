@@ -456,7 +456,7 @@ ggsave(plot = errR_plot4, filename = paste0(filtpathR, "/errR_plot4.png"),
 
 #' | <span> |
 #' | :--- |
-#' | **STOP:** If you are running this on Premise, download the plots generated here (errF_plot.png and errR_plot.png) and verify that the error plots look appropriate. If not, adjust the learnErrors() function and re-run this step with slurm. |
+#' | **STOP:** If you are running this on Premise, download the plots generated here (They will be found in the 02_filter/preprocessed_F/filter and 02_filter/preprocessed_R/filter folder) and verify that the error plots look appropriate. If not, adjust the learnErrors() function and re-run this step with slurm. |
 #' | <span> |
 
 #+ include=FALSE
