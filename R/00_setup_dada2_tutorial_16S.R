@@ -22,14 +22,14 @@ system2(cutadapt, args = "--version") # Check by running shell command from R
 #' 
 
 # Set path to shared data folder and contents
-data.fp <- "/data/shared/2019_02_20_MicrMethods_tutorial"
+data.fp <- "/mnt/home/ernakovich/shared/dada2_tutorial_data/16S"
 
 # List all files in shared folder to check path
 list.files(data.fp)
 
 # Set file paths for barcodes file, map file, and fastqs
 # Barcodes need to have 'N' on the end of each 12bp sequence for compatability
-map.fp <- file.path(data.fp, "Molecular_Methods_18_515fBC_16S_Mapping_File_SHORT_vFinal_Fierer_10252018.txt")
+#map.fp <- file.path(data.fp, "Molecular_Methods_18_515fBC_16S_Mapping_File_SHORT_vFinal_Fierer_10252018.txt")
 
 
 #' | <span> |
@@ -43,7 +43,9 @@ map.fp <- file.path(data.fp, "Molecular_Methods_18_515fBC_16S_Mapping_File_SHORT
 #' you do not need to create the subdirectories but they are nice to have
 #' for organizational purposes. 
 
-project.fp <- "/data/cwalsh/MicroMethods_dada2_tutorial" # CHANGE ME to project directory; don't append with a "/"
+project.fp <- "/mnt/home/ernakovich/heh1030/dada2_tutorial_test" # CHANGE ME to project directory; don't append with a "/"
+
+dir.create(project.fp)
 
 # Set up names of sub directories to stay organized
 preprocess.fp <- file.path(project.fp, "01_preprocess")
