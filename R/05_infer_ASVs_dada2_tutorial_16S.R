@@ -74,21 +74,21 @@ rm(derepF); rm(derepR)
 # same steps, not in loop
 
 # Dereplicate forward reads
-derepF.p <- derepFastq(filtFs)
-names(derepF.p) <- sample.names
+#derepF.p <- derepFastq(filtFs)
+#names(derepF.p) <- sample.names
 # Infer sequences for forward reads
-dadaF.p <- dada(derepF.p, err = errF, multithread = TRUE, pool = TRUE)
-names(dadaF.p) <- sample.names
+#dadaF.p <- dada(derepF.p, err = errF, multithread = TRUE, pool = TRUE)
+#names(dadaF.p) <- sample.names
 
 # Dereplicate reverse reads
-derepR.p <- derepFastq(filtRs)
-names(derepR.p) <- sample.names
+#derepR.p <- derepFastq(filtRs)
+#names(derepR.p) <- sample.names
 # Infer sequences for reverse reads
-dadaR.p <- dada(derepR.p, err = errR, multithread = TRUE, pool = TRUE)
-names(dadaR.p) <- sample.names
+#dadaR.p <- dada(derepR.p, err = errR, multithread = TRUE, pool = TRUE)
+#names(dadaR.p) <- sample.names
 
 # Merge reads together
-mergers <- mergePairs(dadaF.p, derepF.p, dadaR.p, derepR.p)
+#mergers <- mergePairs(dadaF.p, derepF.p, dadaR.p, derepR.p)
 
 
 #' #### Construct sequence table
