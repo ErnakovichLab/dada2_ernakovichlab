@@ -57,7 +57,7 @@ filterAndTrim(fnFs, fnFs.filtN, fnRs, fnRs.filtN, maxN = 0, multithread = TRUE)
 
 # Set up the primer sequences to pass along to cutadapt
 FWD <- "GTGYCAGCMGCCGCGGTAA"  ## CHANGE ME # this is 515f
-REV <- "GGACTACNVGGGTWTCTAAT"  ## CHANGE ME # this is 806Br
+REV <- "CCGYCAATTYMTTTRAGTTT"  ## CHANGE ME # this is 926r
 
 # Write a function that creates a list of all orientations of the primers
 allOrients <- function(primer) {
@@ -108,7 +108,7 @@ R2.flags <- paste("-G", REV, "-A", FWD.RC, "--minimum-length 50")
 
 # Run Cutadapt
 for (i in seq_along(fnFs)) {
-  system2(cutadapt, args = c(R1.flags, R2.flags, "-n", 2, # -n 2 required to remove FWD and REV from reads
+  system2(cutadapt, args = c("-j", 0, R1.flags, R2.flags, "-n", 2, # -n 2 required to remove FWD and REV from reads
                              "-o", fnFs.cut[i], "-p", fnRs.cut[i], # output files
                              fnFs.filtN[i], fnRs.filtN[i])) # input files
 }
@@ -128,3 +128,4 @@ rbind(FWD.ForwardReads = sapply(FWD.orients, primerHits, fn = fnFs.cut[[1]]),
 #+ include=FALSE
 # this is to save the R environment if you are running the pipeline in pieces with slurm
 save.image(file = "dada2_ernakovich_Renv.RData")
+#'
