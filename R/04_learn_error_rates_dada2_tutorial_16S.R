@@ -41,9 +41,9 @@ filtRs <- list.files(filtpathR, pattern="fastq.gz", full.names = TRUE)
 
 # Sample names in order
 sample.names <- substring(basename(filtFs), regexpr("_", basename(filtFs)) + 1) # doesn't drop fastq.gz
-sample.names <- gsub(".fastq.gz", "", sample.names)
+sample.names <- gsub("_R1_001.fastq.gz", "", sample.names)
 sample.namesR <- substring(basename(filtRs), regexpr("_", basename(filtRs)) + 1) # doesn't drop fastq.gz
-sample.namesR <- gsub(".fastq.gz", "", sample.namesR)
+sample.namesR <- gsub("_R2_001.fastq.gz", "", sample.namesR)
 
 # Double check
 if(!identical(sample.names, sample.namesR)) stop("Forward and reverse files do not match.")
@@ -59,6 +59,30 @@ errF <- learnErrors(filtFs, nbases = 1e8, multithread = TRUE, randomize = TRUE)
 # Learn reverse error rates
 errR <- learnErrors(filtRs, nbases = 1e8, multithread = TRUE, randomize = TRUE)
 
+
+#' For NovaSeq Data only!
+#' If you have NovaSeq data you'll need to "enforce monotonicity" on the error model.
+#' in practice this means taking the errF or errR matrices and assigning a value of Q=40
+#' to all entries in the row that are lower than it. 
+#' see github issue here for more details: https://github.com/benjjneb/dada2/issues/791
+# Define a function to assign the value at Q=40 in the error matrix to all that are 
+# lower than it.
+make.monotone.decreasing <- function(v) sapply(seq_along(v), function(i) max(v[i:length(v)]))
+
+# Modify the forward and reverse error loess functions
+errF.md <- t(apply(getErrors(errF), 1, make.monotone.decreasing))
+
+errR.md <- t(apply(getErrors(errR), 1, make.monotone.decreasing))
+
+
+# Allow side-by-side plotting of monotonic conversion and original errors
+errF_mon <- errF
+errF_mon$err_out <- errF.md
+
+errR_mon <- errR
+errR_mon$err_out <- errR.md
+
+
 #' #### Plot Error Rates
 #' We want to make sure that the machine learning algorithm is learning the error rates properly. In the plots below, the red line represents what we should expect the learned error rates to look like for each of the 16 possible base transitions (A->A, A->C, A->G, etc.) and the black line and grey dots represent what the observed error rates are. If the black line and the red lines are very far off from each other, it may be a good idea to increase the ```nbases``` parameter. This alows the machine learning algorthim to train on a larger portion of your data and may help imporve the fit.
 
@@ -67,15 +91,29 @@ errR_plot <- plotErrors(errR, nominalQ = TRUE)
 
 errF_plot
 errR_plot
+
+errF_plot_mon <- plotErrors(errF_mon, nominalQ = TRUE)
+errR_plot_mon <- plotErrors(errR_mon, nominalQ = TRUE)
+
 #'
 # write to disk
 saveRDS(errF_plot, paste0(filtpathF, "/errF_plot.rds"))
 saveRDS(errR_plot, paste0(filtpathR, "/errR_plot.rds"))
 
+saveRDS(errF_plot_mon, paste0(filtpathF, "/errF_plot_mon.rds"))
+saveRDS(errR_plot_mon, paste0(filtpathR, "/errR_plot_mon.rds"))
+
 ggsave(plot = errF_plot, filename = paste0(filtpathF, "/errF_plot.png"), 
        width = 10, height = 10, dpi = "retina")
 ggsave(plot = errR_plot, filename = paste0(filtpathF, "/errR_plot.png"), 
        width = 10, height = 10, dpi = "retina")
+
+ggsave(plot = errF_plot_mon, filename = paste0(filtpathF, "/errF_plot_mon.png"),
+       width = 10, height = 10, dpi = "retina")
+ggsave(plot = errR_plot_mon, filename = paste0(filtpathF, "/errR_plot_mon.png"),
+       width = 10, height = 10, dpi = "retina")
+
+
 
 #' | <span> |
 #' | :--- |
