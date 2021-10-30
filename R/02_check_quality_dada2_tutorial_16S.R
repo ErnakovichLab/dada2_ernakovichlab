@@ -65,8 +65,8 @@ if(length(fastqFs) != length(fastqRs)) stop("Forward and reverse files do not ma
 
 # If the number of samples is 20 or less, plot them all, otherwise, just plot 20 randomly selected samples
 if( length(fastqFs) <= 20) {
-  plotQualityProfile(paste0(subF.fp, "/", fastqFs))
-  plotQualityProfile(paste0(subR.fp, "/", fastqRs))
+  fwd_qual_plots <- plotQualityProfile(paste0(subF.fp, "/", fastqFs))
+  rev_qual_plots <- plotQualityProfile(paste0(subR.fp, "/", fastqRs))
 } else {
   rand_samples <- sample(size = 20, 1:length(fastqFs)) # grab 20 random samples to plot
   fwd_qual_plots <- plotQualityProfile(paste0(subF.fp, "/", fastqFs[rand_samples]))
