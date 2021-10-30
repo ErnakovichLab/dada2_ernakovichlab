@@ -74,19 +74,39 @@ from github directly to the server, type the following into your
 terminal and hit return after each line.
 
 ``` bash
-wget https://github.com/fiererlab/dada2_fiererlab/archive/master.zip
-unzip master.zip
+wget https://github.com/ernakovichlab/dada2_ernakovichlab/archive/main.zip
+unzip main.zip
 ```
 
 If there are ever updates to the tutorial on github, you can update the
 contents of this folder by downloading the new version from the same
 link as above.
 
-#### Login to RStudio on the server
+#### Setup and install software (you will only need to do this the first time, or if you want to update dada2)
 
-1.  Open a your web browser and start a new empty tab
-2.  Type `microbe.colorado.edu:8787` in the address bar
-3.  Use your server login credentials to log into rstudio server
+1.  Install the conda environment (this will install all the necessary
+    software to run dada2)
+2.  First start by cleaning up modules, and then loading the anaconda
+    module.
+
+``` bash
+module purge
+module load anaconda/colsa
+```
+
+3.  Next create a conda local environment that you can use to run the
+    software
+
+``` bash
+cd dada2_ernakovichlab
+conda env create -f dada2_ernakovich.yml
+conda activate dada2_ernakovich
+```
+
+| <span>                                                                                                               |
+|:---------------------------------------------------------------------------------------------------------------------|
+| **WARNING:** This installation may take a long time, so only run this code if you have a fairly large chunk of time! |
+| <span>                                                                                                               |
 
 If you are running it on your own computer (runs slower!):
 
@@ -95,27 +115,29 @@ If you are running it on your own computer (runs slower!):
     and click the green “Clone or download” button. Then click “Download
     ZIP”, to save it to your computer. Unzip the file to access the
     R-script.
+
 2.  Download the tutorial data from here
     <http://cme.colorado.edu/projects/bioinformatics-tutorials>
+
 3.  Install idemp and cutadapt.
+
     -   idemp can be found here: <https://github.com/yhwu/idemp>
     -   cutadapt can be installed from here:
         <https://cutadapt.readthedocs.io/en/stable/installation.html>
+
 4.  Download the dada2-formatted reference database of your choice. Link
     to download here: <https://benjjneb.github.io/dada2/training.html>
 
-## Set up (part 2) - You are logged in to Rstudio on server (or have it open on your computer)
+5.  Open the Rmarkdown script in Rstudio. The script is located in the
+    tutorial folder you downloaded in the first step. You can navigate
+    to the proper folder in Rstudio by clicking on the files tab and
+    navigating to the location where you downloaded the github folder.
+    Then click dada2\_ernakovichlab and dada2\_tutorial\_16S\_all.Rmd to
+    open the script.
 
-First open the R script in Rstudio. The R script is located in the
-tutorial folder you downloaded in the first step. You can navigate to
-the proper folder in Rstudio by clicking on the files tab and navigating
-to the location where you downloaded the github folder. Then click
-dada2\_fiererlab and dada2\_tutorial\_16S.R to open the R script.
-
-Now, install DADA2 & other necessary packages. If this is your first
-time on Rstudio server, when you install a package you might get a
-prompt asking if you want to create your own library. Answer ‘yes’ twice
-in the console to continue.
+Now, install DADA2 & other necessary packages. Depending on how you set
+up Rstudio, you might get a prompt asking if you want to create your own
+library. Answer ‘yes’ twice in the console to continue.
 
 | <span>                                                                                                                  |
 |:------------------------------------------------------------------------------------------------------------------------|
@@ -135,6 +157,24 @@ install.packages("ggplot2")
 install.packages("plotly")
 ```
 
+Once the packages are installed, you can check to make sure the
+auxiliary software is working and set up some of the variables that you
+will need along the way.
+
+| <span>                                                                                                                                               |
+|:-----------------------------------------------------------------------------------------------------------------------------------------------------|
+| **NOTE:** If you are not working from premise, you will need to change the file paths for cutadapt to where they are stored on your computer/server. |
+| <span>                                                                                                                                               |
+
+For this tutorial we will be working with some samples that we obtained
+16S amplicon data for, from a Illumina Miseq run. The data for these
+samples can be found on the CME website.
+<http://cme.colorado.edu/projects/bioinformatics-tutorials>
+
+## Set up (part 2) - You are logged in to premise (or have Rstudio open on your computer)
+
+First load and test the installed packages to make sure they’re working
+
 Load DADA2 and required packages
 
 ``` r
@@ -145,31 +185,19 @@ library(tidyr); packageVersion("tidyr") # for creating the final graph at the en
 library(Hmisc); packageVersion("Hmisc") # for creating the final graph at the end of the pipeline
 library(ggplot2); packageVersion("ggplot2") # for creating the final graph at the end of the pipeline
 library(plotly); packageVersion("plotly") # enables creation of interactive graphs, especially helpful for quality plots
-```
-
-Once the packages are installed, you can check to make sure the
-auxillary software is working and set up some of the variables that you
-will need along the way.
-
-| <span>                                                                                                                                                                |
-|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **NOTE:** If you are not working from microbe server, you will need to change the file paths for idemp and cutadapt to where they are stored on your computer/server. |
-| <span>                                                                                                                                                                |
-
-For this tutorial we will be working with some samples that we obtained
-16S amplicon data for, from a Illumina Miseq run. The data for these
-samples can be found on the CME website.
-<http://cme.colorado.edu/projects/bioinformatics-tutorials>
-
-``` r
-# Set up pathway to idemp (demultiplexing tool) and test
-idemp <- "/usr/bin/idemp" # CHANGE ME if not on microbe
-system2(idemp) # Check that idemp is in your path and you can run shell commands from R
 
 # Set up pathway to cutadapt (primer trimming tool) and test
-cutadapt <- "/usr/local/Python27/bin/cutadapt" # CHANGE ME if not on microbe
+cutadapt <- "cutadapt" # CHANGE ME if not on premise; will probably look something like this: "/usr/local/Python27/bin/cutadapt"
 system2(cutadapt, args = "--version") # Check by running shell command from R
+```
 
+We will now set up the directories for the script. We’ll tell the script
+where our data is, and where we want to put the outputs of the script.
+We highly recommend NOT putting outputs of this script directly into
+your home directory, or into this directory. A better idea is to create
+a new project output directory for each project you work on.
+
+``` r
 # Set path to shared data folder and contents
 data.fp <- "/data/shared/2019_02_20_MicrMethods_tutorial"
 
@@ -177,12 +205,8 @@ data.fp <- "/data/shared/2019_02_20_MicrMethods_tutorial"
 list.files(data.fp)
 
 # Set file paths for barcodes file, map file, and fastqs
-    # Barcodes need to have 'N' on the end of each 12bp sequence for compatability
-barcode.fp <- file.path(data.fp, "barcode_demultiplex_short.txt") # .txt file: barcode </t> sampleID
+# Barcodes need to have 'N' on the end of each 12bp sequence for compatability
 map.fp <- file.path(data.fp, "Molecular_Methods_18_515fBC_16S_Mapping_File_SHORT_vFinal_Fierer_10252018.txt")
-I1.fp <- file.path(data.fp, "Undetermined_S0_L001_I1_001.fastq.gz") 
-R1.fp <- file.path(data.fp, "Undetermined_S0_L001_R1_001.fastq.gz") 
-R2.fp <- file.path(data.fp, "Undetermined_S0_L001_R2_001.fastq.gz") 
 ```
 
 | <span>                                                                                                                                                                                                                                                                                                                                                                                                                               |
@@ -204,59 +228,24 @@ project.fp <- "/data/cwalsh/MicroMethods_dada2_tutorial" # CHANGE ME to project 
 
 # Set up names of sub directories to stay organized
 preprocess.fp <- file.path(project.fp, "01_preprocess")
-    demultiplex.fp <- file.path(preprocess.fp, "demultiplexed")
-    filtN.fp <- file.path(preprocess.fp, "filtN")
-    trimmed.fp <- file.path(preprocess.fp, "trimmed")
+filtN.fp <- file.path(preprocess.fp, "filtN")
+trimmed.fp <- file.path(preprocess.fp, "trimmed")
 filter.fp <- file.path(project.fp, "02_filter") 
 table.fp <- file.path(project.fp, "03_tabletax") 
 ```
 
-## Pre-processing data for dada2 - demultiplex, remove sequences with Ns, cutadapt
+| <span>                                                                                                                                                                                             |
+|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **STOP:** If you are running this on Premise, open up the 00\_setup\_dada2\_tutorial\_16S.R script with nano (or your favorite terminal text editor) and adjust the variables above appropriately. |
+| <span>                                                                                                                                                                                             |
 
-#### Call the demultiplexing script
-
-Demultiplexing splits your reads out into separate files based on the
-barcodes associated with each sample.
-
-``` r
-flags <- paste("-b", barcode.fp, "-I1", I1.fp, "-R1", R1.fp, "-R2", R2.fp, "-o", demultiplex.fp) 
-system2(idemp, args = flags) 
-
-# Look at output of demultiplexing
-list.files(demultiplex.fp)
-```
-
-| <span>                                                                                                                                                                                                                                                                                           |
-|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **WARNING:** The demultiplexing step may take a while. If it takes too long you can safely close RStudio on the server and the demultiplexing will run in the background. You should be able to resume the pipeline after demultiplexing is complete by logging back into RStudio on the server. |
-| <span>                                                                                                                                                                                                                                                                                           |
-
-#### Clean up the output from idemp
+## Pre-processing data for dada2 - remove sequences with Ns, cutadapt
 
 ``` r
-# Change names of unassignable reads so they are not included in downstream processing
-unassigned_1 <- paste0("mv", " ", demultiplex.fp, "/Undetermined_S0_L001_R1_001.fastq.gz_unsigned.fastq.gz",
-                       " ", demultiplex.fp, "/Unassigned_reads1.fastq.gz")
-unassigned_2 <- paste0("mv", " ", demultiplex.fp, "/Undetermined_S0_L001_R2_001.fastq.gz_unsigned.fastq.gz", 
-                       " ", demultiplex.fp, "/Unassigned_reads2.fastq.gz")
-system(unassigned_1)
-system(unassigned_2)
-
-# Rename files - use gsub to get names in order!
-R1_names <- gsub(paste0(demultiplex.fp, "/Undetermined_S0_L001_R1_001.fastq.gz_"), "", 
-                 list.files(demultiplex.fp, pattern="R1", full.names = TRUE))
-file.rename(list.files(demultiplex.fp, pattern="R1", full.names = TRUE), 
-            paste0(demultiplex.fp, "/R1_", R1_names))
-
-R2_names <- gsub(paste0(demultiplex.fp, "/Undetermined_S0_L001_R2_001.fastq.gz_"), "", 
-                 list.files(demultiplex.fp, pattern="R2", full.names = TRUE))
-file.rename(list.files(demultiplex.fp, pattern="R2", full.names = TRUE),
-            paste0(demultiplex.fp, "/R2_", R2_names))
-
 # Get full paths for all files and save them for downstream analyses
 # Forward and reverse fastq filenames have format: 
-fnFs <- sort(list.files(demultiplex.fp, pattern="R1_", full.names = TRUE))
-fnRs <- sort(list.files(demultiplex.fp, pattern="R2_", full.names = TRUE))
+fnFs <- sort(list.files(data.fp, pattern="R1_", full.names = TRUE))
+fnRs <- sort(list.files(data.fp, pattern="R2_", full.names = TRUE))
 ```
 
 #### Pre-filter to remove sequence reads with Ns
@@ -298,12 +287,12 @@ REV <- "GGACTACNVGGGTWTCTAAT"  ## CHANGE ME # this is 806Br
 
 # Write a function that creates a list of all orientations of the primers
 allOrients <- function(primer) {
-    # Create all orientations of the input sequence
-    require(Biostrings)
-    dna <- DNAString(primer)  # The Biostrings works w/ DNAString objects rather than character vectors
-    orients <- c(Forward = dna, Complement = complement(dna), Reverse = reverse(dna), 
-                 RevComp = reverseComplement(dna))
-    return(sapply(orients, toString))  # Convert back to character vector
+  # Create all orientations of the input sequence
+  require(Biostrings)
+  dna <- DNAString(primer)  # The Biostrings works w/ DNAString objects rather than character vectors
+  orients <- c(Forward = dna, Complement = complement(dna), Reverse = reverse(dna), 
+               RevComp = reverseComplement(dna))
+  return(sapply(orients, toString))  # Convert back to character vector
 }
 
 # Save the primer orientations to pass to cutadapt
@@ -313,9 +302,9 @@ FWD.orients
 
 # Write a function that counts how many time primers appear in a sequence
 primerHits <- function(primer, fn) {
-    # Counts number of reads in which the primer is found
-    nhits <- vcountPattern(primer, sread(readFastq(fn)), fixed = FALSE)
-    return(sum(nhits > 0))
+  # Counts number of reads in which the primer is found
+  nhits <- vcountPattern(primer, sread(readFastq(fn)), fixed = FALSE)
+  return(sum(nhits > 0))
 }
 ```
 
@@ -351,34 +340,39 @@ R2.flags <- paste("-G", REV, "-A", FWD.RC, "--minimum-length 50")
 
 # Run Cutadapt
 for (i in seq_along(fnFs)) {
-    system2(cutadapt, args = c(R1.flags, R2.flags, "-n", 2, # -n 2 required to remove FWD and REV from reads
-                               "-o", fnFs.cut[i], "-p", fnRs.cut[i], # output files
-                               fnFs.filtN[i], fnRs.filtN[i])) # input files
+  system2(cutadapt, args = c(R1.flags, R2.flags, "-n", 2, # -n 2 required to remove FWD and REV from reads
+                             "-o", fnFs.cut[i], "-p", fnRs.cut[i], # output files
+                             fnFs.filtN[i], fnRs.filtN[i])) # input files
 }
 
 # As a sanity check, we will check for primers in the first cutadapt-ed sample:
-    ## should all be zero!
+## should all be zero!
 rbind(FWD.ForwardReads = sapply(FWD.orients, primerHits, fn = fnFs.cut[[1]]), 
       FWD.ReverseReads = sapply(FWD.orients, primerHits, fn = fnRs.cut[[1]]), 
       REV.ForwardReads = sapply(REV.orients, primerHits, fn = fnFs.cut[[1]]), 
       REV.ReverseReads = sapply(REV.orients, primerHits, fn = fnRs.cut[[1]]))
 ```
 
+| <span>                                                                                                                                                                                                                                                                                           |
+|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **STOP:** If you are running this on Premise, open up the 01\_pre-process\_dada2\_tutorial\_16S.R script with nano (or your favorite terminal text editor) and adjust the primer sequences (if need be) and check the slurm output to make sure that there are no primers still in your samples. |
+| <span>                                                                                                                                                                                                                                                                                           |
+
 # Now start DADA2 pipeline
 
 ``` r
 # Put filtered reads into separate sub-directories for big data workflow
 dir.create(filter.fp)
-    subF.fp <- file.path(filter.fp, "preprocessed_F") 
-    subR.fp <- file.path(filter.fp, "preprocessed_R") 
+subF.fp <- file.path(filter.fp, "preprocessed_F") 
+subR.fp <- file.path(filter.fp, "preprocessed_R") 
 dir.create(subF.fp)
 dir.create(subR.fp)
 
 # Move R1 and R2 from trimmed to separate forward/reverse sub-directories
 fnFs.Q <- file.path(subF.fp,  basename(fnFs)) 
 fnRs.Q <- file.path(subR.fp,  basename(fnRs))
-file.rename(from = fnFs.cut, to = fnFs.Q)
-file.rename(from = fnRs.cut, to = fnRs.Q)
+file.copy(from = fnFs.cut, to = fnFs.Q)
+file.copy(from = fnRs.cut, to = fnRs.Q)
 
 # File parsing; create file names and make sure that forward and reverse files match
 filtpathF <- file.path(subF.fp, "filtered") # files go into preprocessed_F/filtered/
@@ -463,6 +457,11 @@ ggsave(plot = rev_qual_plots, filename = paste0(filter.fp, "/rev_qual_plots.png"
        width = 10, height = 10, dpi = "retina")
 ```
 
+| <span>                                                                                                                                                                                                  |
+|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **STOP:** If you are running this on Premise, download the plots generated here (fwd\_qual\_plots.png and rev\_qual\_plots.png) use them to make decisions for your filtering choices in the next step. |
+| <span>                                                                                                                                                                                                  |
+
 #### Filter the data
 
 | <span>                                                                                                                                                                                                                                                                                                                        |
@@ -472,9 +471,9 @@ ggsave(plot = rev_qual_plots, filename = paste0(filter.fp, "/rev_qual_plots.png"
 
 ``` r
 filt_out <- filterAndTrim(fwd=file.path(subF.fp, fastqFs), filt=file.path(filtpathF, fastqFs),
-              rev=file.path(subR.fp, fastqRs), filt.rev=file.path(filtpathR, fastqRs),
-              truncLen=c(150,140), maxEE=c(2,2), truncQ=2, maxN=0, rm.phix=TRUE,
-              compress=TRUE, verbose=TRUE, multithread=TRUE)
+                          rev=file.path(subR.fp, fastqRs), filt.rev=file.path(filtpathR, fastqRs),
+                          truncLen=c(150,140), maxEE=c(2,2), truncQ=2, maxN=0, rm.phix=TRUE,
+                          compress=TRUE, verbose=TRUE, multithread=TRUE)
 
 # look at how many reads were kept
 head(filt_out)
@@ -514,6 +513,11 @@ ggsave(plot = fwd_qual_plots_filt, filename = paste0(filter.fp, "/fwd_qual_plots
 ggsave(plot = rev_qual_plots_filt, filename = paste0(filter.fp, "/rev_qual_plots_filt.png"), 
        width = 10, height = 10, dpi = "retina")
 ```
+
+| <span>                                                                                                                                                                                                                                                                                  |
+|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **STOP:** If you are running this on Premise, download the plots generated here (fwd\_qual\_plots\_filt.png and rev\_qual\_plots\_filt.png) and verify that your filtering is working the way you want it. If not, adjust the filterAndTrim() function and re-run this step with slurm. |
+| <span>                                                                                                                                                                                                                                                                                  |
 
 ### 2. INFER sequence variants
 
@@ -581,7 +585,17 @@ errR_plot
 # write to disk
 saveRDS(errF_plot, paste0(filtpathF, "/errF_plot.rds"))
 saveRDS(errR_plot, paste0(filtpathR, "/errR_plot.rds"))
+
+ggsave(plot = errF_plot, filename = paste0(filtpathF, "/errF_plot.png"), 
+       width = 10, height = 10, dpi = "retina")
+ggsave(plot = errR_plot, filename = paste0(filtpathF, "/errR_plot.png"), 
+       width = 10, height = 10, dpi = "retina")
 ```
+
+| <span>                                                                                                                                                                                                                                           |
+|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **STOP:** If you are running this on Premise, download the plots generated here (errF\_plot.png and errR\_plot.png) and verify that the error plots look appropriate. If not, adjust the learnErrors() function and re-run this step with slurm. |
+| <span>                                                                                                                                                                                                                                           |
 
 #### Dereplication, sequence inference, and merging of paired-end reads
 
@@ -621,20 +635,20 @@ names(ddR) <- sample.names
 
 # For each sample, get a list of merged and denoised sequences
 for(sam in sample.names) {
-    cat("Processing:", sam, "\n")
-    # Dereplicate forward reads
-    derepF <- derepFastq(filtFs[[sam]])
-    # Infer sequences for forward reads
-    dadaF <- dada(derepF, err = errF, multithread = TRUE)
-    ddF[[sam]] <- dadaF
-    # Dereplicate reverse reads
-    derepR <- derepFastq(filtRs[[sam]])
-    # Infer sequences for reverse reads
-    dadaR <- dada(derepR, err = errR, multithread = TRUE)
-    ddR[[sam]] <- dadaR
-    # Merge reads together
-    merger <- mergePairs(ddF[[sam]], derepF, ddR[[sam]], derepR)
-    mergers[[sam]] <- merger
+  cat("Processing:", sam, "\n")
+  # Dereplicate forward reads
+  derepF <- derepFastq(filtFs[[sam]])
+  # Infer sequences for forward reads
+  dadaF <- dada(derepF, err = errF, multithread = TRUE)
+  ddF[[sam]] <- dadaF
+  # Dereplicate reverse reads
+  derepR <- derepFastq(filtRs[[sam]])
+  # Infer sequences for reverse reads
+  dadaR <- dada(derepR, err = errR, multithread = TRUE)
+  ddR[[sam]] <- dadaR
+  # Merge reads together
+  merger <- mergePairs(ddF[[sam]], derepF, ddR[[sam]], derepR)
+  mergers[[sam]] <- merger
 }
 
 rm(derepF); rm(derepR)
@@ -668,6 +682,9 @@ mergers <- mergePairs(dadaF.p, derepF.p, dadaR.p, derepR.p)
 
 #### Construct sequence table
 
+You will always perform this step whether or not you have pooled or
+unpooled ASV picking
+
 ``` r
 seqtab <- makeSequenceTable(mergers)
 
@@ -675,6 +692,11 @@ seqtab <- makeSequenceTable(mergers)
 dir.create(table.fp)
 saveRDS(seqtab, paste0(table.fp, "/seqtab.rds"))
 ```
+
+| <span>                                                                                                                                                                  |
+|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **STOP:** If you are running this on Premise, decide if you want the pooled or not-pooled option delete the options you don’t want before running this step with slurm. |
+| <span>                                                                                                                                                                  |
 
 ### 3. REMOVE Chimeras and ASSIGN Taxonomy
 
@@ -898,6 +920,11 @@ saveRDS(track, paste0(project.fp, "/tracking_reads.rds"))
 saveRDS(track_pct, paste0(project.fp, "/tracking_reads_percentage.rds"))
 saveRDS(track_plot, paste0(project.fp, "/tracking_reads_summary_plot.rds"))
 ```
+
+| <span>                                                                                                                                   |
+|:-----------------------------------------------------------------------------------------------------------------------------------------|
+| **STOP:** If you are running this on Premise, make sure that you are using the appropriate database before running this step with slurm. |
+| <span>                                                                                                                                   |
 
 ## Next Steps
 

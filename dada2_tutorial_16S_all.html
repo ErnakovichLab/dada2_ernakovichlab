@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="data:text/css,%0A%40font%2Dface%20%7B%0Afont%2Dfamily%3A%20octicons%2Dlink%3B%0Asrc%3A%20url%28data%3Afont%2Fwoff%3Bcharset%3Dutf%2D8%3Bbase64%2Cd09GRgABAAAAAAZwABAAAAAACFQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABEU0lHAAAGaAAAAAgAAAAIAAAAAUdTVUIAAAZcAAAACgAAAAoAAQAAT1MvMgAAAyQAAABJAAAAYFYEU3RjbWFwAAADcAAAAEUAAACAAJThvmN2dCAAAATkAAAABAAAAAQAAAAAZnBnbQAAA7gAAACyAAABCUM%2B8IhnYXNwAAAGTAAAABAAAAAQABoAI2dseWYAAAFsAAABPAAAAZwcEq9taGVhZAAAAsgAAAA0AAAANgh4a91oaGVhAAADCAAAABoAAAAkCA8DRGhtdHgAAAL8AAAADAAAAAwGAACfbG9jYQAAAsAAAAAIAAAACABiATBtYXhwAAACqAAAABgAAAAgAA8ASm5hbWUAAAToAAABQgAAAlXu73sOcG9zdAAABiwAAAAeAAAAME3QpOBwcmVwAAAEbAAAAHYAAAB%2FaFGpk3jaTY6xa8JAGMW%2FO62BDi0tJLYQincXEypYIiGJjSgHniQ6umTsUEyLm5BV6NDBP8Tpts6F0v%2Bk%2F0an2i%2BitHDw3v2%2B9%2BDBKTzsJNnWJNTgHEy4BgG3EMI9DCEDOGEXzDADU5hBKMIgNPZqoD3SilVaXZCER3%2FI7AtxEJLtzzuZfI%2BVVkprxTlXShWKb3TBecG11rwoNlmmn1P2WYcJczl32etSpKnziC7lQyWe1smVPy%2FLt7Kc%2B0vWY%2FgAgIIEqAN9we0pwKXreiMasxvabDQMM4riO%2BqxM2ogwDGOZTXxwxDiycQIcoYFBLj5K3EIaSctAq2kTYiw%2Bymhce7vwM9jSqO8JyVd5RH9gyTt2%2BJ%2FyUmYlIR0s04n6%2B7Vm1ozezUeLEaUjhaDSuXHwVRgvLJn1tQ7xiuVv%2FocTRF42mNgZGBgYGbwZOBiAAFGJBIMAAizAFoAAABiAGIAznjaY2BkYGAA4in8zwXi%2BW2%2BMjCzMIDApSwvXzC97Z4Ig8N%2FBxYGZgcgl52BCSQKAA3jCV8CAABfAAAAAAQAAEB42mNgZGBg4f3vACQZQABIMjKgAmYAKEgBXgAAeNpjYGY6wTiBgZWBg2kmUxoDA4MPhGZMYzBi1AHygVLYQUCaawqDA4PChxhmh%2F8ODDEsvAwHgMKMIDnGL0x7gJQCAwMAJd4MFwAAAHjaY2BgYGaA4DAGRgYQkAHyGMF8NgYrIM3JIAGVYYDT%2BAEjAwuDFpBmA9KMDEwMCh9i%2Fv8H8sH0%2F4dQc1iAmAkALaUKLgAAAHjaTY9LDsIgEIbtgqHUPpDi3gPoBVyRTmTddOmqTXThEXqrob2gQ1FjwpDvfwCBdmdXC5AVKFu3e5MfNFJ29KTQT48Ob9%2FlqYwOGZxeUelN2U2R6%2BcArgtCJpauW7UQBqnFkUsjAY%2FkOU1cP%2BDAgvxwn1chZDwUbd6CFimGXwzwF6tPbFIcjEl%2BvvmM%2FbyA48e6tWrKArm4ZJlCbdsrxksL1AwWn%2FyBSJKpYbq8AXaaTb8AAHja28jAwOC00ZrBeQNDQOWO%2F%2FsdBBgYGRiYWYAEELEwMTE4uzo5Zzo5b2BxdnFOcALxNjA6b2ByTswC8jYwg0VlNuoCTWAMqNzMzsoK1rEhNqByEyerg5PMJlYuVueETKcd%2F89uBpnpvIEVomeHLoMsAAe1Id4AAAAAAAB42oWQT07CQBTGv0JBhagk7HQzKxca2sJCE1hDt4QF%2B9JOS0nbaaYDCQfwCJ7Au3AHj%2BLO13FMmm6cl7785vven0kBjHCBhfpYuNa5Ph1c0e2Xu3jEvWG7UdPDLZ4N92nOm%2BEBXuAbHmIMSRMs%2B4aUEd4Nd3CHD8NdvOLTsA2GL8M9PODbcL%2BhD7C1xoaHeLJSEao0FEW14ckxC%2BTU8TxvsY6X0eLPmRhry2WVioLpkrbp84LLQPGI7c6sOiUzpWIWS5GzlSgUzzLBSikOPFTOXqly7rqx0Z1Q5BAIoZBSFihQYQOOBEdkCOgXTOHA07HAGjGWiIjaPZNW13%2F%2Blm6S9FT7rLHFJ6fQbkATOG1j2OFMucKJJsxIVfQORl%2B9Jyda6Sl1dUYhSCm1dyClfoeDve4qMYdLEbfqHf3O%2FAdDumsjAAB42mNgYoAAZQYjBmyAGYQZmdhL8zLdDEydARfoAqIAAAABAAMABwAKABMAB%2F%2F%2FAA8AAQAAAAAAAAAAAAAAAAABAAAAAA%3D%3D%29%20format%28%27woff%27%29%3B%0A%7D%0Abody%20%7B%0A%2Dwebkit%2Dtext%2Dsize%2Dadjust%3A%20100%25%3B%0Atext%2Dsize%2Dadjust%3A%20100%25%3B%0Acolor%3A%20%23333%3B%0Afont%2Dfamily%3A%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20%22Segoe%20UI%22%2C%20Arial%2C%20freesans%2C%20sans%2Dserif%2C%20%22Apple%20Color%20Emoji%22%2C%20%22Segoe%20UI%20Emoji%22%2C%20%22Segoe%20UI%20Symbol%22%3B%0Afont%2Dsize%3A%2016px%3B%0Aline%2Dheight%3A%201%2E6%3B%0Aword%2Dwrap%3A%20break%2Dword%3B%0A%7D%0Aa%20%7B%0Abackground%2Dcolor%3A%20transparent%3B%0A%7D%0Aa%3Aactive%2C%0Aa%3Ahover%20%7B%0Aoutline%3A%200%3B%0A%7D%0Astrong%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Ah1%20%7B%0Afont%2Dsize%3A%202em%3B%0Amargin%3A%200%2E67em%200%3B%0A%7D%0Aimg%20%7B%0Aborder%3A%200%3B%0A%7D%0Ahr%20%7B%0Abox%2Dsizing%3A%20content%2Dbox%3B%0Aheight%3A%200%3B%0A%7D%0Apre%20%7B%0Aoverflow%3A%20auto%3B%0A%7D%0Acode%2C%0Akbd%2C%0Apre%20%7B%0Afont%2Dfamily%3A%20monospace%2C%20monospace%3B%0Afont%2Dsize%3A%201em%3B%0A%7D%0Ainput%20%7B%0Acolor%3A%20inherit%3B%0Afont%3A%20inherit%3B%0Amargin%3A%200%3B%0A%7D%0Ahtml%20input%5Bdisabled%5D%20%7B%0Acursor%3A%20default%3B%0A%7D%0Ainput%20%7B%0Aline%2Dheight%3A%20normal%3B%0A%7D%0Ainput%5Btype%3D%22checkbox%22%5D%20%7B%0Abox%2Dsizing%3A%20border%2Dbox%3B%0Apadding%3A%200%3B%0A%7D%0Atable%20%7B%0Aborder%2Dcollapse%3A%20collapse%3B%0Aborder%2Dspacing%3A%200%3B%0A%7D%0Atd%2C%0Ath%20%7B%0Apadding%3A%200%3B%0A%7D%0A%2A%20%7B%0Abox%2Dsizing%3A%20border%2Dbox%3B%0A%7D%0Ainput%20%7B%0Afont%3A%2013px%20%2F%201%2E4%20Helvetica%2C%20arial%2C%20nimbussansl%2C%20liberationsans%2C%20freesans%2C%20clean%2C%20sans%2Dserif%2C%20%22Apple%20Color%20Emoji%22%2C%20%22Segoe%20UI%20Emoji%22%2C%20%22Segoe%20UI%20Symbol%22%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%234078c0%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%2C%0Aa%3Aactive%20%7B%0Atext%2Ddecoration%3A%20underline%3B%0A%7D%0Ahr%20%7B%0Aheight%3A%200%3B%0Amargin%3A%2015px%200%3B%0Aoverflow%3A%20hidden%3B%0Abackground%3A%20transparent%3B%0Aborder%3A%200%3B%0Aborder%2Dbottom%3A%201px%20solid%20%23ddd%3B%0A%7D%0Ahr%3Abefore%20%7B%0Adisplay%3A%20table%3B%0Acontent%3A%20%22%22%3B%0A%7D%0Ahr%3Aafter%20%7B%0Adisplay%3A%20table%3B%0Aclear%3A%20both%3B%0Acontent%3A%20%22%22%3B%0A%7D%0Ah1%2C%0Ah2%2C%0Ah3%2C%0Ah4%2C%0Ah5%2C%0Ah6%20%7B%0Amargin%2Dtop%3A%2015px%3B%0Amargin%2Dbottom%3A%2015px%3B%0Aline%2Dheight%3A%201%2E1%3B%0A%7D%0Ah1%20%7B%0Afont%2Dsize%3A%2030px%3B%0A%7D%0Ah2%20%7B%0Afont%2Dsize%3A%2021px%3B%0A%7D%0Ah3%20%7B%0Afont%2Dsize%3A%2016px%3B%0A%7D%0Ah4%20%7B%0Afont%2Dsize%3A%2014px%3B%0A%7D%0Ah5%20%7B%0Afont%2Dsize%3A%2012px%3B%0A%7D%0Ah6%20%7B%0Afont%2Dsize%3A%2011px%3B%0A%7D%0Ablockquote%20%7B%0Amargin%3A%200%3B%0A%7D%0Aul%2C%0Aol%20%7B%0Apadding%3A%200%3B%0Amargin%2Dtop%3A%200%3B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Aol%20ol%2C%0Aul%20ol%20%7B%0Alist%2Dstyle%2Dtype%3A%20lower%2Droman%3B%0A%7D%0Aul%20ul%20ol%2C%0Aul%20ol%20ol%2C%0Aol%20ul%20ol%2C%0Aol%20ol%20ol%20%7B%0Alist%2Dstyle%2Dtype%3A%20lower%2Dalpha%3B%0A%7D%0Add%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20%22Liberation%20Mono%22%2C%20Menlo%2C%20Courier%2C%20monospace%3B%0Afont%2Dsize%3A%2012px%3B%0A%7D%0Apre%20%7B%0Amargin%2Dtop%3A%200%3B%0Amargin%2Dbottom%3A%200%3B%0Afont%3A%2012px%20Consolas%2C%20%22Liberation%20Mono%22%2C%20Menlo%2C%20Courier%2C%20monospace%3B%0A%7D%0A%2Eselect%3A%3A%2Dms%2Dexpand%20%7B%0Aopacity%3A%200%3B%0A%7D%0A%2Eocticon%20%7B%0Afont%3A%20normal%20normal%20normal%2016px%2F1%20octicons%2Dlink%3B%0Adisplay%3A%20inline%2Dblock%3B%0Atext%2Ddecoration%3A%20none%3B%0Atext%2Drendering%3A%20auto%3B%0A%2Dwebkit%2Dfont%2Dsmoothing%3A%20antialiased%3B%0A%2Dmoz%2Dosx%2Dfont%2Dsmoothing%3A%20grayscale%3B%0A%2Dwebkit%2Duser%2Dselect%3A%20none%3B%0A%2Dmoz%2Duser%2Dselect%3A%20none%3B%0A%2Dms%2Duser%2Dselect%3A%20none%3B%0Auser%2Dselect%3A%20none%3B%0A%7D%0A%2Eocticon%2Dlink%3Abefore%20%7B%0Acontent%3A%20%27%5Cf05c%27%3B%0A%7D%0A%2Emarkdown%2Dbody%3Abefore%20%7B%0Adisplay%3A%20table%3B%0Acontent%3A%20%22%22%3B%0A%7D%0A%2Emarkdown%2Dbody%3Aafter%20%7B%0Adisplay%3A%20table%3B%0Aclear%3A%20both%3B%0Acontent%3A%20%22%22%3B%0A%7D%0A%2Emarkdown%2Dbody%3E%2A%3Afirst%2Dchild%20%7B%0Amargin%2Dtop%3A%200%20%21important%3B%0A%7D%0A%2Emarkdown%2Dbody%3E%2A%3Alast%2Dchild%20%7B%0Amargin%2Dbottom%3A%200%20%21important%3B%0A%7D%0Aa%3Anot%28%5Bhref%5D%29%20%7B%0Acolor%3A%20inherit%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0A%2Eanchor%20%7B%0Adisplay%3A%20inline%2Dblock%3B%0Apadding%2Dright%3A%202px%3B%0Amargin%2Dleft%3A%20%2D18px%3B%0A%7D%0A%2Eanchor%3Afocus%20%7B%0Aoutline%3A%20none%3B%0A%7D%0Ah1%2C%0Ah2%2C%0Ah3%2C%0Ah4%2C%0Ah5%2C%0Ah6%20%7B%0Amargin%2Dtop%3A%201em%3B%0Amargin%2Dbottom%3A%2016px%3B%0Afont%2Dweight%3A%20bold%3B%0Aline%2Dheight%3A%201%2E4%3B%0A%7D%0Ah1%20%2Eocticon%2Dlink%2C%0Ah2%20%2Eocticon%2Dlink%2C%0Ah3%20%2Eocticon%2Dlink%2C%0Ah4%20%2Eocticon%2Dlink%2C%0Ah5%20%2Eocticon%2Dlink%2C%0Ah6%20%2Eocticon%2Dlink%20%7B%0Acolor%3A%20%23000%3B%0Avertical%2Dalign%3A%20middle%3B%0Avisibility%3A%20hidden%3B%0A%7D%0Ah1%3Ahover%20%2Eanchor%2C%0Ah2%3Ahover%20%2Eanchor%2C%0Ah3%3Ahover%20%2Eanchor%2C%0Ah4%3Ahover%20%2Eanchor%2C%0Ah5%3Ahover%20%2Eanchor%2C%0Ah6%3Ahover%20%2Eanchor%20%7B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Ah1%3Ahover%20%2Eanchor%20%2Eocticon%2Dlink%2C%0Ah2%3Ahover%20%2Eanchor%20%2Eocticon%2Dlink%2C%0Ah3%3Ahover%20%2Eanchor%20%2Eocticon%2Dlink%2C%0Ah4%3Ahover%20%2Eanchor%20%2Eocticon%2Dlink%2C%0Ah5%3Ahover%20%2Eanchor%20%2Eocticon%2Dlink%2C%0Ah6%3Ahover%20%2Eanchor%20%2Eocticon%2Dlink%20%7B%0Avisibility%3A%20visible%3B%0A%7D%0Ah1%20%7B%0Apadding%2Dbottom%3A%200%2E3em%3B%0Afont%2Dsize%3A%202%2E25em%3B%0Aline%2Dheight%3A%201%2E2%3B%0Aborder%2Dbottom%3A%201px%20solid%20%23eee%3B%0A%7D%0Ah1%20%2Eanchor%20%7B%0Aline%2Dheight%3A%201%3B%0A%7D%0Ah2%20%7B%0Apadding%2Dbottom%3A%200%2E3em%3B%0Afont%2Dsize%3A%201%2E75em%3B%0Aline%2Dheight%3A%201%2E225%3B%0Aborder%2Dbottom%3A%201px%20solid%20%23eee%3B%0A%7D%0Ah2%20%2Eanchor%20%7B%0Aline%2Dheight%3A%201%3B%0A%7D%0Ah3%20%7B%0Afont%2Dsize%3A%201%2E5em%3B%0Aline%2Dheight%3A%201%2E43%3B%0A%7D%0Ah3%20%2Eanchor%20%7B%0Aline%2Dheight%3A%201%2E2%3B%0A%7D%0Ah4%20%7B%0Afont%2Dsize%3A%201%2E25em%3B%0A%7D%0Ah4%20%2Eanchor%20%7B%0Aline%2Dheight%3A%201%2E2%3B%0A%7D%0Ah5%20%7B%0Afont%2Dsize%3A%201em%3B%0A%7D%0Ah5%20%2Eanchor%20%7B%0Aline%2Dheight%3A%201%2E1%3B%0A%7D%0Ah6%20%7B%0Afont%2Dsize%3A%201em%3B%0Acolor%3A%20%23777%3B%0A%7D%0Ah6%20%2Eanchor%20%7B%0Aline%2Dheight%3A%201%2E1%3B%0A%7D%0Ap%2C%0Ablockquote%2C%0Aul%2C%0Aol%2C%0Adl%2C%0Atable%2C%0Apre%20%7B%0Amargin%2Dtop%3A%200%3B%0Amargin%2Dbottom%3A%2016px%3B%0A%7D%0Ahr%20%7B%0Aheight%3A%204px%3B%0Apadding%3A%200%3B%0Amargin%3A%2016px%200%3B%0Abackground%2Dcolor%3A%20%23e7e7e7%3B%0Aborder%3A%200%20none%3B%0A%7D%0Aul%2C%0Aol%20%7B%0Apadding%2Dleft%3A%202em%3B%0A%7D%0Aul%20ul%2C%0Aul%20ol%2C%0Aol%20ol%2C%0Aol%20ul%20%7B%0Amargin%2Dtop%3A%200%3B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Ali%3Ep%20%7B%0Amargin%2Dtop%3A%2016px%3B%0A%7D%0Adl%20%7B%0Apadding%3A%200%3B%0A%7D%0Adl%20dt%20%7B%0Apadding%3A%200%3B%0Amargin%2Dtop%3A%2016px%3B%0Afont%2Dsize%3A%201em%3B%0Afont%2Dstyle%3A%20italic%3B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Adl%20dd%20%7B%0Apadding%3A%200%2016px%3B%0Amargin%2Dbottom%3A%2016px%3B%0A%7D%0Ablockquote%20%7B%0Apadding%3A%200%2015px%3B%0Acolor%3A%20%23777%3B%0Aborder%2Dleft%3A%204px%20solid%20%23ddd%3B%0A%7D%0Ablockquote%3E%3Afirst%2Dchild%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Ablockquote%3E%3Alast%2Dchild%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Atable%20%7B%0Adisplay%3A%20block%3B%0Awidth%3A%20100%25%3B%0Aoverflow%3A%20auto%3B%0Aword%2Dbreak%3A%20normal%3B%0Aword%2Dbreak%3A%20keep%2Dall%3B%0A%7D%0Atable%20th%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Atable%20th%2C%0Atable%20td%20%7B%0Apadding%3A%206px%2013px%3B%0Aborder%3A%201px%20solid%20%23ddd%3B%0A%7D%0Atable%20tr%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Aborder%2Dtop%3A%201px%20solid%20%23ccc%3B%0A%7D%0Atable%20tr%3Anth%2Dchild%282n%29%20%7B%0Abackground%2Dcolor%3A%20%23f8f8f8%3B%0A%7D%0Aimg%20%7B%0Amax%2Dwidth%3A%20100%25%3B%0Abox%2Dsizing%3A%20content%2Dbox%3B%0Abackground%2Dcolor%3A%20%23fff%3B%0A%7D%0Acode%20%7B%0Apadding%3A%200%3B%0Apadding%2Dtop%3A%200%2E2em%3B%0Apadding%2Dbottom%3A%200%2E2em%3B%0Amargin%3A%200%3B%0Afont%2Dsize%3A%2085%25%3B%0Abackground%2Dcolor%3A%20rgba%280%2C0%2C0%2C0%2E04%29%3B%0Aborder%2Dradius%3A%203px%3B%0A%7D%0Acode%3Abefore%2C%0Acode%3Aafter%20%7B%0Aletter%2Dspacing%3A%20%2D0%2E2em%3B%0Acontent%3A%20%22%5C00a0%22%3B%0A%7D%0Apre%3Ecode%20%7B%0Apadding%3A%200%3B%0Amargin%3A%200%3B%0Afont%2Dsize%3A%20100%25%3B%0Aword%2Dbreak%3A%20normal%3B%0Awhite%2Dspace%3A%20pre%3B%0Abackground%3A%20transparent%3B%0Aborder%3A%200%3B%0A%7D%0A%2Ehighlight%20%7B%0Amargin%2Dbottom%3A%2016px%3B%0A%7D%0A%2Ehighlight%20pre%2C%0Apre%20%7B%0Apadding%3A%2016px%3B%0Aoverflow%3A%20auto%3B%0Afont%2Dsize%3A%2085%25%3B%0Aline%2Dheight%3A%201%2E45%3B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0A%7D%0A%2Ehighlight%20pre%20%7B%0Amargin%2Dbottom%3A%200%3B%0Aword%2Dbreak%3A%20normal%3B%0A%7D%0Apre%20%7B%0Aword%2Dwrap%3A%20normal%3B%0A%7D%0Apre%20code%20%7B%0Adisplay%3A%20inline%3B%0Amax%2Dwidth%3A%20initial%3B%0Apadding%3A%200%3B%0Amargin%3A%200%3B%0Aoverflow%3A%20initial%3B%0Aline%2Dheight%3A%20inherit%3B%0Aword%2Dwrap%3A%20normal%3B%0Abackground%2Dcolor%3A%20transparent%3B%0Aborder%3A%200%3B%0A%7D%0Apre%20code%3Abefore%2C%0Apre%20code%3Aafter%20%7B%0Acontent%3A%20normal%3B%0A%7D%0Akbd%20%7B%0Adisplay%3A%20inline%2Dblock%3B%0Apadding%3A%203px%205px%3B%0Afont%2Dsize%3A%2011px%3B%0Aline%2Dheight%3A%2010px%3B%0Acolor%3A%20%23555%3B%0Avertical%2Dalign%3A%20middle%3B%0Abackground%2Dcolor%3A%20%23fcfcfc%3B%0Aborder%3A%20solid%201px%20%23ccc%3B%0Aborder%2Dbottom%2Dcolor%3A%20%23bbb%3B%0Aborder%2Dradius%3A%203px%3B%0Abox%2Dshadow%3A%20inset%200%20%2D1px%200%20%23bbb%3B%0A%7D%0A%2Epl%2Dc%20%7B%0Acolor%3A%20%23969896%3B%0A%7D%0A%2Epl%2Dc1%2C%0A%2Epl%2Ds%20%2Epl%2Dv%20%7B%0Acolor%3A%20%230086b3%3B%0A%7D%0A%2Epl%2De%2C%0A%2Epl%2Den%20%7B%0Acolor%3A%20%23795da3%3B%0A%7D%0A%2Epl%2Ds%20%2Epl%2Ds1%2C%0A%2Epl%2Dsmi%20%7B%0Acolor%3A%20%23333%3B%0A%7D%0A%2Epl%2Dent%20%7B%0Acolor%3A%20%2363a35c%3B%0A%7D%0A%2Epl%2Dk%20%7B%0Acolor%3A%20%23a71d5d%3B%0A%7D%0A%2Epl%2Dpds%2C%0A%2Epl%2Ds%2C%0A%2Epl%2Ds%20%2Epl%2Dpse%20%2Epl%2Ds1%2C%0A%2Epl%2Dsr%2C%0A%2Epl%2Dsr%20%2Epl%2Dcce%2C%0A%2Epl%2Dsr%20%2Epl%2Dsra%2C%0A%2Epl%2Dsr%20%2Epl%2Dsre%20%7B%0Acolor%3A%20%23183691%3B%0A%7D%0A%2Epl%2Dv%20%7B%0Acolor%3A%20%23ed6a43%3B%0A%7D%0A%2Epl%2Did%20%7B%0Acolor%3A%20%23b52a1d%3B%0A%7D%0A%2Epl%2Dii%20%7B%0Abackground%2Dcolor%3A%20%23b52a1d%3B%0Acolor%3A%20%23f8f8f8%3B%0A%7D%0A%2Epl%2Dsr%20%2Epl%2Dcce%20%7B%0Acolor%3A%20%2363a35c%3B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0A%2Epl%2Dml%20%7B%0Acolor%3A%20%23693a17%3B%0A%7D%0A%2Epl%2Dmh%2C%0A%2Epl%2Dmh%20%2Epl%2Den%2C%0A%2Epl%2Dms%20%7B%0Acolor%3A%20%231d3e81%3B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0A%2Epl%2Dmq%20%7B%0Acolor%3A%20%23008080%3B%0A%7D%0A%2Epl%2Dmi%20%7B%0Acolor%3A%20%23333%3B%0Afont%2Dstyle%3A%20italic%3B%0A%7D%0A%2Epl%2Dmb%20%7B%0Acolor%3A%20%23333%3B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0A%2Epl%2Dmd%20%7B%0Abackground%2Dcolor%3A%20%23ffecec%3B%0Acolor%3A%20%23bd2c00%3B%0A%7D%0A%2Epl%2Dmi1%20%7B%0Abackground%2Dcolor%3A%20%23eaffea%3B%0Acolor%3A%20%2355a532%3B%0A%7D%0A%2Epl%2Dmdr%20%7B%0Acolor%3A%20%23795da3%3B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0A%2Epl%2Dmo%20%7B%0Acolor%3A%20%231d3e81%3B%0A%7D%0Akbd%20%7B%0Adisplay%3A%20inline%2Dblock%3B%0Apadding%3A%203px%205px%3B%0Afont%3A%2011px%20Consolas%2C%20%22Liberation%20Mono%22%2C%20Menlo%2C%20Courier%2C%20monospace%3B%0Aline%2Dheight%3A%2010px%3B%0Acolor%3A%20%23555%3B%0Avertical%2Dalign%3A%20middle%3B%0Abackground%2Dcolor%3A%20%23fcfcfc%3B%0Aborder%3A%20solid%201px%20%23ccc%3B%0Aborder%2Dbottom%2Dcolor%3A%20%23bbb%3B%0Aborder%2Dradius%3A%203px%3B%0Abox%2Dshadow%3A%20inset%200%20%2D1px%200%20%23bbb%3B%0A%7D%0A%2Etask%2Dlist%2Ditem%20%7B%0Alist%2Dstyle%2Dtype%3A%20none%3B%0A%7D%0A%2Etask%2Dlist%2Ditem%2B%2Etask%2Dlist%2Ditem%20%7B%0Amargin%2Dtop%3A%203px%3B%0A%7D%0A%2Etask%2Dlist%2Ditem%20input%20%7B%0Amargin%3A%200%200%2E35em%200%2E25em%20%2D1%2E6em%3B%0Avertical%2Dalign%3A%20middle%3B%0A%7D%0A%3Achecked%2B%2Eradio%2Dlabel%20%7B%0Az%2Dindex%3A%201%3B%0Aposition%3A%20relative%3B%0Aborder%2Dcolor%3A%20%234078c0%3B%0A%7D%0A%2EsourceLine%20%7B%0Adisplay%3A%20inline%2Dblock%3B%0A%7D%0Acode%20%2Ekw%20%7B%20color%3A%20%23000000%3B%20%7D%0Acode%20%2Edt%20%7B%20color%3A%20%23ed6a43%3B%20%7D%0Acode%20%2Edv%20%7B%20color%3A%20%23009999%3B%20%7D%0Acode%20%2Ebn%20%7B%20color%3A%20%23009999%3B%20%7D%0Acode%20%2Efl%20%7B%20color%3A%20%23009999%3B%20%7D%0Acode%20%2Ech%20%7B%20color%3A%20%23009999%3B%20%7D%0Acode%20%2Est%20%7B%20color%3A%20%23183691%3B%20%7D%0Acode%20%2Eco%20%7B%20color%3A%20%23969896%3B%20%7D%0Acode%20%2Eot%20%7B%20color%3A%20%230086b3%3B%20%7D%0Acode%20%2Eal%20%7B%20color%3A%20%23a61717%3B%20%7D%0Acode%20%2Efu%20%7B%20color%3A%20%2363a35c%3B%20%7D%0Acode%20%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%0Acode%20%2Ewa%20%7B%20color%3A%20%23000000%3B%20%7D%0Acode%20%2Ecn%20%7B%20color%3A%20%23008080%3B%20%7D%0Acode%20%2Esc%20%7B%20color%3A%20%23008080%3B%20%7D%0Acode%20%2Evs%20%7B%20color%3A%20%23183691%3B%20%7D%0Acode%20%2Ess%20%7B%20color%3A%20%23183691%3B%20%7D%0Acode%20%2Eim%20%7B%20color%3A%20%23000000%3B%20%7D%0Acode%20%2Eva%20%7Bcolor%3A%20%23008080%3B%20%7D%0Acode%20%2Ecf%20%7B%20color%3A%20%23000000%3B%20%7D%0Acode%20%2Eop%20%7B%20color%3A%20%23000000%3B%20%7D%0Acode%20%2Ebu%20%7B%20color%3A%20%23000000%3B%20%7D%0Acode%20%2Eex%20%7B%20color%3A%20%23000000%3B%20%7D%0Acode%20%2Epp%20%7B%20color%3A%20%23999999%3B%20%7D%0Acode%20%2Eat%20%7B%20color%3A%20%23008080%3B%20%7D%0Acode%20%2Edo%20%7B%20color%3A%20%23969896%3B%20%7D%0Acode%20%2Ean%20%7B%20color%3A%20%23008080%3B%20%7D%0Acode%20%2Ecv%20%7B%20color%3A%20%23008080%3B%20%7D%0Acode%20%2Ein%20%7B%20color%3A%20%23008080%3B%20%7D%0A">
+<style>
+body {
+  box-sizing: border-box;
+  min-width: 200px;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 45px;
+  padding-top: 0px;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1 id="dada2-tutorial-with-novaseq-dataset-for-ernakovich-lab">dada2 tutorial with NovaSeq dataset for Ernakovich Lab</h1>
+<p><em>This tutorial originally created by Angela Oliverio and Hannah Holland-Moritz. It has been updated for the Ernakovich Lab. Other contributors to this pipeline include: Corinne Walsh, Matt Gebert, and Kunkun Fan</em><br />
+<em>Updated October 28, 2021</em></p>
+<p>This pipeline runs the dada2 workflow for Big Data (paired-end) with modifications for NovaSeq sequencing base calls</p>
+<p>We suggest opening the dada2 tutorial online to understand more about each step. The original pipeline on which this tutorial is based can be found here: <a href="https://benjjneb.github.io/dada2/bigdata_paired.html">https://benjjneb.github.io/dada2/bigdata_paired.html</a></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left"><span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><strong>NOTE:</strong> There is a slightly different pipeline for ITS and non-“Big data” workflows. The non-“Big data” pipeline, in particular, has very nice detailed explanations for each step and can be found here: <a href="https://benjjneb.github.io/dada2/tutorial.html">https://benjjneb.github.io/dada2/tutorial.html</a></td>
+</tr>
+<tr class="even">
+<td align="left"><span></td>
+</tr>
+</tbody>
+</table>
+<h2 id="preliminary-checklist-part-0---before-you-begin">Preliminary Checklist (part 0) - Before You Begin</h2>
+<ol style="list-style-type: decimal">
+<li><p>Check to make sure you know what your target ‘AMPLICON’ length. This can vary between primer sets, as well as WITHIN primer sets. For example, ITS (internal transcribed spacer) amplicon can vary from ~100 bps to 300 bps</p>
+<p>For examples regarding commonly used primer sets (515f/806r, Fungal ITS2, 1391f/EukBr) see protocols on the Earth Microbiome Project website: <a href="http://press.igsb.anl.gov/earthmicrobiome/protocols-and-standards/">http://press.igsb.anl.gov/earthmicrobiome/protocols-and-standards/</a></p></li>
+<li><p>Check to make sure you know how long your reads should be (i.e., how long should the reads be coming off the sequencer?) This is not the same as fragment length, as many times, especially with longer fragments, the entire fragment is not being sequenced in one direction. When long <em>amplicons</em> are not sequenced with a <em>read length</em> that allows for substantial overlap between the forward and reverse read, you can potentially insert biases into the data. If you intend to merge your paired end reads, ensure that your read length is appropriate. For example, with a MiSeq 2 x 150, 300 cycle kit, you will get bidirectional reads of 150 base pairs.</p></li>
+<li><p>Make note of which sequencing platform was used, as this can impact both read quality and downstream analysis. In particular, this pipeline is designed to process NovaSeq data which has very different quality scores than HiSeq or MiSeq data.</p></li>
+<li><p>Decide which database is best suited for your analysis needs. Note that DADA2 requires databases be in a custom format! If a custom database is required, further formatting will be needed to ensure that it can run correctly in dada2.</p>
+<p>See the following link for details regarding database formatting: <a href="https://benjjneb.github.io/dada2/training.html#formatting-custom-databases">https://benjjneb.github.io/dada2/training.html#formatting-custom-databases</a></p></li>
+<li><p>For additional tutorials and reporting issues, please see link below:<br />
+dada2 tutorial: <a href="https://benjjneb.github.io/dada2/tutorial.html">https://benjjneb.github.io/dada2/tutorial.html</a><br />
+dada2 pipeline issues*: <a href="https://github.com/fiererlab/dada2_fiererlab/issues">https://github.com/fiererlab/dada2_fiererlab/issues</a></p>
+<p>*Note by default, only ‘OPEN’ issues are shown. You can look at all issues by removing “is:open” in the search bar at the top.</p></li>
+</ol>
+<h2 id="set-up-part-1---steps-before-starting-pipeline">Set up (part 1) - Steps before starting pipeline</h2>
+<h4 id="downloading-this-tutorial-from-github">Downloading this tutorial from github</h4>
+<p>Once you have logged in, you can download a copy of the tutorial into your directory on the server. To retrieve the folder with this tutorial from github directly to the server, type the following into your terminal and hit return after each line.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://github.com/ernakovichlab/dada2_ernakovichlab/archive/main.zip</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">unzip</span> main.zip</span></code></pre></div>
+<p>If there are ever updates to the tutorial on github, you can update the contents of this folder by downloading the new version from the same link as above.</p>
+<h4 id="setup-and-install-software-you-will-only-need-to-do-this-the-first-time-or-if-you-want-to-update-dada2">Setup and install software (you will only need to do this the first time, or if you want to update dada2)</h4>
+<ol style="list-style-type: decimal">
+<li>Install the conda environment (this will install all the necessary software to run dada2)</li>
+<li>First start by cleaning up modules, and then loading the anaconda module.</li>
+</ol>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> purge</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load anaconda/colsa</span></code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>Next create a conda local environment that you can use to run the software</li>
+</ol>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> dada2_ernakovichlab</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> env create <span class="at">-f</span> dada2_ernakovich.yml</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate dada2_ernakovich</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left"><span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><strong>WARNING:</strong> This installation may take a long time, so only run this code if you have a fairly large chunk of time!</td>
+</tr>
+<tr class="even">
+<td align="left"><span></td>
+</tr>
+</tbody>
+</table>
+<p>If you are running it on your own computer (runs slower!):</p>
+<ol style="list-style-type: decimal">
+<li><p>Download this tutorial from github. Go to <a href="https://github.com/fiererlab/dada2_fiererlab/dada2_fiererlab">the homepage</a>, and click the green “Clone or download” button. Then click “Download ZIP”, to save it to your computer. Unzip the file to access the R-script.</p></li>
+<li><p>Download the tutorial data from here <a href="http://cme.colorado.edu/projects/bioinformatics-tutorials">http://cme.colorado.edu/projects/bioinformatics-tutorials</a></p></li>
+<li><p>Install idemp and cutadapt.</p>
+<ul>
+<li>idemp can be found here: <a href="https://github.com/yhwu/idemp">https://github.com/yhwu/idemp</a></li>
+<li>cutadapt can be installed from here: <a href="https://cutadapt.readthedocs.io/en/stable/installation.html">https://cutadapt.readthedocs.io/en/stable/installation.html</a></li>
+</ul></li>
+<li><p>Download the dada2-formatted reference database of your choice. Link to download here: <a href="https://benjjneb.github.io/dada2/training.html">https://benjjneb.github.io/dada2/training.html</a></p></li>
+<li><p>Open the Rmarkdown script in Rstudio. The script is located in the tutorial folder you downloaded in the first step. You can navigate to the proper folder in Rstudio by clicking on the files tab and navigating to the location where you downloaded the github folder. Then click dada2_ernakovichlab and dada2_tutorial_16S_all.Rmd to open the script.</p></li>
+</ol>
+<p>Now, install DADA2 &amp; other necessary packages. Depending on how you set up Rstudio, you might get a prompt asking if you want to create your own library. Answer ‘yes’ twice in the console to continue.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left"><span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><strong>WARNING:</strong> This installation may take a long time, so only run this code if these packages are not already installed!</td>
+</tr>
+<tr class="even">
+<td align="left"><span></td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;BiocManager&quot;</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">&quot;dada2&quot;</span>, <span class="at">version =</span> <span class="st">&quot;3.8&quot;</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;https://bioconductor.org/biocLite.R&quot;</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">biocLite</span>(<span class="st">&quot;ShortRead&quot;</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;dplyr&quot;</span>)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;tidyr&quot;</span>)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;Hmisc&quot;</span>)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;ggplot2&quot;</span>)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;plotly&quot;</span>)</span></code></pre></div>
+<p>Once the packages are installed, you can check to make sure the auxiliary software is working and set up some of the variables that you will need along the way.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left"><span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><strong>NOTE:</strong> If you are not working from premise, you will need to change the file paths for cutadapt to where they are stored on your computer/server.</td>
+</tr>
+<tr class="even">
+<td align="left"><span></td>
+</tr>
+</tbody>
+</table>
+<p>For this tutorial we will be working with some samples that we obtained 16S amplicon data for, from a Illumina Miseq run. The data for these samples can be found on the CME website. <a href="http://cme.colorado.edu/projects/bioinformatics-tutorials">http://cme.colorado.edu/projects/bioinformatics-tutorials</a></p>
+<h2 id="set-up-part-2---you-are-logged-in-to-premise-or-have-rstudio-open-on-your-computer">Set up (part 2) - You are logged in to premise (or have Rstudio open on your computer)</h2>
+<p>First load and test the installed packages to make sure they’re working</p>
+<p>Load DADA2 and required packages</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dada2); <span class="fu">packageVersion</span>(<span class="st">&quot;dada2&quot;</span>) <span class="co"># the dada2 pipeline</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ShortRead); <span class="fu">packageVersion</span>(<span class="st">&quot;ShortRead&quot;</span>) <span class="co"># dada2 depends on this</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr); <span class="fu">packageVersion</span>(<span class="st">&quot;dplyr&quot;</span>) <span class="co"># for manipulating data</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr); <span class="fu">packageVersion</span>(<span class="st">&quot;tidyr&quot;</span>) <span class="co"># for creating the final graph at the end of the pipeline</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Hmisc); <span class="fu">packageVersion</span>(<span class="st">&quot;Hmisc&quot;</span>) <span class="co"># for creating the final graph at the end of the pipeline</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2); <span class="fu">packageVersion</span>(<span class="st">&quot;ggplot2&quot;</span>) <span class="co"># for creating the final graph at the end of the pipeline</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly); <span class="fu">packageVersion</span>(<span class="st">&quot;plotly&quot;</span>) <span class="co"># enables creation of interactive graphs, especially helpful for quality plots</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Set up pathway to cutadapt (primer trimming tool) and test</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>cutadapt <span class="ot">&lt;-</span> <span class="st">&quot;cutadapt&quot;</span> <span class="co"># CHANGE ME if not on premise; will probably look something like this: &quot;/usr/local/Python27/bin/cutadapt&quot;</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="fu">system2</span>(cutadapt, <span class="at">args =</span> <span class="st">&quot;--version&quot;</span>) <span class="co"># Check by running shell command from R</span></span></code></pre></div>
+<p>We will now set up the directories for the script. We’ll tell the script where our data is, and where we want to put the outputs of the script. We highly recommend NOT putting outputs of this script directly into your home directory, or into this directory. A better idea is to create a new project output directory for each project you work on.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set path to shared data folder and contents</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>data.fp <span class="ot">&lt;-</span> <span class="st">&quot;/data/shared/2019_02_20_MicrMethods_tutorial&quot;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># List all files in shared folder to check path</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">list.files</span>(data.fp)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Set file paths for barcodes file, map file, and fastqs</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Barcodes need to have &#39;N&#39; on the end of each 12bp sequence for compatability</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>map.fp <span class="ot">&lt;-</span> <span class="fu">file.path</span>(data.fp, <span class="st">&quot;Molecular_Methods_18_515fBC_16S_Mapping_File_SHORT_vFinal_Fierer_10252018.txt&quot;</span>)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left"><span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><strong>NOTE:</strong> idemp relies on having a match in length between the index file and and the barcode sequences. Since the index file usually includes a extra linker basepair (making it 13bp long), you should append the barcode sequences with “N” to make sure each is 13bp long. If you are not sure of the length of index reads, check with the sequencing center. If your index reads are 12bp long, you do NOT need to add an “N”.</td>
+</tr>
+<tr class="even">
+<td align="left"><span></td>
+</tr>
+</tbody>
+</table>
+<p><strong>For ITS Sequences:</strong> Depending on how your sequences were run, your barcodes may need to be reverse-complemented. Here is a link to a handy tool, that can help you reverse complement your barcodes: <a href="http://arep.med.harvard.edu/labgc/adnan/projects/Utilities/revcomp.html">http://arep.med.harvard.edu/labgc/adnan/projects/Utilities/revcomp.html</a></p>
+<p>Set up file paths in YOUR directory where you want data; you do not need to create the subdirectories but they are nice to have for organizational purposes.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>project.fp <span class="ot">&lt;-</span> <span class="st">&quot;/data/cwalsh/MicroMethods_dada2_tutorial&quot;</span> <span class="co"># CHANGE ME to project directory; don&#39;t append with a &quot;/&quot;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Set up names of sub directories to stay organized</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>preprocess.fp <span class="ot">&lt;-</span> <span class="fu">file.path</span>(project.fp, <span class="st">&quot;01_preprocess&quot;</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>filtN.fp <span class="ot">&lt;-</span> <span class="fu">file.path</span>(preprocess.fp, <span class="st">&quot;filtN&quot;</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>trimmed.fp <span class="ot">&lt;-</span> <span class="fu">file.path</span>(preprocess.fp, <span class="st">&quot;trimmed&quot;</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>filter.fp <span class="ot">&lt;-</span> <span class="fu">file.path</span>(project.fp, <span class="st">&quot;02_filter&quot;</span>) </span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>table.fp <span class="ot">&lt;-</span> <span class="fu">file.path</span>(project.fp, <span class="st">&quot;03_tabletax&quot;</span>) </span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left"><span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><strong>STOP:</strong> If you are running this on Premise, open up the 00_setup_dada2_tutorial_16S.R script with nano (or your favorite terminal text editor) and adjust the variables above appropriately.</td>
+</tr>
+<tr class="even">
+<td align="left"><span></td>
+</tr>
+</tbody>
+</table>
+<h2 id="pre-processing-data-for-dada2---remove-sequences-with-ns-cutadapt">Pre-processing data for dada2 - remove sequences with Ns, cutadapt</h2>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get full paths for all files and save them for downstream analyses</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Forward and reverse fastq filenames have format: </span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>fnFs <span class="ot">&lt;-</span> <span class="fu">sort</span>(<span class="fu">list.files</span>(data.fp, <span class="at">pattern=</span><span class="st">&quot;R1_&quot;</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>fnRs <span class="ot">&lt;-</span> <span class="fu">sort</span>(<span class="fu">list.files</span>(data.fp, <span class="at">pattern=</span><span class="st">&quot;R2_&quot;</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
+<h4 id="pre-filter-to-remove-sequence-reads-with-ns">Pre-filter to remove sequence reads with Ns</h4>
+<p>Ambiguous bases will make it hard for cutadapt to find short primer sequences in the reads. To solve this problem, we will remove sequences with ambiguous bases (Ns)</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Name the N-filtered files to put them in filtN/ subdirectory</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>fnFs.filtN <span class="ot">&lt;-</span> <span class="fu">file.path</span>(preprocess.fp, <span class="st">&quot;filtN&quot;</span>, <span class="fu">basename</span>(fnFs))</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>fnRs.filtN <span class="ot">&lt;-</span> <span class="fu">file.path</span>(preprocess.fp, <span class="st">&quot;filtN&quot;</span>, <span class="fu">basename</span>(fnRs))</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter Ns from reads and put them into the filtN directory</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="fu">filterAndTrim</span>(fnFs, fnFs.filtN, fnRs, fnRs.filtN, <span class="at">maxN =</span> <span class="dv">0</span>, <span class="at">multithread =</span> <span class="cn">TRUE</span>) </span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># CHANGE multithread to FALSE on Windows (here and elsewhere in the program)</span></span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left"><span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><strong>Note:</strong> The <code>multithread = TRUE</code> setting can sometimes generate an error (names not equal). If this occurs, try rerunning the function. The error normally does not occur the second time.</td>
+</tr>
+<tr class="even">
+<td align="left"><span></td>
+</tr>
+</tbody>
+</table>
+<h4 id="prepare-the-primers-sequences-and-custom-functions-for-analyzing-the-results-from-cutadapt">Prepare the primers sequences and custom functions for analyzing the results from cutadapt</h4>
+<p>Assign the primers you used to “FWD” and “REV” below. Note primers should be not be reverse complemented ahead of time. Our tutorial data uses 515f and 806br those are the primers below. Change if you sequenced with other primers.</p>
+<p><strong>For ITS data:</strong> <code>CTTGGTCATTTAGAGGAAGTAA</code> is the ITS forward primer sequence (ITS1F) and <code>GCTGCGTTCTTCATCGATGC</code> is ITS reverse primer sequence (ITS2)</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set up the primer sequences to pass along to cutadapt</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>FWD <span class="ot">&lt;-</span> <span class="st">&quot;GTGYCAGCMGCCGCGGTAA&quot;</span>  <span class="do">## CHANGE ME # this is 515f</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>REV <span class="ot">&lt;-</span> <span class="st">&quot;GGACTACNVGGGTWTCTAAT&quot;</span>  <span class="do">## CHANGE ME # this is 806Br</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Write a function that creates a list of all orientations of the primers</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>allOrients <span class="ot">&lt;-</span> <span class="cf">function</span>(primer) {</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Create all orientations of the input sequence</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">require</span>(Biostrings)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  dna <span class="ot">&lt;-</span> <span class="fu">DNAString</span>(primer)  <span class="co"># The Biostrings works w/ DNAString objects rather than character vectors</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  orients <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">Forward =</span> dna, <span class="at">Complement =</span> <span class="fu">complement</span>(dna), <span class="at">Reverse =</span> <span class="fu">reverse</span>(dna), </span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>               <span class="at">RevComp =</span> <span class="fu">reverseComplement</span>(dna))</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">sapply</span>(orients, toString))  <span class="co"># Convert back to character vector</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Save the primer orientations to pass to cutadapt</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>FWD.orients <span class="ot">&lt;-</span> <span class="fu">allOrients</span>(FWD)</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>REV.orients <span class="ot">&lt;-</span> <span class="fu">allOrients</span>(REV)</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>FWD.orients</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Write a function that counts how many time primers appear in a sequence</span></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>primerHits <span class="ot">&lt;-</span> <span class="cf">function</span>(primer, fn) {</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Counts number of reads in which the primer is found</span></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>  nhits <span class="ot">&lt;-</span> <span class="fu">vcountPattern</span>(primer, <span class="fu">sread</span>(<span class="fu">readFastq</span>(fn)), <span class="at">fixed =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">sum</span>(nhits <span class="sc">&gt;</span> <span class="dv">0</span>))</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Before running cutadapt, we will look at primer detection for the first sample, as a check. There may be some primers here, we will remove them below using cutadapt.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rbind</span>(<span class="at">FWD.ForwardReads =</span> <span class="fu">sapply</span>(FWD.orients, primerHits, <span class="at">fn =</span> fnFs.filtN[[<span class="dv">1</span>]]), </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>      <span class="at">FWD.ReverseReads =</span> <span class="fu">sapply</span>(FWD.orients, primerHits, <span class="at">fn =</span> fnRs.filtN[[<span class="dv">1</span>]]), </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">REV.ForwardReads =</span> <span class="fu">sapply</span>(REV.orients, primerHits, <span class="at">fn =</span> fnFs.filtN[[<span class="dv">1</span>]]), </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">REV.ReverseReads =</span> <span class="fu">sapply</span>(REV.orients, primerHits, <span class="at">fn =</span> fnRs.filtN[[<span class="dv">1</span>]]))</span></code></pre></div>
+<h4 id="remove-primers-with-cutadapt-and-assess-the-output">Remove primers with cutadapt and assess the output</h4>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create directory to hold the output from cutadapt</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">dir.exists</span>(trimmed.fp)) <span class="fu">dir.create</span>(trimmed.fp)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>fnFs.cut <span class="ot">&lt;-</span> <span class="fu">file.path</span>(trimmed.fp, <span class="fu">basename</span>(fnFs))</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>fnRs.cut <span class="ot">&lt;-</span> <span class="fu">file.path</span>(trimmed.fp, <span class="fu">basename</span>(fnRs))</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Save the reverse complements of the primers to variables</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>FWD.RC <span class="ot">&lt;-</span> dada2<span class="sc">:::</span><span class="fu">rc</span>(FWD)</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>REV.RC <span class="ot">&lt;-</span> dada2<span class="sc">:::</span><span class="fu">rc</span>(REV)</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  Create the cutadapt flags ##</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Trim FWD and the reverse-complement of REV off of R1 (forward reads)</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>R1.flags <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">&quot;-g&quot;</span>, FWD, <span class="st">&quot;-a&quot;</span>, REV.RC, <span class="st">&quot;--minimum-length 50&quot;</span>) </span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Trim REV and the reverse-complement of FWD off of R2 (reverse reads)</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>R2.flags <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">&quot;-G&quot;</span>, REV, <span class="st">&quot;-A&quot;</span>, FWD.RC, <span class="st">&quot;--minimum-length 50&quot;</span>) </span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Run Cutadapt</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(fnFs)) {</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">system2</span>(cutadapt, <span class="at">args =</span> <span class="fu">c</span>(R1.flags, R2.flags, <span class="st">&quot;-n&quot;</span>, <span class="dv">2</span>, <span class="co"># -n 2 required to remove FWD and REV from reads</span></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>                             <span class="st">&quot;-o&quot;</span>, fnFs.cut[i], <span class="st">&quot;-p&quot;</span>, fnRs.cut[i], <span class="co"># output files</span></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>                             fnFs.filtN[i], fnRs.filtN[i])) <span class="co"># input files</span></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a><span class="co"># As a sanity check, we will check for primers in the first cutadapt-ed sample:</span></span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a><span class="do">## should all be zero!</span></span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a><span class="fu">rbind</span>(<span class="at">FWD.ForwardReads =</span> <span class="fu">sapply</span>(FWD.orients, primerHits, <span class="at">fn =</span> fnFs.cut[[<span class="dv">1</span>]]), </span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>      <span class="at">FWD.ReverseReads =</span> <span class="fu">sapply</span>(FWD.orients, primerHits, <span class="at">fn =</span> fnRs.cut[[<span class="dv">1</span>]]), </span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>      <span class="at">REV.ForwardReads =</span> <span class="fu">sapply</span>(REV.orients, primerHits, <span class="at">fn =</span> fnFs.cut[[<span class="dv">1</span>]]), </span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>      <span class="at">REV.ReverseReads =</span> <span class="fu">sapply</span>(REV.orients, primerHits, <span class="at">fn =</span> fnRs.cut[[<span class="dv">1</span>]]))</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left"><span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><strong>STOP:</strong> If you are running this on Premise, open up the 01_pre-process_dada2_tutorial_16S.R script with nano (or your favorite terminal text editor) and adjust the primer sequences (if need be) and check the slurm output to make sure that there are no primers still in your samples.</td>
+</tr>
+<tr class="even">
+<td align="left"><span></td>
+</tr>
+</tbody>
+</table>
+<h1 id="now-start-dada2-pipeline">Now start DADA2 pipeline</h1>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Put filtered reads into separate sub-directories for big data workflow</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(filter.fp)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>subF.fp <span class="ot">&lt;-</span> <span class="fu">file.path</span>(filter.fp, <span class="st">&quot;preprocessed_F&quot;</span>) </span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>subR.fp <span class="ot">&lt;-</span> <span class="fu">file.path</span>(filter.fp, <span class="st">&quot;preprocessed_R&quot;</span>) </span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(subF.fp)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(subR.fp)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Move R1 and R2 from trimmed to separate forward/reverse sub-directories</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>fnFs.Q <span class="ot">&lt;-</span> <span class="fu">file.path</span>(subF.fp,  <span class="fu">basename</span>(fnFs)) </span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>fnRs.Q <span class="ot">&lt;-</span> <span class="fu">file.path</span>(subR.fp,  <span class="fu">basename</span>(fnRs))</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="fu">file.copy</span>(<span class="at">from =</span> fnFs.cut, <span class="at">to =</span> fnFs.Q)</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="fu">file.copy</span>(<span class="at">from =</span> fnRs.cut, <span class="at">to =</span> fnRs.Q)</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="co"># File parsing; create file names and make sure that forward and reverse files match</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>filtpathF <span class="ot">&lt;-</span> <span class="fu">file.path</span>(subF.fp, <span class="st">&quot;filtered&quot;</span>) <span class="co"># files go into preprocessed_F/filtered/</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>filtpathR <span class="ot">&lt;-</span> <span class="fu">file.path</span>(subR.fp, <span class="st">&quot;filtered&quot;</span>) <span class="co"># ...</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>fastqFs <span class="ot">&lt;-</span> <span class="fu">sort</span>(<span class="fu">list.files</span>(subF.fp, <span class="at">pattern=</span><span class="st">&quot;fastq.gz&quot;</span>))</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>fastqRs <span class="ot">&lt;-</span> <span class="fu">sort</span>(<span class="fu">list.files</span>(subR.fp, <span class="at">pattern=</span><span class="st">&quot;fastq.gz&quot;</span>))</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="fu">length</span>(fastqFs) <span class="sc">!=</span> <span class="fu">length</span>(fastqRs)) <span class="fu">stop</span>(<span class="st">&quot;Forward and reverse files do not match.&quot;</span>)</span></code></pre></div>
+<h3 id="1-filter-and-trim-for-quality">1. FILTER AND TRIM FOR QUALITY</h3>
+<p>Before chosing sequence variants, we want to trim reads where their quality scores begin to drop (the <code>truncLen</code> and <code>truncQ</code> values) and remove any low-quality reads that are left over after we have finished trimming (the <code>maxEE</code> value).</p>
+<p><strong>You will want to change this depending on run chemistry and quality:</strong> For 2x250 bp runs you can try <code>truncLen=c(240,160)</code> (as per the <a href="https://benjjneb.github.io/dada2/tutorial.html#inspect-read-quality-profiles">dada2 tutorial</a>) if your reverse reads drop off in quality. Or you may want to choose a higher value, for example, <code>truncLen=c(240,200)</code>, if they do not. In <code>truncLen=c(xxx,yyy)</code>, <code>xxx</code> refers to the forward read truncation length, <code>yyy</code> refers to the reverse read truncation length.</p>
+<p><strong>For ITS data:</strong> Due to the expected variable read lengths in ITS data you should run this command without the <code>trunclen</code> parameter. See here for more information and appropriate parameters for ITS data: <a href="https://benjjneb.github.io/dada2/ITS_workflow.html">https://benjjneb.github.io/dada2/ITS_workflow.html</a>.</p>
+<p><em>From dada2 tutorial:</em> &gt;If there is only one part of any amplicon bioinformatics workflow on which you spend time considering the parameters, it should be filtering! The parameters … are not set in stone, and should be changed if they don’t work for your data. If too few reads are passing the filter, increase maxEE and/or reduce truncQ. If quality drops sharply at the end of your reads, reduce truncLen. If your reads are high quality and you want to reduce computation time in the sample inference step, reduce maxEE.</p>
+<h4 id="inspect-read-quality-profiles">Inspect read quality profiles</h4>
+<p>It’s important to get a feel for the quality of the data that we are using. To do this, we will plot the quality of some of the samples.</p>
+<p><em>From the dada2 tutorial:</em> &gt;In gray-scale is a heat map of the frequency of each quality score at each base position. The median quality score at each position is shown by the green line, and the quartiles of the quality score distribution by the orange lines. The red line shows the scaled proportion of reads that extend to at least that position (this is more useful for other sequencing technologies, as Illumina reads are typically all the same lenghth, hence the flat red line).</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># If the number of samples is 20 or less, plot them all, otherwise, just plot 20 randomly selected samples</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>( <span class="fu">length</span>(fastqFs) <span class="sc">&lt;=</span> <span class="dv">20</span>) {</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plotQualityProfile</span>(<span class="fu">paste0</span>(subF.fp, <span class="st">&quot;/&quot;</span>, fastqFs))</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plotQualityProfile</span>(<span class="fu">paste0</span>(subR.fp, <span class="st">&quot;/&quot;</span>, fastqRs))</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  rand_samples <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="at">size =</span> <span class="dv">20</span>, <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(fastqFs)) <span class="co"># grab 20 random samples to plot</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  fwd_qual_plots <span class="ot">&lt;-</span> <span class="fu">plotQualityProfile</span>(<span class="fu">paste0</span>(subF.fp, <span class="st">&quot;/&quot;</span>, fastqFs[rand_samples]))</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  rev_qual_plots <span class="ot">&lt;-</span> <span class="fu">plotQualityProfile</span>(<span class="fu">paste0</span>(subR.fp, <span class="st">&quot;/&quot;</span>, fastqRs[rand_samples]))</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>fwd_qual_plots</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>rev_qual_plots</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Or, to make these quality plots interactive, just call the plots through plotly</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplotly</span>(fwd_qual_plots)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplotly</span>(rev_qual_plots)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># write plots to disk</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(fwd_qual_plots, <span class="fu">paste0</span>(filter.fp, <span class="st">&quot;/fwd_qual_plots.rds&quot;</span>))</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(rev_qual_plots, <span class="fu">paste0</span>(filter.fp, <span class="st">&quot;/rev_qual_plots.rds&quot;</span>))</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">plot =</span> fwd_qual_plots, <span class="at">filename =</span> <span class="fu">paste0</span>(filter.fp, <span class="st">&quot;/fwd_qual_plots.png&quot;</span>), </span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">width =</span> <span class="dv">10</span>, <span class="at">height =</span> <span class="dv">10</span>, <span class="at">dpi =</span> <span class="st">&quot;retina&quot;</span>)</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">plot =</span> rev_qual_plots, <span class="at">filename =</span> <span class="fu">paste0</span>(filter.fp, <span class="st">&quot;/rev_qual_plots.png&quot;</span>), </span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">width =</span> <span class="dv">10</span>, <span class="at">height =</span> <span class="dv">10</span>, <span class="at">dpi =</span> <span class="st">&quot;retina&quot;</span>)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left"><span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><strong>STOP:</strong> If you are running this on Premise, download the plots generated here (fwd_qual_plots.png and rev_qual_plots.png) use them to make decisions for your filtering choices in the next step.</td>
+</tr>
+<tr class="even">
+<td align="left"><span></td>
+</tr>
+</tbody>
+</table>
+<h4 id="filter-the-data">Filter the data</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="left"><span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><strong>WARNING:</strong> THESE PARAMETERS ARE NOT OPTIMAL FOR ALL DATASETS. Make sure you determine the trim and filtering parameters for your data. The following settings are generally appropriate for MiSeq runs that are 2x150 bp. These are the recommended default parameters from the dada2 pipeline. See above for more details.</td>
+</tr>
+<tr class="even">
+<td align="left"><span></td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>filt_out <span class="ot">&lt;-</span> <span class="fu">filterAndTrim</span>(<span class="at">fwd=</span><span class="fu">file.path</span>(subF.fp, fastqFs), <span class="at">filt=</span><span class="fu">file.path</span>(filtpathF, fastqFs),</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">rev=</span><span class="fu">file.path</span>(subR.fp, fastqRs), <span class="at">filt.rev=</span><span class="fu">file.path</span>(filtpathR, fastqRs),</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>                          <span class="at">truncLen=</span><span class="fu">c</span>(<span class="dv">150</span>,<span class="dv">140</span>), <span class="at">maxEE=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>), <span class="at">truncQ=</span><span class="dv">2</span>, <span class="at">maxN=</span><span class="dv">0</span>, <span class="at">rm.phix=</span><span class="cn">TRUE</span>,</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>                          <span class="at">compress=</span><span class="cn">TRUE</span>, <span class="at">verbose=</span><span class="cn">TRUE</span>, <span class="at">multithread=</span><span class="cn">TRUE</span>)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co"># look at how many reads were kept</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(filt_out)</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="co"># summary of samples in filt_out by percentage</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>filt_out <span class="sc">%&gt;%</span> </span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Samples =</span> <span class="fu">rownames</span>(.),</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>         <span class="at">percent_kept =</span> <span class="dv">100</span><span class="sc">*</span>(reads.out<span class="sc">/</span>reads.in)) <span class="sc">%&gt;%</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Samples, <span class="fu">everything</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">min_remaining =</span> <span class="fu">paste0</span>(<span class="fu">round</span>(<span class="fu">min</span>(percent_kept), <span class="dv">2</span>), <span class="st">&quot;%&quot;</span>), </span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>            <span class="at">median_remaining =</span> <span class="fu">paste0</span>(<span class="fu">round</span>(<span class="fu">median</span>(percent_kept), <span class="dv">2</span>), <span class="st">&quot;%&quot;</span>),</span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>            <span class="at">mean_remaining =</span> <span class="fu">paste0</span>(<span class="fu">round</span>(<span class="fu">mean</span>(percent_kept), <span class="dv">2</span>), <span class="st">&quot;%&quot;</span>), </span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>            <span class="at">max_remaining =</span> <span class="fu">paste0</span>(<span class="fu">round</span>(<span class="fu">max</span>(percent_kept), <span class="dv">2</span>), <span class="st">&quot;%&quot;</span>))</span></code></pre></div>
+<p>Plot the quality of the filtered fastq files.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># figure out which samples, if any, have been filtered out</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>remaining_samplesF <span class="ot">&lt;-</span>  fastqFs[rand_samples][</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">which</span>(fastqFs[rand_samples] <span class="sc">%in%</span> <span class="fu">list.files</span>(filtpathF))] <span class="co"># keep only samples that haven&#39;t been filtered out</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>remaining_samplesR <span class="ot">&lt;-</span>  fastqRs[rand_samples][</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">which</span>(fastqRs[rand_samples] <span class="sc">%in%</span> <span class="fu">list.files</span>(filtpathR))] <span class="co"># keep only samples that haven&#39;t been filtered out</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>fwd_qual_plots_filt <span class="ot">&lt;-</span> <span class="fu">plotQualityProfile</span>(<span class="fu">paste0</span>(filtpathF, <span class="st">&quot;/&quot;</span>, remaining_samplesF))</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>rev_qual_plots_filt <span class="ot">&lt;-</span> <span class="fu">plotQualityProfile</span>(<span class="fu">paste0</span>(filtpathR, <span class="st">&quot;/&quot;</span>, remaining_samplesR))</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>fwd_qual_plots_filt</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>rev_qual_plots_filt</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="co"># write plots to disk</span></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(fwd_qual_plots_filt, <span class="fu">paste0</span>(filter.fp, <span class="st">&quot;/fwd_qual_plots_filt.rds&quot;</span>))</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(rev_qual_plots_filt, <span class="fu">paste0</span>(filter.fp, <span class="st">&quot;/rev_qual_plots_filt.rds&quot;</span>))</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">plot =</span> fwd_qual_plots_filt, <span class="at">filename =</span> <span class="fu">paste0</span>(filter.fp, <span class="st">&quot;/fwd_qual_plots_filt.png&quot;</span>), </span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">width =</span> <span class="dv">10</span>, <span class="at">height =</span> <span class="dv">10</span>, <span class="at">dpi =</span> <span class="st">&quot;retina&quot;</span>)</span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">plot =</span> rev_qual_plots_filt, <span class="at">filename =</span> <span class="fu">paste0</span>(filter.fp, <span class="st">&quot;/rev_qual_plots_filt.png&quot;</span>), </span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>       <span class="at">width =</span> <span class="dv">10</span>, <span class="at">height =</span> <span class="dv">10</span>, <span class="at">dpi =</span> <span class="st">&quot;retina&quot;</span>)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left"><span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><strong>STOP:</strong> If you are running this on Premise, download the plots generated here (fwd_qual_plots_filt.png and rev_qual_plots_filt.png) and verify that your filtering is working the way you want it. If not, adjust the filterAndTrim() function and re-run this step with slurm.</td>
+</tr>
+<tr class="even">
+<td align="left"><span></td>
+</tr>
+</tbody>
+</table>
+<h3 id="2-infer-sequence-variants">2. INFER sequence variants</h3>
+<p>In this part of the pipeline dada2 will learn to distinguish error from biological differences using a subset of our data as a training set. After it understands the error rates, we will reduce the size of the dataset by combining all identical sequence reads into “unique sequences”. Then, using the dereplicated data and error rates, dada2 will infer the sequence variants (OTUs) in our data. Finally, we will merge the coresponding forward and reverse reads to create a list of the fully denoised sequences and create a sequence table from the result. #### Housekeeping step - set up and verify the file names for the output:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># File parsing</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>filtFs <span class="ot">&lt;-</span> <span class="fu">list.files</span>(filtpathF, <span class="at">pattern=</span><span class="st">&quot;fastq.gz&quot;</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>filtRs <span class="ot">&lt;-</span> <span class="fu">list.files</span>(filtpathR, <span class="at">pattern=</span><span class="st">&quot;fastq.gz&quot;</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample names in order</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>sample.names <span class="ot">&lt;-</span> <span class="fu">substring</span>(<span class="fu">basename</span>(filtFs), <span class="fu">regexpr</span>(<span class="st">&quot;_&quot;</span>, <span class="fu">basename</span>(filtFs)) <span class="sc">+</span> <span class="dv">1</span>) <span class="co"># doesn&#39;t drop fastq.gz</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>sample.names <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">&quot;.fastq.gz&quot;</span>, <span class="st">&quot;&quot;</span>, sample.names)</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>sample.namesR <span class="ot">&lt;-</span> <span class="fu">substring</span>(<span class="fu">basename</span>(filtRs), <span class="fu">regexpr</span>(<span class="st">&quot;_&quot;</span>, <span class="fu">basename</span>(filtRs)) <span class="sc">+</span> <span class="dv">1</span>) <span class="co"># doesn&#39;t drop fastq.gz</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>sample.namesR <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">&quot;.fastq.gz&quot;</span>, <span class="st">&quot;&quot;</span>, sample.namesR)</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Double check</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">identical</span>(sample.names, sample.namesR)) <span class="fu">stop</span>(<span class="st">&quot;Forward and reverse files do not match.&quot;</span>)</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(filtFs) <span class="ot">&lt;-</span> sample.names</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(filtRs) <span class="ot">&lt;-</span> sample.names</span></code></pre></div>
+<h4 id="learn-the-error-rates">Learn the error rates</h4>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">100</span>) <span class="co"># set seed to ensure that randomized steps are replicatable</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Learn forward error rates (Notes: randomize default is FALSE)</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>errF <span class="ot">&lt;-</span> <span class="fu">learnErrors</span>(filtFs, <span class="at">nbases =</span> <span class="fl">1e8</span>, <span class="at">multithread =</span> <span class="cn">TRUE</span>, <span class="at">randomize =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Learn reverse error rates</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>errR <span class="ot">&lt;-</span> <span class="fu">learnErrors</span>(filtRs, <span class="at">nbases =</span> <span class="fl">1e8</span>, <span class="at">multithread =</span> <span class="cn">TRUE</span>, <span class="at">randomize =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<h4 id="plot-error-rates">Plot Error Rates</h4>
+<p>We want to make sure that the machine learning algorithm is learning the error rates properly. In the plots below, the red line represents what we should expect the learned error rates to look like for each of the 16 possible base transitions (A-&gt;A, A-&gt;C, A-&gt;G, etc.) and the black line and grey dots represent what the observed error rates are. If the black line and the red lines are very far off from each other, it may be a good idea to increase the <code>nbases</code> parameter. This alows the machine learning algorthim to train on a larger portion of your data and may help imporve the fit.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>errF_plot <span class="ot">&lt;-</span> <span class="fu">plotErrors</span>(errF, <span class="at">nominalQ =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>errR_plot <span class="ot">&lt;-</span> <span class="fu">plotErrors</span>(errR, <span class="at">nominalQ =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>errF_plot</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>errR_plot</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># write to disk</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(errF_plot, <span class="fu">paste0</span>(filtpathF, <span class="st">&quot;/errF_plot.rds&quot;</span>))</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(errR_plot, <span class="fu">paste0</span>(filtpathR, <span class="st">&quot;/errR_plot.rds&quot;</span>))</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">plot =</span> errF_plot, <span class="at">filename =</span> <span class="fu">paste0</span>(filtpathF, <span class="st">&quot;/errF_plot.png&quot;</span>), </span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">width =</span> <span class="dv">10</span>, <span class="at">height =</span> <span class="dv">10</span>, <span class="at">dpi =</span> <span class="st">&quot;retina&quot;</span>)</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">plot =</span> errR_plot, <span class="at">filename =</span> <span class="fu">paste0</span>(filtpathF, <span class="st">&quot;/errR_plot.png&quot;</span>), </span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">width =</span> <span class="dv">10</span>, <span class="at">height =</span> <span class="dv">10</span>, <span class="at">dpi =</span> <span class="st">&quot;retina&quot;</span>)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left"><span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><strong>STOP:</strong> If you are running this on Premise, download the plots generated here (errF_plot.png and errR_plot.png) and verify that the error plots look appropriate. If not, adjust the learnErrors() function and re-run this step with slurm.</td>
+</tr>
+<tr class="even">
+<td align="left"><span></td>
+</tr>
+</tbody>
+</table>
+<h4 id="dereplication-sequence-inference-and-merging-of-paired-end-reads">Dereplication, sequence inference, and merging of paired-end reads</h4>
+<p>In this part of the pipeline, dada2 will make decisions about assigning sequences to ASVs (called “sequence inference”). There is a major parameter option in the core function dada() that changes how samples are handled during sequence inference. The parameter <code>pool =</code> can be set to: <code>pool = FALSE</code> (default), <code>pool = TRUE</code>, or <code>pool = psuedo</code>. For details on parameter choice, please see below, and further information on this blogpost <a href="http://fiererlab.org/2020/02/17/whats-in-a-number-estimating-microbial-richness-using-dada2/">http://fiererlab.org/2020/02/17/whats-in-a-number-estimating-microbial-richness-using-dada2/</a>, and explanation on the dada2 tutorial <a href="https://benjjneb.github.io/dada2/pool.html">https://benjjneb.github.io/dada2/pool.html</a>.</p>
+<p><strong>Details</strong><br />
+<code>pool = FALSE</code>: Sequence information is not shared between samples. Fast processing time, less sensitivity to rare taxa.<br />
+<code>pool = psuedo</code>: Sequence information is shared in a separate “prior” step. Intermediate processing time, intermediate sensitivity to rare taxa.<br />
+<code>pool = TRUE</code>: Sequence information from all samples is pooled together. Slow processing time, most sensitivity to rare taxa.</p>
+<h4 id="default-samples-not-pooled">Default: SAMPLES NOT POOLED</h4>
+<p>For simple communities or when you do not need high sensitivity for rare taxa</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># make lists to hold the loop output</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>mergers <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">&quot;list&quot;</span>, <span class="fu">length</span>(sample.names))</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(mergers) <span class="ot">&lt;-</span> sample.names</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>ddF <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">&quot;list&quot;</span>, <span class="fu">length</span>(sample.names))</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(ddF) <span class="ot">&lt;-</span> sample.names</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>ddR <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">&quot;list&quot;</span>, <span class="fu">length</span>(sample.names))</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(ddR) <span class="ot">&lt;-</span> sample.names</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="co"># For each sample, get a list of merged and denoised sequences</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(sam <span class="cf">in</span> sample.names) {</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;Processing:&quot;</span>, sam, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Dereplicate forward reads</span></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>  derepF <span class="ot">&lt;-</span> <span class="fu">derepFastq</span>(filtFs[[sam]])</span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Infer sequences for forward reads</span></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>  dadaF <span class="ot">&lt;-</span> <span class="fu">dada</span>(derepF, <span class="at">err =</span> errF, <span class="at">multithread =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>  ddF[[sam]] <span class="ot">&lt;-</span> dadaF</span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Dereplicate reverse reads</span></span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>  derepR <span class="ot">&lt;-</span> <span class="fu">derepFastq</span>(filtRs[[sam]])</span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Infer sequences for reverse reads</span></span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a>  dadaR <span class="ot">&lt;-</span> <span class="fu">dada</span>(derepR, <span class="at">err =</span> errR, <span class="at">multithread =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a>  ddR[[sam]] <span class="ot">&lt;-</span> dadaR</span>
+<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Merge reads together</span></span>
+<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a>  merger <span class="ot">&lt;-</span> <span class="fu">mergePairs</span>(ddF[[sam]], derepF, ddR[[sam]], derepR)</span>
+<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a>  mergers[[sam]] <span class="ot">&lt;-</span> merger</span>
+<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-27"><a href="#cb23-27" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(derepF); <span class="fu">rm</span>(derepR)</span></code></pre></div>
+<h4 id="alternative-samples-pooled">Alternative: SAMPLES POOLED</h4>
+<p>For complex communities when you want to preserve rare taxa alternative: swap <code>pool = TRUE</code> with <code>pool = &quot;pseudo&quot;</code></p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># same steps, not in loop</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Dereplicate forward reads</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>derepF.p <span class="ot">&lt;-</span> <span class="fu">derepFastq</span>(filtFs)</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(derepF.p) <span class="ot">&lt;-</span> sample.names</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Infer sequences for forward reads</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>dadaF.p <span class="ot">&lt;-</span> <span class="fu">dada</span>(derepF.p, <span class="at">err =</span> errF, <span class="at">multithread =</span> <span class="cn">TRUE</span>, <span class="at">pool =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(dadaF.p) <span class="ot">&lt;-</span> sample.names</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Dereplicate reverse reads</span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>derepR.p <span class="ot">&lt;-</span> <span class="fu">derepFastq</span>(filtRs)</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(derepR.p) <span class="ot">&lt;-</span> sample.names</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Infer sequences for reverse reads</span></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>dadaR.p <span class="ot">&lt;-</span> <span class="fu">dada</span>(derepR.p, <span class="at">err =</span> errR, <span class="at">multithread =</span> <span class="cn">TRUE</span>, <span class="at">pool =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(dadaR.p) <span class="ot">&lt;-</span> sample.names</span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge reads together</span></span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>mergers <span class="ot">&lt;-</span> <span class="fu">mergePairs</span>(dadaF.p, derepF.p, dadaR.p, derepR.p)</span></code></pre></div>
+<h4 id="construct-sequence-table">Construct sequence table</h4>
+<p>You will always perform this step whether or not you have pooled or unpooled ASV picking</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>seqtab <span class="ot">&lt;-</span> <span class="fu">makeSequenceTable</span>(mergers)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Save table as an r data object file</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(table.fp)</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(seqtab, <span class="fu">paste0</span>(table.fp, <span class="st">&quot;/seqtab.rds&quot;</span>))</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left"><span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><strong>STOP:</strong> If you are running this on Premise, decide if you want the pooled or not-pooled option delete the options you don’t want before running this step with slurm.</td>
+</tr>
+<tr class="even">
+<td align="left"><span></td>
+</tr>
+</tbody>
+</table>
+<h3 id="3-remove-chimeras-and-assign-taxonomy">3. REMOVE Chimeras and ASSIGN Taxonomy</h3>
+<p>Although dada2 has searched for indel errors and subsitutions, there may still be chimeric sequences in our dataset (sequences that are derived from forward and reverse sequences from two different organisms becoming fused together during PCR and/or sequencing). To identify chimeras, we will search for rare sequence variants that can be reconstructed by combining left-hand and right-hand segments from two more abundant “parent” sequences. After removing chimeras, we will use a taxonomy database to train a classifer-algorithm to assign names to our sequence variants.</p>
+<p>For the tutorial 16S, we will assign taxonomy with Silva db v132, but you might want to use other databases for your data. Below are paths to some of the databases we use often. (If you are on your own computer you can download the database you need from this link <a href="https://benjjneb.github.io/dada2/training.html">https://benjjneb.github.io/dada2/training.html</a>:)</p>
+<ul>
+<li><p>16S bacteria and archaea (SILVA db): /db_files/dada2/silva_nr_v132_train_set.fa</p></li>
+<li><p>ITS fungi (UNITE db): /db_files/dada2/sh_general_release_dynamic_02.02.2019.fasta</p></li>
+<li><p>18S protists (PR2 db): /db_files/dada2/pr2_version_4.11.1_dada2.fasta</p></li>
+</ul>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in RDS </span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>st.all <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="fu">paste0</span>(table.fp, <span class="st">&quot;/seqtab.rds&quot;</span>))</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove chimeras</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>seqtab.nochim <span class="ot">&lt;-</span> <span class="fu">removeBimeraDenovo</span>(st.all, <span class="at">method=</span><span class="st">&quot;consensus&quot;</span>, <span class="at">multithread=</span><span class="cn">TRUE</span>)</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Print percentage of our seqences that were not chimeric.</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="dv">100</span><span class="sc">*</span><span class="fu">sum</span>(seqtab.nochim)<span class="sc">/</span><span class="fu">sum</span>(seqtab)</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Assign taxonomy</span></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>tax <span class="ot">&lt;-</span> <span class="fu">assignTaxonomy</span>(seqtab.nochim, <span class="st">&quot;/db_files/dada2/silva_nr_v132_train_set.fa&quot;</span>, <span class="at">tryRC =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>                      <span class="at">multithread=</span><span class="cn">TRUE</span>)</span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Write results to disk</span></span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(seqtab.nochim, <span class="fu">paste0</span>(table.fp, <span class="st">&quot;/seqtab_final.rds&quot;</span>))</span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(tax, <span class="fu">paste0</span>(table.fp, <span class="st">&quot;/tax_final.rds&quot;</span>))</span></code></pre></div>
+<h3 id="4-optional---format-output-to-obtain-asv-ids-and-repset-and-input-for-mctoolsr">4. Optional - FORMAT OUTPUT to obtain ASV IDs and repset, and input for mctoolsr</h3>
+<p>For convenience sake, we will now rename our ASVs with numbers, output our results as a traditional taxa table, and create a matrix with the representative sequences for each ASV.</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Flip table</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>seqtab.t <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">t</span>(seqtab.nochim))</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Pull out ASV repset</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>rep_set_ASVs <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">rownames</span>(seqtab.t))</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>rep_set_ASVs <span class="ot">&lt;-</span> <span class="fu">mutate</span>(rep_set_ASVs, <span class="at">ASV_ID =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>())</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>rep_set_ASVs<span class="sc">$</span>ASV_ID <span class="ot">&lt;-</span> <span class="fu">sub</span>(<span class="st">&quot;^&quot;</span>, <span class="st">&quot;ASV_&quot;</span>, rep_set_ASVs<span class="sc">$</span>ASV_ID)</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>rep_set_ASVs<span class="sc">$</span>ASV <span class="ot">&lt;-</span> rep_set_ASVs<span class="sc">$</span><span class="st">`</span><span class="at">rownames(seqtab.t)</span><span class="st">`</span> </span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>rep_set_ASVs<span class="sc">$</span><span class="st">`</span><span class="at">rownames(seqtab.t)</span><span class="st">`</span> <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Add ASV numbers to table</span></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(seqtab.t) <span class="ot">&lt;-</span> rep_set_ASVs<span class="sc">$</span>ASV_ID</span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Add ASV numbers to taxonomy</span></span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>taxonomy <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(tax)</span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>taxonomy<span class="sc">$</span>ASV <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(<span class="fu">rownames</span>(taxonomy))</span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>taxonomy <span class="ot">&lt;-</span> <span class="fu">merge</span>(rep_set_ASVs, taxonomy, <span class="at">by =</span> <span class="st">&quot;ASV&quot;</span>)</span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(taxonomy) <span class="ot">&lt;-</span> taxonomy<span class="sc">$</span>ASV_ID</span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>taxonomy_for_mctoolsr <span class="ot">&lt;-</span> <span class="fu">unite_</span>(taxonomy, <span class="st">&quot;taxonomy&quot;</span>, </span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a>                                <span class="fu">c</span>(<span class="st">&quot;Kingdom&quot;</span>, <span class="st">&quot;Phylum&quot;</span>, <span class="st">&quot;Class&quot;</span>, <span class="st">&quot;Order&quot;</span>,<span class="st">&quot;Family&quot;</span>, <span class="st">&quot;Genus&quot;</span>, <span class="st">&quot;ASV_ID&quot;</span>),</span>
+<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a>                                <span class="at">sep =</span> <span class="st">&quot;;&quot;</span>)</span>
+<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Write repset to fasta file</span></span>
+<span id="cb27-24"><a href="#cb27-24" aria-hidden="true" tabindex="-1"></a><span class="co"># create a function that writes fasta sequences</span></span>
+<span id="cb27-25"><a href="#cb27-25" aria-hidden="true" tabindex="-1"></a>writeRepSetFasta<span class="ot">&lt;-</span><span class="cf">function</span>(data, filename){</span>
+<span id="cb27-26"><a href="#cb27-26" aria-hidden="true" tabindex="-1"></a>  fastaLines <span class="ot">=</span> <span class="fu">c</span>()</span>
+<span id="cb27-27"><a href="#cb27-27" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (rowNum <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(data)){</span>
+<span id="cb27-28"><a href="#cb27-28" aria-hidden="true" tabindex="-1"></a>    fastaLines <span class="ot">=</span> <span class="fu">c</span>(fastaLines, <span class="fu">as.character</span>(<span class="fu">paste</span>(<span class="st">&quot;&gt;&quot;</span>, data[rowNum,<span class="st">&quot;name&quot;</span>], <span class="at">sep =</span> <span class="st">&quot;&quot;</span>)))</span>
+<span id="cb27-29"><a href="#cb27-29" aria-hidden="true" tabindex="-1"></a>    fastaLines <span class="ot">=</span> <span class="fu">c</span>(fastaLines,<span class="fu">as.character</span>(data[rowNum,<span class="st">&quot;seq&quot;</span>]))</span>
+<span id="cb27-30"><a href="#cb27-30" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb27-31"><a href="#cb27-31" aria-hidden="true" tabindex="-1"></a>  fileConn<span class="ot">&lt;-</span><span class="fu">file</span>(filename)</span>
+<span id="cb27-32"><a href="#cb27-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">writeLines</span>(fastaLines, fileConn)</span>
+<span id="cb27-33"><a href="#cb27-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">close</span>(fileConn)</span>
+<span id="cb27-34"><a href="#cb27-34" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb27-35"><a href="#cb27-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-36"><a href="#cb27-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Arrange the taxonomy dataframe for the writeRepSetFasta function</span></span>
+<span id="cb27-37"><a href="#cb27-37" aria-hidden="true" tabindex="-1"></a>taxonomy_for_fasta <span class="ot">&lt;-</span> taxonomy <span class="sc">%&gt;%</span></span>
+<span id="cb27-38"><a href="#cb27-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unite</span>(<span class="st">&quot;TaxString&quot;</span>, <span class="fu">c</span>(<span class="st">&quot;Kingdom&quot;</span>, <span class="st">&quot;Phylum&quot;</span>, <span class="st">&quot;Class&quot;</span>, <span class="st">&quot;Order&quot;</span>,<span class="st">&quot;Family&quot;</span>, <span class="st">&quot;Genus&quot;</span>, <span class="st">&quot;ASV_ID&quot;</span>), </span>
+<span id="cb27-39"><a href="#cb27-39" aria-hidden="true" tabindex="-1"></a>        <span class="at">sep =</span> <span class="st">&quot;;&quot;</span>, <span class="at">remove =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb27-40"><a href="#cb27-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unite</span>(<span class="st">&quot;name&quot;</span>, <span class="fu">c</span>(<span class="st">&quot;ASV_ID&quot;</span>, <span class="st">&quot;TaxString&quot;</span>), </span>
+<span id="cb27-41"><a href="#cb27-41" aria-hidden="true" tabindex="-1"></a>        <span class="at">sep =</span> <span class="st">&quot; &quot;</span>, <span class="at">remove =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb27-42"><a href="#cb27-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(ASV, name) <span class="sc">%&gt;%</span></span>
+<span id="cb27-43"><a href="#cb27-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">seq =</span> ASV)</span>
+<span id="cb27-44"><a href="#cb27-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-45"><a href="#cb27-45" aria-hidden="true" tabindex="-1"></a><span class="co"># write fasta file</span></span>
+<span id="cb27-46"><a href="#cb27-46" aria-hidden="true" tabindex="-1"></a><span class="fu">writeRepSetFasta</span>(taxonomy_for_fasta, <span class="fu">paste0</span>(table.fp, <span class="st">&quot;/repset.fasta&quot;</span>))</span>
+<span id="cb27-47"><a href="#cb27-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-48"><a href="#cb27-48" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge taxonomy and table</span></span>
+<span id="cb27-49"><a href="#cb27-49" aria-hidden="true" tabindex="-1"></a>seqtab_wTax <span class="ot">&lt;-</span> <span class="fu">merge</span>(seqtab.t, taxonomy_for_mctoolsr, <span class="at">by =</span> <span class="dv">0</span>)</span>
+<span id="cb27-50"><a href="#cb27-50" aria-hidden="true" tabindex="-1"></a>seqtab_wTax<span class="sc">$</span>ASV <span class="ot">&lt;-</span> <span class="cn">NULL</span> </span>
+<span id="cb27-51"><a href="#cb27-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-52"><a href="#cb27-52" aria-hidden="true" tabindex="-1"></a><span class="co"># Set name of table in mctoolsr format and save</span></span>
+<span id="cb27-53"><a href="#cb27-53" aria-hidden="true" tabindex="-1"></a>out_fp <span class="ot">&lt;-</span> <span class="fu">paste0</span>(table.fp, <span class="st">&quot;/seqtab_wTax_mctoolsr.txt&quot;</span>)</span>
+<span id="cb27-54"><a href="#cb27-54" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(seqtab_wTax)[<span class="dv">1</span>] <span class="ot">=</span> <span class="st">&quot;#ASV_ID&quot;</span></span>
+<span id="cb27-55"><a href="#cb27-55" aria-hidden="true" tabindex="-1"></a><span class="fu">write</span>(<span class="st">&quot;#Exported for mctoolsr&quot;</span>, out_fp)</span>
+<span id="cb27-56"><a href="#cb27-56" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressWarnings</span>(<span class="fu">write.table</span>(seqtab_wTax, out_fp, <span class="at">sep =</span> <span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>, <span class="at">append =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb27-57"><a href="#cb27-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-58"><a href="#cb27-58" aria-hidden="true" tabindex="-1"></a><span class="co"># Also export files as .txt</span></span>
+<span id="cb27-59"><a href="#cb27-59" aria-hidden="true" tabindex="-1"></a><span class="fu">write.table</span>(seqtab.t, <span class="at">file =</span> <span class="fu">paste0</span>(table.fp, <span class="st">&quot;/seqtab_final.txt&quot;</span>),</span>
+<span id="cb27-60"><a href="#cb27-60" aria-hidden="true" tabindex="-1"></a>            <span class="at">sep =</span> <span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>, <span class="at">row.names =</span> <span class="cn">TRUE</span>, <span class="at">col.names =</span> <span class="cn">NA</span>)</span>
+<span id="cb27-61"><a href="#cb27-61" aria-hidden="true" tabindex="-1"></a><span class="fu">write.table</span>(tax, <span class="at">file =</span> <span class="fu">paste0</span>(table.fp, <span class="st">&quot;/tax_final.txt&quot;</span>), </span>
+<span id="cb27-62"><a href="#cb27-62" aria-hidden="true" tabindex="-1"></a>            <span class="at">sep =</span> <span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>, <span class="at">row.names =</span> <span class="cn">TRUE</span>, <span class="at">col.names =</span> <span class="cn">NA</span>)</span></code></pre></div>
+<h3 id="summary-of-output-files">Summary of output files:</h3>
+<ol style="list-style-type: decimal">
+<li>seqtab_final.txt - A tab-delimited sequence-by-sample (i.e. OTU) table</li>
+<li>tax_final.txt - a tab-demilimited file showing the relationship between ASVs, ASV IDs, and their taxonomy</li>
+<li>seqtab_wTax_mctoolsr.txt - a tab-delimited file with ASVs as rows, samples as columns and the final column showing the taxonomy of the ASV ID</li>
+<li>repset.fasta - a fasta file with the representative sequence of each ASV. Fasta headers are the ASV ID and taxonomy string.</li>
+</ol>
+<h3 id="5-summary-of-reads-throughout-pipeline">5. Summary of reads throughout pipeline</h3>
+<p>Here we track the reads throughout the pipeline to see if any step is resulting in a greater-than-expected loss of reads. If a step is showing a greater than expected loss of reads, it is a good idea to go back to that step and troubleshoot why reads are dropping out. The dada2 tutorial has more details about what can be changed at each step.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>getN <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">sum</span>(<span class="fu">getUniques</span>(x)) <span class="co"># function to grab sequence counts from output objects</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="co"># tracking reads by counts</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>filt_out_track <span class="ot">&lt;-</span> filt_out <span class="sc">%&gt;%</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Sample =</span> <span class="fu">gsub</span>(<span class="st">&quot;(R1</span><span class="sc">\\</span><span class="st">_)(.{1,})(</span><span class="sc">\\</span><span class="st">.fastq</span><span class="sc">\\</span><span class="st">.gz)&quot;</span>,<span class="st">&quot;</span><span class="sc">\\</span><span class="st">2&quot;</span>,<span class="fu">rownames</span>(.))) <span class="sc">%&gt;%</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">input =</span> reads.in, <span class="at">filtered =</span> reads.out)</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(filt_out_track) <span class="ot">&lt;-</span> filt_out_track<span class="sc">$</span>Sample</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>ddF_track <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">denoisedF =</span> <span class="fu">sapply</span>(ddF[sample.names], getN)) <span class="sc">%&gt;%</span></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Sample =</span> <span class="fu">row.names</span>(.))</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>ddR_track <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">denoisedR =</span> <span class="fu">sapply</span>(ddR[sample.names], getN)) <span class="sc">%&gt;%</span></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Sample =</span> <span class="fu">row.names</span>(.))</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>merge_track <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">merged =</span> <span class="fu">sapply</span>(mergers, getN)) <span class="sc">%&gt;%</span></span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Sample =</span> <span class="fu">row.names</span>(.))</span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>chim_track <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">nonchim =</span> <span class="fu">rowSums</span>(seqtab.nochim)) <span class="sc">%&gt;%</span></span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Sample =</span> <span class="fu">row.names</span>(.))</span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a>track <span class="ot">&lt;-</span> <span class="fu">left_join</span>(filt_out_track, ddF_track, <span class="at">by =</span> <span class="st">&quot;Sample&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(ddR_track, <span class="at">by =</span> <span class="st">&quot;Sample&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(merge_track, <span class="at">by =</span> <span class="st">&quot;Sample&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(chim_track, <span class="at">by =</span> <span class="st">&quot;Sample&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">replace</span>(., <span class="fu">is.na</span>(.), <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb28-24"><a href="#cb28-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Sample, <span class="fu">everything</span>())</span>
+<span id="cb28-25"><a href="#cb28-25" aria-hidden="true" tabindex="-1"></a><span class="fu">row.names</span>(track) <span class="ot">&lt;-</span> track<span class="sc">$</span>Sample</span>
+<span id="cb28-26"><a href="#cb28-26" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(track)</span>
+<span id="cb28-27"><a href="#cb28-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-28"><a href="#cb28-28" aria-hidden="true" tabindex="-1"></a><span class="co"># tracking reads by percentage</span></span>
+<span id="cb28-29"><a href="#cb28-29" aria-hidden="true" tabindex="-1"></a>track_pct <span class="ot">&lt;-</span> track <span class="sc">%&gt;%</span> </span>
+<span id="cb28-30"><a href="#cb28-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb28-31"><a href="#cb28-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Sample =</span> <span class="fu">rownames</span>(.),</span>
+<span id="cb28-32"><a href="#cb28-32" aria-hidden="true" tabindex="-1"></a>         <span class="at">filtered_pct =</span> <span class="fu">ifelse</span>(filtered <span class="sc">==</span> <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">100</span> <span class="sc">*</span> (filtered<span class="sc">/</span>input)),</span>
+<span id="cb28-33"><a href="#cb28-33" aria-hidden="true" tabindex="-1"></a>         <span class="at">denoisedF_pct =</span> <span class="fu">ifelse</span>(denoisedF <span class="sc">==</span> <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">100</span> <span class="sc">*</span> (denoisedF<span class="sc">/</span>filtered)),</span>
+<span id="cb28-34"><a href="#cb28-34" aria-hidden="true" tabindex="-1"></a>         <span class="at">denoisedR_pct =</span> <span class="fu">ifelse</span>(denoisedR <span class="sc">==</span> <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">100</span> <span class="sc">*</span> (denoisedR<span class="sc">/</span>filtered)),</span>
+<span id="cb28-35"><a href="#cb28-35" aria-hidden="true" tabindex="-1"></a>         <span class="at">merged_pct =</span> <span class="fu">ifelse</span>(merged <span class="sc">==</span> <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">100</span> <span class="sc">*</span> merged<span class="sc">/</span>((denoisedF <span class="sc">+</span> denoisedR)<span class="sc">/</span><span class="dv">2</span>)),</span>
+<span id="cb28-36"><a href="#cb28-36" aria-hidden="true" tabindex="-1"></a>         <span class="at">nonchim_pct =</span> <span class="fu">ifelse</span>(nonchim <span class="sc">==</span> <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">100</span> <span class="sc">*</span> (nonchim<span class="sc">/</span>merged)),</span>
+<span id="cb28-37"><a href="#cb28-37" aria-hidden="true" tabindex="-1"></a>         <span class="at">total_pct =</span> <span class="fu">ifelse</span>(nonchim <span class="sc">==</span> <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">100</span> <span class="sc">*</span> nonchim<span class="sc">/</span>input)) <span class="sc">%&gt;%</span></span>
+<span id="cb28-38"><a href="#cb28-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Sample, <span class="fu">ends_with</span>(<span class="st">&quot;_pct&quot;</span>))</span>
+<span id="cb28-39"><a href="#cb28-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-40"><a href="#cb28-40" aria-hidden="true" tabindex="-1"></a><span class="co"># summary stats of tracked reads averaged across samples</span></span>
+<span id="cb28-41"><a href="#cb28-41" aria-hidden="true" tabindex="-1"></a>track_pct_avg <span class="ot">&lt;-</span> track_pct <span class="sc">%&gt;%</span> <span class="fu">summarize_at</span>(<span class="fu">vars</span>(<span class="fu">ends_with</span>(<span class="st">&quot;_pct&quot;</span>)), </span>
+<span id="cb28-42"><a href="#cb28-42" aria-hidden="true" tabindex="-1"></a>                                            <span class="fu">list</span>(<span class="at">avg =</span> mean))</span>
+<span id="cb28-43"><a href="#cb28-43" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(track_pct_avg)</span>
+<span id="cb28-44"><a href="#cb28-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-45"><a href="#cb28-45" aria-hidden="true" tabindex="-1"></a>track_pct_med <span class="ot">&lt;-</span> track_pct <span class="sc">%&gt;%</span> <span class="fu">summarize_at</span>(<span class="fu">vars</span>(<span class="fu">ends_with</span>(<span class="st">&quot;_pct&quot;</span>)), </span>
+<span id="cb28-46"><a href="#cb28-46" aria-hidden="true" tabindex="-1"></a>                                            <span class="fu">list</span>(<span class="at">avg =</span> stats<span class="sc">::</span>median))</span>
+<span id="cb28-47"><a href="#cb28-47" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(track_pct_avg)</span>
+<span id="cb28-48"><a href="#cb28-48" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(track_pct_med)</span>
+<span id="cb28-49"><a href="#cb28-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-50"><a href="#cb28-50" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting each sample&#39;s reads through the pipeline</span></span>
+<span id="cb28-51"><a href="#cb28-51" aria-hidden="true" tabindex="-1"></a>track_plot <span class="ot">&lt;-</span> track <span class="sc">%&gt;%</span> </span>
+<span id="cb28-52"><a href="#cb28-52" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb28-53"><a href="#cb28-53" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Sample =</span> <span class="fu">rownames</span>(.)) <span class="sc">%&gt;%</span></span>
+<span id="cb28-54"><a href="#cb28-54" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>(<span class="at">key =</span> <span class="st">&quot;Step&quot;</span>, <span class="at">value =</span> <span class="st">&quot;Reads&quot;</span>, <span class="sc">-</span>Sample) <span class="sc">%&gt;%</span></span>
+<span id="cb28-55"><a href="#cb28-55" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Step =</span> <span class="fu">factor</span>(Step, </span>
+<span id="cb28-56"><a href="#cb28-56" aria-hidden="true" tabindex="-1"></a>                       <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;input&quot;</span>, <span class="st">&quot;filtered&quot;</span>, <span class="st">&quot;denoisedF&quot;</span>, <span class="st">&quot;denoisedR&quot;</span>, <span class="st">&quot;merged&quot;</span>, <span class="st">&quot;nonchim&quot;</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb28-57"><a href="#cb28-57" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Step, <span class="at">y =</span> Reads)) <span class="sc">+</span></span>
+<span id="cb28-58"><a href="#cb28-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> Sample), <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb28-59"><a href="#cb28-59" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="dv">0</span>)) <span class="sc">+</span> </span>
+<span id="cb28-60"><a href="#cb28-60" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.y =</span> median, <span class="at">geom =</span> <span class="st">&quot;line&quot;</span>, <span class="at">group =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">&quot;steelblue&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb28-61"><a href="#cb28-61" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.y =</span> median, <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>, <span class="at">group =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">&quot;steelblue&quot;</span>, <span class="at">size =</span> <span class="dv">2</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb28-62"><a href="#cb28-62" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> median_hilow, <span class="at">fun.args =</span> <span class="fu">list</span>(<span class="at">conf.int =</span> <span class="fl">0.5</span>), </span>
+<span id="cb28-63"><a href="#cb28-63" aria-hidden="true" tabindex="-1"></a>               <span class="at">geom =</span> <span class="st">&quot;ribbon&quot;</span>, <span class="at">group =</span> <span class="dv">1</span>, <span class="at">fill =</span> <span class="st">&quot;steelblue&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb28-64"><a href="#cb28-64" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_label</span>(<span class="at">data =</span> <span class="fu">t</span>(track_pct_avg[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]) <span class="sc">%&gt;%</span> <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb28-65"><a href="#cb28-65" aria-hidden="true" tabindex="-1"></a>               <span class="fu">rename</span>(<span class="at">Percent =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb28-66"><a href="#cb28-66" aria-hidden="true" tabindex="-1"></a>               <span class="fu">mutate</span>(<span class="at">Step =</span> <span class="fu">c</span>(<span class="st">&quot;filtered&quot;</span>, <span class="st">&quot;denoisedF&quot;</span>, <span class="st">&quot;denoisedR&quot;</span>, <span class="st">&quot;merged&quot;</span>, <span class="st">&quot;nonchim&quot;</span>),</span>
+<span id="cb28-67"><a href="#cb28-67" aria-hidden="true" tabindex="-1"></a>                      <span class="at">Percent =</span> <span class="fu">paste</span>(<span class="fu">round</span>(Percent, <span class="dv">2</span>), <span class="st">&quot;%&quot;</span>)),</span>
+<span id="cb28-68"><a href="#cb28-68" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">label =</span> Percent), <span class="at">y =</span> <span class="fl">1.1</span> <span class="sc">*</span> <span class="fu">max</span>(track[,<span class="dv">2</span>])) <span class="sc">+</span></span>
+<span id="cb28-69"><a href="#cb28-69" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_label</span>(<span class="at">data =</span> track_pct_avg[<span class="dv">6</span>] <span class="sc">%&gt;%</span> <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb28-70"><a href="#cb28-70" aria-hidden="true" tabindex="-1"></a>               <span class="fu">rename</span>(<span class="at">total =</span> <span class="dv">1</span>),</span>
+<span id="cb28-71"><a href="#cb28-71" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste</span>(<span class="st">&quot;Total</span><span class="sc">\n</span><span class="st">Remaining:</span><span class="sc">\n</span><span class="st">&quot;</span>, <span class="fu">round</span>(track_pct_avg[<span class="dv">1</span>,<span class="dv">6</span>], <span class="dv">2</span>), <span class="st">&quot;%&quot;</span>)), </span>
+<span id="cb28-72"><a href="#cb28-72" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> <span class="fu">mean</span>(track[,<span class="dv">6</span>]), <span class="at">x =</span> <span class="fl">6.5</span>) <span class="sc">+</span></span>
+<span id="cb28-73"><a href="#cb28-73" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand_limits</span>(<span class="at">y =</span> <span class="fl">1.1</span> <span class="sc">*</span> <span class="fu">max</span>(track[,<span class="dv">2</span>]), <span class="at">x =</span> <span class="dv">7</span>) <span class="sc">+</span></span>
+<span id="cb28-74"><a href="#cb28-74" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
+<span id="cb28-75"><a href="#cb28-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-76"><a href="#cb28-76" aria-hidden="true" tabindex="-1"></a>track_plot</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write results to disk</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(track, <span class="fu">paste0</span>(project.fp, <span class="st">&quot;/tracking_reads.rds&quot;</span>))</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(track_pct, <span class="fu">paste0</span>(project.fp, <span class="st">&quot;/tracking_reads_percentage.rds&quot;</span>))</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(track_plot, <span class="fu">paste0</span>(project.fp, <span class="st">&quot;/tracking_reads_summary_plot.rds&quot;</span>))</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left"><span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><strong>STOP:</strong> If you are running this on Premise, make sure that you are using the appropriate database before running this step with slurm.</td>
+</tr>
+<tr class="even">
+<td align="left"><span></td>
+</tr>
+</tbody>
+</table>
+<h2 id="next-steps">Next Steps</h2>
+<p>You can now transfer over the output files onto your local computer. The table and taxonomy can be read into R with ‘mctoolsr’ package or another R package of your choosing. ### Post-pipeline considerations After following this pipeline, you will need to think about the following in downstream applications:</p>
+<ol style="list-style-type: decimal">
+<li>Remove mitochondrial and chloroplast sequences</li>
+<li>Remove reads assigned as eukaryotes</li>
+<li>Remove reads that are unassigned at domain level</li>
+<li>Normalize or rarefy your ASV table</li>
+</ol>
+
+</body>
+</html>

@@ -1,0 +1,16 @@
+name: dada2_ernakovich
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - python>=3.6
+  - cutadapt
+  - r-base
+  - r-essentials
+  - r-hmisc
+  - r-ggplot2
+  - r-bookdown
+  - r-plotly
+  - bioconductor-shortread
+  - bioconductor-dada2
