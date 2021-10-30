@@ -34,7 +34,7 @@
 ## Normal Slurm options
 ## SBATCH -p shared
 #SBATCH --job-name="00_setup_dada2"
-#SBATCH --output=00_setup_dada2.output
+#SBATCH --output=00_setup_dada2_%j.output
 
 ## Load the appropriate modules first.  Linuxbrew/colsa contains most
 ## programs, though some are contained within the anaconda/colsa
@@ -46,4 +46,4 @@ conda activate dada2_ernakovich
 ## Instruct your program to make use of the number of desired threads.
 ## As your job will be allocated an entire node, this should normally
 ## be 24.
-Rscript 00_setup_dada2_tutorial_16S.R
+Rscript ../R/00_setup_dada2_tutorial_16S.R
