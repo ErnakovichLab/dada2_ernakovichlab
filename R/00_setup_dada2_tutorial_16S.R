@@ -31,7 +31,7 @@ list.files(data.fp)
 #' Set up file paths in YOUR directory where you want data; 
 #' you do not need to create the sub-directories but they are nice to have for organizational purposes. 
 
-project.fp <- "~/Downloads/dada2_tutorial_test" # CHANGE ME to project directory; don't append with a "/"
+project.fp <- "~/dada2_tutorial_test" # CHANGE ME to project directory; don't append with a "/"
 
 dir.create(project.fp)
 
