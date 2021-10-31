@@ -34,7 +34,7 @@ load(file = "dada2_ernakovich_Renv.RData")
 #' 
 #' For the tutorial 16S, we will assign taxonomy with Silva db v138, but you might want to use other databases for your data. Below are paths to some of the databases we use often. (If you are on your own computer you can download the database you need from this link [https://benjjneb.github.io/dada2/training.html](https://benjjneb.github.io/dada2/training.html)):
 #' 
-#'   - 16S bacteria and archaea (SILVA db): ```/mnt/home/ernakovich/shared/db_files/dada2/silva_nr99_v138_train_set.fa```
+#'   - 16S bacteria and archaea (SILVA db): ```/mnt/home/ernakovich/shared/db_files/dada2/silva_nr99_v138.1_train_set.fa ```
 #' 
 #'   - ITS fungi (UNITE db): ```/mnt/home/ernakovich/shared/db_files/dada2/UNITE_sh_general_release_10.05.2021/sh_general_release_dynamic_10.05.2021.fasta```
 #' 
@@ -51,7 +51,7 @@ seqtab.nochim <- removeBimeraDenovo(st.all, method="consensus", multithread=TRUE
 100*sum(seqtab.nochim)/sum(seqtab)
 
 # Assign taxonomy
-tax <- assignTaxonomy(seqtab.nochim, "/mnt/home/ernakovich/shared/db_files/dada2/silva_nr99_v138_train_set.fa", tryRC = TRUE,
+tax <- assignTaxonomy(seqtab.nochim, "/mnt/home/ernakovich/shared/db_files/dada2/silva_nr99_v138.1_train_set.fa ", tryRC = TRUE,
                       multithread=TRUE)
 
 # Write results to disk
