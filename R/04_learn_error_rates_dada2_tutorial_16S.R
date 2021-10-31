@@ -398,17 +398,23 @@ errR_4 <- learnErrors(
 errF_plot <- plotErrors(errF, nominalQ = TRUE)
 errR_plot <- plotErrors(errR, nominalQ = TRUE)
 
+errF_plot
+errR_plot
+
 saveRDS(errF_plot, paste0(filtpathF, "/errF_plot.rds"))
 saveRDS(errR_plot, paste0(filtpathR, "/errR_plot.rds"))
 
 ggsave(plot = errF_plot, filename = paste0(filtpathF, "/errF_plot.png"), 
        width = 10, height = 10, dpi = "retina")
-ggsave(plot = errR_plot, filename = paste0(filtpathF, "/errR_plot.png"), 
+ggsave(plot = errR_plot, filename = paste0(filtpathR, "/errR_plot.png"), 
        width = 10, height = 10, dpi = "retina")
 
 # Trial 1 (alter span and weight in loess, enforce montonicity)
 errF_plot1 <- plotErrors(errF_1, nominalQ = TRUE)
 errR_plot1 <-plotErrors(errR_1, nominalQ = TRUE)
+
+errF_plot1
+errR_plot1
 
 saveRDS(errF_plot1, paste0(filtpathF, "/errF_plot1.rds"))
 saveRDS(errR_plot1, paste0(filtpathR, "/errR_plot1.rds"))
@@ -422,6 +428,9 @@ ggsave(plot = errR_plot1, filename = paste0(filtpathR, "/errR_plot1.png"),
 errF_plot2 <- plotErrors(errF_2, nominalQ = TRUE)
 errR_plot2 <-plotErrors(errR_2, nominalQ = TRUE)
 
+errF_plot2
+errR_plot2
+
 saveRDS(errF_plot2, paste0(filtpathF, "/errF_plot2.rds"))
 saveRDS(errR_plot2, paste0(filtpathR, "/errR_plot2.rds"))
 
@@ -434,6 +443,9 @@ ggsave(plot = errR_plot2, filename = paste0(filtpathR, "/errR_plot2.png"),
 errF_plot3 <- plotErrors(errF_3, nominalQ = TRUE)
 errR_plot3 <-plotErrors(errR_3, nominalQ = TRUE)
 
+errF_plot3
+errR_plot3
+
 saveRDS(errF_plot3, paste0(filtpathF, "/errF_plot3.rds"))
 saveRDS(errR_plot3, paste0(filtpathR, "/errR_plot3.rds"))
 
@@ -445,6 +457,9 @@ ggsave(plot = errR_plot3, filename = paste0(filtpathR, "/errR_plot3.png"),
 # Trial 4 (alter loess (span, weight, and degree) and enforce monotonicity)
 errF_plot4 <- plotErrors(errF_4, nominalQ = TRUE)
 errR_plot4 <-plotErrors(errR_4, nominalQ = TRUE)
+
+errF_plot4
+errR_plot4
 
 saveRDS(errF_plot4, paste0(filtpathF, "/errF_plot4.rds"))
 saveRDS(errR_plot4, paste0(filtpathR, "/errR_plot4.rds"))
