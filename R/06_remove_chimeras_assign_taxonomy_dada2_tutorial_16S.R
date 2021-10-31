@@ -140,7 +140,7 @@ getN <- function(x) sum(getUniques(x)) # function to grab sequence counts from o
 # tracking reads by counts
 filt_out_track <- filt_out %>%
   data.frame() %>%
-  mutate(Sample = gsub("(R1\\_)(.{1,})(\\.fastq\\.gz)","\\2",rownames(.))) %>%
+  mutate(Sample = gsub("(\\_R1\\_)(.{1,})(\\.fastq\\.gz)","",rownames(.))) %>%
   rename(input = reads.in, filtered = reads.out)
 rownames(filt_out_track) <- filt_out_track$Sample
 

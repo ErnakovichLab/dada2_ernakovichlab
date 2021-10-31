@@ -41,9 +41,9 @@ filtFs <- list.files(filtpathF, pattern="fastq.gz", full.names = TRUE)
 filtRs <- list.files(filtpathR, pattern="fastq.gz", full.names = TRUE)
 
 # Sample names in order
-sample.names <- substring(basename(filtFs), regexpr("_", basename(filtFs)) + 1) # doesn't drop fastq.gz
+sample.names <- basename(filtFs) # doesn't drop fastq.gz
 sample.names <- gsub("_R1_001.fastq.gz", "", sample.names)
-sample.namesR <- substring(basename(filtRs), regexpr("_", basename(filtRs)) + 1) # doesn't drop fastq.gz
+sample.namesR <- basename(filtRs) # doesn't drop fastq.gz 
 sample.namesR <- gsub("_R2_001.fastq.gz", "", sample.namesR)
 
 # Double check
