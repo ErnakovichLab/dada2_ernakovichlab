@@ -1,7 +1,7 @@
 #' #### Filter the data
 #+ include=FALSE
 # some setup options for outputing markdown files; feel free to ignore these
-knitr::opts_chunk$set(eval = TRUE, 
+knitr::opts_chunk$set(eval = FALSE, 
                       include = TRUE, 
                       warning = FALSE, 
                       message = FALSE,

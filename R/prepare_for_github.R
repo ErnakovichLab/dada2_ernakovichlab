@@ -13,11 +13,6 @@ sed_eval_TRUE <- paste("-i", "'s/knitr::opts_chunk$set(eval = FALSE/knitr::opts_
 
 lapply(sed_eval_TRUE, function(x) {system2(sed, args = x)}) # apply sed command to each of the r_files
 
-sed_eval_FALSE <- paste("-i", "'s/knitr::opts_chunk$set(eval = TRUE/knitr::opts_chunk$set(eval = FALSE/g'",
-                       r_files)
-
-lapply(sed_eval_FALSE, function(x) {system2(sed, args = x)}) # apply sed command to each of the r_files
-
 rmd_files <- lapply(r_files, function(x) {
   o = knitr::spin(x, knit = FALSE)
   return(o)})
@@ -50,3 +45,9 @@ cat(chunks, sep = '\n', file = "dada2_tutorial_16S_all.Rmd", append = TRUE)
 rmarkdown::render("dada2_tutorial_16S_all.Rmd", 
                   output_file = "dada2_tutorial_16S_all.md",
                   output_format = "github_document")
+
+# For convenience change eval back to FALSE when done building
+sed_eval_FALSE <- paste("-i", "'s/knitr::opts_chunk$set(eval = TRUE/knitr::opts_chunk$set(eval = FALSE/g'",
+                        r_files)
+
+lapply(sed_eval_FALSE, function(x) {system2(sed, args = x)}) # apply sed command to each of the r_files
