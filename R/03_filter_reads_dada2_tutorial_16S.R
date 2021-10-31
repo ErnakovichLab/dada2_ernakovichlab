@@ -28,7 +28,7 @@ load(file = "dada2_ernakovich_Renv.RData")
 #'
 #' | <span> |
 #' | :--- |
-#' | **WARNING:** THESE PARAMETERS ARE NOT OPTIMAL FOR ALL DATASETS. Make sure you determine the trim and filtering parameters for your data. The following settings are generally appropriate for MiSeq runs that are 2x150 bp. These are the recommended default parameters from the dada2 pipeline. See above for more details. |
+#' | **WARNING:** THESE PARAMETERS ARE NOT OPTIMAL FOR ALL DATASETS. Make sure you determine the trim and filtering parameters for your data. The following settings may be generally appropriate for NovaSeq runs that are 2x250 bp. For more information you can check the recommended default parameters from the dada2 pipeline. See above for more details. |
 #' | <span> |
 #' 
 filt_out <- filterAndTrim(fwd=file.path(subF.fp, fastqFs), filt=file.path(filtpathF, fastqFs),
@@ -84,7 +84,7 @@ ggsave(plot = rev_qual_plots_filt, filename = paste0(filter.fp, "/rev_qual_plots
 
 #' | <span> |
 #' | :--- |
-#' | **STOP:** If you are running this on Premise, download the plots generated here (fwd_qual_plots_filt.png and rev_qual_plots_filt.png) and verify that your filtering is working the way you want it. If not, adjust the filterAndTrim() function and re-run this step with slurm. |
+#' | **STOP - 03_filter_reads_dada2_tutorial_16S.R:** If you are running this on Premise, download the plots generated here (fwd_qual_plots_filt.png and rev_qual_plots_filt.png) and verify that your filtering is working the way you want it. If not, adjust the filterAndTrim() function and re-run this step with slurm. |
 #' | <span> |
 
 #+ include=FALSE

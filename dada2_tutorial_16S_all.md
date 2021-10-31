@@ -95,7 +95,7 @@ module load anaconda/colsa
 ```
 
 3.  Next create a conda local environment that you can use to run the
-    software
+    software. This will install everything you need to run dada2.
 
 ``` bash
 cd dada2_ernakovichlab
@@ -108,6 +108,11 @@ conda activate dada2_ernakovich
 | **WARNING:** This installation may take a long time, so only run this code if you have a fairly large chunk of time! |
 | <span>                                                                                                               |
 
+| <span>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **A note about running this on Premise:** To run this on Premise, you will need to submit R-scripts to the job scheduler (slurm). The R scripts in this tutorial can be found in the “R” folder and have been carefully designed so that each step can be run with on slurm with minimal changes. The R scripts are numbered according to their steps. When you are called on to modify a particular step, use a terminal text editor (such as `nano`) to open up the appropriate R script and edit the code accordingly. For your convenience, there is also a folder called “slurm” which contains ready-made slurm scripts that you can use to submit each R script. The slurm scripts are designed to be submitted from the “slurm” folder. You can submit them by using `cd slurm` to navigate into the slurm folder, and `sbatch xxx_dada2_tutorial_16S.slurm` to submit each script. Throughout this pipeline you will see **STOP** notices. These indicate how you should modify the R script at each stage. |
+| <span>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+
 If you are running it on your own computer (runs slower!):
 
 1.  Download this tutorial from github. Go to [the
@@ -119,9 +124,10 @@ If you are running it on your own computer (runs slower!):
 2.  Download the tutorial data from here
     <http://cme.colorado.edu/projects/bioinformatics-tutorials>
 
-3.  Install idemp and cutadapt.
+3.  Install cutadapt. If you are using conda, you may also use the .yml
+    file to create an environment with cutadapt and all the necessary R
+    packages pre-installed
 
-    -   idemp can be found here: <https://github.com/yhwu/idemp>
     -   cutadapt can be installed from here:
         <https://cutadapt.readthedocs.io/en/stable/installation.html>
 
@@ -132,12 +138,13 @@ If you are running it on your own computer (runs slower!):
     tutorial folder you downloaded in the first step. You can navigate
     to the proper folder in Rstudio by clicking on the files tab and
     navigating to the location where you downloaded the github folder.
-    Then click dada2\_ernakovichlab and dada2\_tutorial\_16S\_all.Rmd to
+    Then click dada2_ernakovichlab and dada2_tutorial_16S_all.Rmd to
     open the script.
 
-Now, install DADA2 & other necessary packages. Depending on how you set
-up Rstudio, you might get a prompt asking if you want to create your own
-library. Answer ‘yes’ twice in the console to continue.
+Now, install DADA2 & other necessary packages(if you haven’t opted for
+the conda option). Depending on how you set up Rstudio, you might get a
+prompt asking if you want to create your own library. Answer ‘yes’ twice
+in the console to continue.
 
 | <span>                                                                                                                  |
 |:------------------------------------------------------------------------------------------------------------------------|
@@ -194,37 +201,30 @@ system2(cutadapt, args = "--version") # Check by running shell command from R
 We will now set up the directories for the script. We’ll tell the script
 where our data is, and where we want to put the outputs of the script.
 We highly recommend NOT putting outputs of this script directly into
-your home directory, or into this directory. A better idea is to create
-a new project output directory for each project you work on.
+your home directory, or into this tutorial directory. A better idea is
+to create a new project directory to hold the output each project you
+work on.
 
 ``` r
 # Set path to shared data folder and contents
-data.fp <- "/data/shared/2019_02_20_MicrMethods_tutorial"
+data.fp <- "/mnt/home/ernakovich/shared/dada2_tutorial_data/16S"
 
 # List all files in shared folder to check path
 list.files(data.fp)
 
 # Set file paths for barcodes file, map file, and fastqs
 # Barcodes need to have 'N' on the end of each 12bp sequence for compatability
-map.fp <- file.path(data.fp, "Molecular_Methods_18_515fBC_16S_Mapping_File_SHORT_vFinal_Fierer_10252018.txt")
+#map.fp <- file.path(data.fp, "Molecular_Methods_18_515fBC_16S_Mapping_File_SHORT_vFinal_Fierer_10252018.txt")
 ```
 
-| <span>                                                                                                                                                                                                                                                                                                                                                                                                                               |
-|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **NOTE:** idemp relies on having a match in length between the index file and and the barcode sequences. Since the index file usually includes a extra linker basepair (making it 13bp long), you should append the barcode sequences with “N” to make sure each is 13bp long. If you are not sure of the length of index reads, check with the sequencing center. If your index reads are 12bp long, you do NOT need to add an “N”. |
-| <span>                                                                                                                                                                                                                                                                                                                                                                                                                               |
-
-**For ITS Sequences:** Depending on how your sequences were run, your
-barcodes may need to be reverse-complemented. Here is a link to a handy
-tool, that can help you reverse complement your barcodes:
-<http://arep.med.harvard.edu/labgc/adnan/projects/Utilities/revcomp.html>
-
 Set up file paths in YOUR directory where you want data; you do not need
-to create the subdirectories but they are nice to have for
+to create the sub-directories but they are nice to have for
 organizational purposes.
 
 ``` r
-project.fp <- "/data/cwalsh/MicroMethods_dada2_tutorial" # CHANGE ME to project directory; don't append with a "/"
+project.fp <- "~/Downloads/dada2_tutorial_test" # CHANGE ME to project directory; don't append with a "/"
+
+dir.create(project.fp)
 
 # Set up names of sub directories to stay organized
 preprocess.fp <- file.path(project.fp, "01_preprocess")
@@ -234,10 +234,10 @@ filter.fp <- file.path(project.fp, "02_filter")
 table.fp <- file.path(project.fp, "03_tabletax") 
 ```
 
-| <span>                                                                                                                                                                                             |
-|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **STOP:** If you are running this on Premise, open up the 00\_setup\_dada2\_tutorial\_16S.R script with nano (or your favorite terminal text editor) and adjust the variables above appropriately. |
-| <span>                                                                                                                                                                                             |
+| <span>                                                                                                                                                                                                                         |
+|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **STOP - 00_setup_dada2_tutorial_16S.R:** If you are running this on Premise, open up the 00_setup_dada2_tutorial_16S.R script with nano (or your favorite terminal text editor) and adjust the filepaths above appropriately. |
+| <span>                                                                                                                                                                                                                         |
 
 ## Pre-processing data for dada2 - remove sequences with Ns, cutadapt
 
@@ -273,17 +273,19 @@ filterAndTrim(fnFs, fnFs.filtN, fnRs, fnRs.filtN, maxN = 0, multithread = TRUE)
 
 Assign the primers you used to “FWD” and “REV” below. Note primers
 should be not be reverse complemented ahead of time. Our tutorial data
-uses 515f and 806br those are the primers below. Change if you sequenced
+uses 515f and 926r those are the primers below. Change if you sequenced
 with other primers.
 
 **For ITS data:** `CTTGGTCATTTAGAGGAAGTAA` is the ITS forward primer
 sequence (ITS1F) and `GCTGCGTTCTTCATCGATGC` is ITS reverse primer
-sequence (ITS2)
+sequence (ITS2). Using cutadapt to remove these primers will allow us to
+retain ITS sequences of variable biological length. See the dada2
+creators’ ITS tutorial for more details.
 
 ``` r
 # Set up the primer sequences to pass along to cutadapt
 FWD <- "GTGYCAGCMGCCGCGGTAA"  ## CHANGE ME # this is 515f
-REV <- "GGACTACNVGGGTWTCTAAT"  ## CHANGE ME # this is 806Br
+REV <- "CCGYCAATTYMTTTRAGTTT"  ## CHANGE ME # this is 926r
 
 # Write a function that creates a list of all orientations of the primers
 allOrients <- function(primer) {
@@ -340,7 +342,7 @@ R2.flags <- paste("-G", REV, "-A", FWD.RC, "--minimum-length 50")
 
 # Run Cutadapt
 for (i in seq_along(fnFs)) {
-  system2(cutadapt, args = c(R1.flags, R2.flags, "-n", 2, # -n 2 required to remove FWD and REV from reads
+  system2(cutadapt, args = c("-j", 0, R1.flags, R2.flags, "-n", 2, # -n 2 required to remove FWD and REV from reads
                              "-o", fnFs.cut[i], "-p", fnRs.cut[i], # output files
                              fnFs.filtN[i], fnRs.filtN[i])) # input files
 }
@@ -353,10 +355,10 @@ rbind(FWD.ForwardReads = sapply(FWD.orients, primerHits, fn = fnFs.cut[[1]]),
       REV.ReverseReads = sapply(REV.orients, primerHits, fn = fnRs.cut[[1]]))
 ```
 
-| <span>                                                                                                                                                                                                                                                                                           |
-|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **STOP:** If you are running this on Premise, open up the 01\_pre-process\_dada2\_tutorial\_16S.R script with nano (or your favorite terminal text editor) and adjust the primer sequences (if need be) and check the slurm output to make sure that there are no primers still in your samples. |
-| <span>                                                                                                                                                                                                                                                                                           |
+| <span>                                                                                                                                                                                                                                                                                                                                              |
+|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **STOP - 01_pre-process_dada2_tutorial_16S.R:** If you are running this on Premise, open up the 01_pre-process_dada2_tutorial_16S.R script with `nano` (or your favorite terminal text editor) and adjust the primer sequences (if need be). After running it, check the slurm output to make sure that there are no primers still in your samples. |
+| <span>                                                                                                                                                                                                                                                                                                                                              |
 
 # Now start DADA2 pipeline
 
@@ -402,7 +404,7 @@ you should run this command without the `trunclen` parameter. See here
 for more information and appropriate parameters for ITS data:
 <https://benjjneb.github.io/dada2/ITS_workflow.html>.
 
-*From dada2 tutorial:* &gt;If there is only one part of any amplicon
+*From dada2 tutorial:* \>If there is only one part of any amplicon
 bioinformatics workflow on which you spend time considering the
 parameters, it should be filtering! The parameters … are not set in
 stone, and should be changed if they don’t work for your data. If too
@@ -416,20 +418,20 @@ the sample inference step, reduce maxEE.
 It’s important to get a feel for the quality of the data that we are
 using. To do this, we will plot the quality of some of the samples.
 
-*From the dada2 tutorial:* &gt;In gray-scale is a heat map of the
+*From the dada2 tutorial:* \>In gray-scale is a heat map of the
 frequency of each quality score at each base position. The median
 quality score at each position is shown by the green line, and the
 quartiles of the quality score distribution by the orange lines. The red
 line shows the scaled proportion of reads that extend to at least that
 position (this is more useful for other sequencing technologies, as
-Illumina reads are typically all the same lenghth, hence the flat red
+Illumina reads are typically all the same length, hence the flat red
 line).
 
 ``` r
 # If the number of samples is 20 or less, plot them all, otherwise, just plot 20 randomly selected samples
 if( length(fastqFs) <= 20) {
-  plotQualityProfile(paste0(subF.fp, "/", fastqFs))
-  plotQualityProfile(paste0(subR.fp, "/", fastqRs))
+  fwd_qual_plots <- plotQualityProfile(paste0(subF.fp, "/", fastqFs))
+  rev_qual_plots <- plotQualityProfile(paste0(subR.fp, "/", fastqRs))
 } else {
   rand_samples <- sample(size = 20, 1:length(fastqFs)) # grab 20 random samples to plot
   fwd_qual_plots <- plotQualityProfile(paste0(subF.fp, "/", fastqFs[rand_samples]))
@@ -457,22 +459,22 @@ ggsave(plot = rev_qual_plots, filename = paste0(filter.fp, "/rev_qual_plots.png"
        width = 10, height = 10, dpi = "retina")
 ```
 
-| <span>                                                                                                                                                                                                  |
-|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **STOP:** If you are running this on Premise, download the plots generated here (fwd\_qual\_plots.png and rev\_qual\_plots.png) use them to make decisions for your filtering choices in the next step. |
-| <span>                                                                                                                                                                                                  |
+| <span>                                                                                                                                                                                                                                                                                                     |
+|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **STOP - 02_check_quality_dada2_tutorial.R:** If you are running this on Premise, run this script and download the plots generated here (fwd_qual_plots.png and rev_qual_plots.png). These are the pre-filtering plots, you should use them to make decisions for your filtering choices in the next step. |
+| <span>                                                                                                                                                                                                                                                                                                     |
 
 #### Filter the data
 
-| <span>                                                                                                                                                                                                                                                                                                                        |
-|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **WARNING:** THESE PARAMETERS ARE NOT OPTIMAL FOR ALL DATASETS. Make sure you determine the trim and filtering parameters for your data. The following settings are generally appropriate for MiSeq runs that are 2x150 bp. These are the recommended default parameters from the dada2 pipeline. See above for more details. |
-| <span>                                                                                                                                                                                                                                                                                                                        |
+| <span>                                                                                                                                                                                                                                                                                                                                                      |
+|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **WARNING:** THESE PARAMETERS ARE NOT OPTIMAL FOR ALL DATASETS. Make sure you determine the trim and filtering parameters for your data. The following settings may be generally appropriate for NovaSeq runs that are 2x250 bp. For more information you can check the recommended default parameters from the dada2 pipeline. See above for more details. |
+| <span>                                                                                                                                                                                                                                                                                                                                                      |
 
 ``` r
 filt_out <- filterAndTrim(fwd=file.path(subF.fp, fastqFs), filt=file.path(filtpathF, fastqFs),
                           rev=file.path(subR.fp, fastqRs), filt.rev=file.path(filtpathR, fastqRs),
-                          truncLen=c(150,140), maxEE=c(2,2), truncQ=2, maxN=0, rm.phix=TRUE,
+                          truncLen=c(225,220), maxEE=c(2,2), truncQ=2, maxN=0, rm.phix=TRUE,
                           compress=TRUE, verbose=TRUE, multithread=TRUE)
 
 # look at how many reads were kept
@@ -493,13 +495,24 @@ filt_out %>%
 Plot the quality of the filtered fastq files.
 
 ``` r
-# figure out which samples, if any, have been filtered out
-remaining_samplesF <-  fastqFs[rand_samples][
-  which(fastqFs[rand_samples] %in% list.files(filtpathF))] # keep only samples that haven't been filtered out
-remaining_samplesR <-  fastqRs[rand_samples][
-  which(fastqRs[rand_samples] %in% list.files(filtpathR))] # keep only samples that haven't been filtered out
-fwd_qual_plots_filt <- plotQualityProfile(paste0(filtpathF, "/", remaining_samplesF))
-rev_qual_plots_filt <- plotQualityProfile(paste0(filtpathR, "/", remaining_samplesR))
+# If the number of samples greater than 20 figure out which samples, if any, have been filtered out
+# so we won't try to plot them, otherwise just plot all the samples that remain
+if( length(fastqFs) <= 20) {
+  remaining_samplesF <-  fastqFs[
+    which(fastqFs %in% list.files(filtpathF))] # keep only samples that haven't been filtered out
+  remaining_samplesR <-  fastqRs[
+    which(fastqRs %in% list.files(filtpathR))] # keep only samples that haven't been filtered out
+
+  fwd_qual_plots_filt <- plotQualityProfile(paste0(filtpathF, "/", remaining_samplesF))
+  rev_qual_plots_filt <- plotQualityProfile(paste0(filtpathR, "/", remaining_samplesR))
+} else {
+  remaining_samplesF <-  fastqFs[rand_samples][
+    which(fastqFs[rand_samples] %in% list.files(filtpathF))] # keep only samples that haven't been filtered out
+  remaining_samplesR <-  fastqRs[rand_samples][
+    which(fastqRs[rand_samples] %in% list.files(filtpathR))] # keep only samples that haven't been filtered out
+  fwd_qual_plots_filt <- plotQualityProfile(paste0(filtpathF, "/", remaining_samplesF))
+  rev_qual_plots_filt <- plotQualityProfile(paste0(filtpathR, "/", remaining_samplesR))
+}
 
 fwd_qual_plots_filt
 rev_qual_plots_filt
@@ -514,10 +527,10 @@ ggsave(plot = rev_qual_plots_filt, filename = paste0(filter.fp, "/rev_qual_plots
        width = 10, height = 10, dpi = "retina")
 ```
 
-| <span>                                                                                                                                                                                                                                                                                  |
-|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **STOP:** If you are running this on Premise, download the plots generated here (fwd\_qual\_plots\_filt.png and rev\_qual\_plots\_filt.png) and verify that your filtering is working the way you want it. If not, adjust the filterAndTrim() function and re-run this step with slurm. |
-| <span>                                                                                                                                                                                                                                                                                  |
+| <span>                                                                                                                                                                                                                                                                                                                   |
+|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **STOP - 03_filter_reads_dada2_tutorial_16S.R:** If you are running this on Premise, download the plots generated here (fwd_qual_plots_filt.png and rev_qual_plots_filt.png) and verify that your filtering is working the way you want it. If not, adjust the filterAndTrim() function and re-run this step with slurm. |
+| <span>                                                                                                                                                                                                                                                                                                                   |
 
 ### 2. INFER sequence variants
 
@@ -529,7 +542,7 @@ sequences”. Then, using the dereplicated data and error rates, dada2
 will infer the sequence variants (OTUs) in our data. Finally, we will
 merge the coresponding forward and reverse reads to create a list of the
 fully denoised sequences and create a sequence table from the result.
-\#\#\#\# Housekeeping step - set up and verify the file names for the
+#### Housekeeping step - set up and verify the file names for the
 output:
 
 ``` r
@@ -539,9 +552,9 @@ filtRs <- list.files(filtpathR, pattern="fastq.gz", full.names = TRUE)
 
 # Sample names in order
 sample.names <- substring(basename(filtFs), regexpr("_", basename(filtFs)) + 1) # doesn't drop fastq.gz
-sample.names <- gsub(".fastq.gz", "", sample.names)
+sample.names <- gsub("_R1_001.fastq.gz", "", sample.names)
 sample.namesR <- substring(basename(filtRs), regexpr("_", basename(filtRs)) + 1) # doesn't drop fastq.gz
-sample.namesR <- gsub(".fastq.gz", "", sample.namesR)
+sample.namesR <- gsub("_R2_001.fastq.gz", "", sample.namesR)
 
 # Double check
 if(!identical(sample.names, sample.namesR)) stop("Forward and reverse files do not match.")
@@ -551,14 +564,382 @@ names(filtRs) <- sample.names
 
 #### Learn the error rates
 
+In this step we will learn the error rates for the sequencing run.
+Typically dada2 expects you to have data that has HiSeq or MiSeq-style
+quality scores - that is quality scores that range from 0-40. However,
+NovaSeq uses a technique called “binned” quality scores. This means that
+as quality scores are calculated from the sequencer, instead of
+assigning them a number between 0 and 40, they are instead assigned to 4
+different quality scores, typically 0-40 scores are converted as shown
+below:
+
+0-2 -> 2  
+3-14 -> 11  
+15-30 -> 25  
+31-40 -> 37
+
+This means that the `learnErrors` function has 1/10th of the information
+that it usually uses to learn the appropriate error function, which
+often leads to error plots with characteristic troughs in odd places.
+Although a definitive solution to this has not been found yet, several
+have been [proposed](https://github.com/benjjneb/dada2/issues/1307).
+Typically UNH sequencing data will be NovaSeq data, but it’s good to
+check. If you have data that doesn’t have binned error scores
+(i.e. MiSeq or HiSeq data) you can proceed to learn error rates in the
+typical way, and not worry about the modifications below. (Use `errF`
+and `errR` for the sequence-variant identification in the next step.)
+Otherwise, you should carefully inspect the error plots generated by
+each method below and choose the one that looks the best. Error rate
+plots that look good have black points that are very close to the black
+line and are continuously decreasing (especially in the right side of
+the plot).
+
 ``` r
 set.seed(100) # set seed to ensure that randomized steps are replicatable
+```
 
+##### Traditional way of learning error rates
+
+``` r
 # Learn forward error rates (Notes: randomize default is FALSE)
-errF <- learnErrors(filtFs, nbases = 1e8, multithread = TRUE, randomize = TRUE)
+errF <- learnErrors(filtFs, nbases = 1e10, multithread = TRUE, randomize = TRUE)
 
 # Learn reverse error rates
-errR <- learnErrors(filtRs, nbases = 1e8, multithread = TRUE, randomize = TRUE)
+errR <- learnErrors(filtRs, nbases = 1e10, multithread = TRUE, randomize = TRUE)
+
+saveRDS(errF, paste0(filtpathF, "/errF.rds"))
+saveRDS(errR, paste0(filtpathR, "/errR.rds"))
+```
+
+##### Four options for learning error rates with NovaSeq data
+
+**Option 1** from JacobRPrice alter loess arguments (weights and span
+and enforce monotonicity)  
+<https://github.com/benjjneb/dada2/issues/1307>
+
+``` r
+loessErrfun_mod_1 <- function(trans) {
+  qq <- as.numeric(colnames(trans))
+  est <- matrix(0, nrow=0, ncol=length(qq))
+  for(nti in c("A","C","G","T")) {
+    for(ntj in c("A","C","G","T")) {
+      if(nti != ntj) {
+        errs <- trans[paste0(nti,"2",ntj),]
+        tot <- colSums(trans[paste0(nti,"2",c("A","C","G","T")),])
+        rlogp <- log10((errs+1)/tot)  # 1 psuedocount for each err, but if tot=0 will give NA
+        rlogp[is.infinite(rlogp)] <- NA
+        df <- data.frame(q=qq, errs=errs, tot=tot, rlogp=rlogp)
+        
+        # original
+        # ###! mod.lo <- loess(rlogp ~ q, df, weights=errs) ###!
+        # mod.lo <- loess(rlogp ~ q, df, weights=tot) ###!
+        # #        mod.lo <- loess(rlogp ~ q, df)
+        
+        # Gulliem Salazar's solution
+        # https://github.com/benjjneb/dada2/issues/938
+        mod.lo <- loess(rlogp ~ q, df, weights = log10(tot),span = 2)
+        
+        pred <- predict(mod.lo, qq)
+        maxrli <- max(which(!is.na(pred)))
+        minrli <- min(which(!is.na(pred)))
+        pred[seq_along(pred)>maxrli] <- pred[[maxrli]]
+        pred[seq_along(pred)<minrli] <- pred[[minrli]]
+        est <- rbind(est, 10^pred)
+      } # if(nti != ntj)
+    } # for(ntj in c("A","C","G","T"))
+  } # for(nti in c("A","C","G","T"))
+  
+  # HACKY
+  MAX_ERROR_RATE <- 0.25
+  MIN_ERROR_RATE <- 1e-7
+  est[est>MAX_ERROR_RATE] <- MAX_ERROR_RATE
+  est[est<MIN_ERROR_RATE] <- MIN_ERROR_RATE
+  
+  # enforce monotonicity
+  # https://github.com/benjjneb/dada2/issues/791
+  estorig <- est
+  est <- est %>%
+    data.frame() %>%
+    mutate_all(funs(case_when(. < X40 ~ X40,
+                              . >= X40 ~ .))) %>% as.matrix()
+  rownames(est) <- rownames(estorig)
+  colnames(est) <- colnames(estorig)
+  
+  # Expand the err matrix with the self-transition probs
+  err <- rbind(1-colSums(est[1:3,]), est[1:3,],
+               est[4,], 1-colSums(est[4:6,]), est[5:6,],
+               est[7:8,], 1-colSums(est[7:9,]), est[9,],
+               est[10:12,], 1-colSums(est[10:12,]))
+  rownames(err) <- paste0(rep(c("A","C","G","T"), each=4), "2", c("A","C","G","T"))
+  colnames(err) <- colnames(trans)
+  # Return
+  return(err)
+}
+
+# check what this looks like
+errF_1 <- learnErrors(
+  filtFs,
+  multithread = TRUE,
+  nbases = 1e10,
+  errorEstimationFunction = loessErrfun_mod1,
+  verbose = TRUE
+)
+errR_1 <- learnErrors(
+  filtRs,
+  multithread = TRUE,
+  nbases = 1e10,
+  errorEstimationFunction = loessErrfun_mod1,
+  verbose = TRUE
+)
+```
+
+**Option 2** enforce monotonicity only.  
+Originally recommended in:
+<https://github.com/benjjneb/dada2/issues/791>
+
+``` r
+loessErrfun_mod2 <- function(trans) {
+  qq <- as.numeric(colnames(trans))
+  est <- matrix(0, nrow=0, ncol=length(qq))
+  for(nti in c("A","C","G","T")) {
+    for(ntj in c("A","C","G","T")) {
+      if(nti != ntj) {
+        errs <- trans[paste0(nti,"2",ntj),]
+        tot <- colSums(trans[paste0(nti,"2",c("A","C","G","T")),])
+        rlogp <- log10((errs+1)/tot)  # 1 psuedocount for each err, but if tot=0 will give NA
+        rlogp[is.infinite(rlogp)] <- NA
+        df <- data.frame(q=qq, errs=errs, tot=tot, rlogp=rlogp)
+        
+        # original
+        # ###! mod.lo <- loess(rlogp ~ q, df, weights=errs) ###!
+        mod.lo <- loess(rlogp ~ q, df, weights=tot) ###!
+        # #        mod.lo <- loess(rlogp ~ q, df)
+        
+        # Gulliem Salazar's solution
+        # https://github.com/benjjneb/dada2/issues/938
+        # mod.lo <- loess(rlogp ~ q, df, weights = log10(tot),span = 2)
+        
+        pred <- predict(mod.lo, qq)
+        maxrli <- max(which(!is.na(pred)))
+        minrli <- min(which(!is.na(pred)))
+        pred[seq_along(pred)>maxrli] <- pred[[maxrli]]
+        pred[seq_along(pred)<minrli] <- pred[[minrli]]
+        est <- rbind(est, 10^pred)
+      } # if(nti != ntj)
+    } # for(ntj in c("A","C","G","T"))
+  } # for(nti in c("A","C","G","T"))
+  
+  # HACKY
+  MAX_ERROR_RATE <- 0.25
+  MIN_ERROR_RATE <- 1e-7
+  est[est>MAX_ERROR_RATE] <- MAX_ERROR_RATE
+  est[est<MIN_ERROR_RATE] <- MIN_ERROR_RATE
+  
+  # enforce monotonicity
+  # https://github.com/benjjneb/dada2/issues/791
+  estorig <- est
+  est <- est %>%
+    data.frame() %>%
+    mutate_all(funs(case_when(. < X40 ~ X40,
+                              . >= X40 ~ .))) %>% as.matrix()
+  rownames(est) <- rownames(estorig)
+  colnames(est) <- colnames(estorig)
+  
+  # Expand the err matrix with the self-transition probs
+  err <- rbind(1-colSums(est[1:3,]), est[1:3,],
+               est[4,], 1-colSums(est[4:6,]), est[5:6,],
+               est[7:8,], 1-colSums(est[7:9,]), est[9,],
+               est[10:12,], 1-colSums(est[10:12,]))
+  rownames(err) <- paste0(rep(c("A","C","G","T"), each=4), "2", c("A","C","G","T"))
+  colnames(err) <- colnames(trans)
+  # Return
+  return(err)
+}
+
+
+# check what this looks like
+errF_2 <- learnErrors(
+  filtFs,
+  multithread = TRUE,
+  nbases = 1e10,
+  errorEstimationFunction = loessErrfun_mod2,
+  verbose = TRUE
+)
+
+errR_2 <- learnErrors(
+  filtRs,
+  multithread = TRUE,
+  nbases = 1e10,
+  errorEstimationFunction = loessErrfun_mod2,
+  verbose = TRUE
+)
+```
+
+**Option 3** alter loess function (weights only) and enforce
+monotonicity  
+From JacobRPrice <https://github.com/benjjneb/dada2/issues/1307>
+
+``` r
+loessErrfun_mod3 <- function(trans) {
+  qq <- as.numeric(colnames(trans))
+  est <- matrix(0, nrow=0, ncol=length(qq))
+  for(nti in c("A","C","G","T")) {
+    for(ntj in c("A","C","G","T")) {
+      if(nti != ntj) {
+        errs <- trans[paste0(nti,"2",ntj),]
+        tot <- colSums(trans[paste0(nti,"2",c("A","C","G","T")),])
+        rlogp <- log10((errs+1)/tot)  # 1 psuedocount for each err, but if tot=0 will give NA
+        rlogp[is.infinite(rlogp)] <- NA
+        df <- data.frame(q=qq, errs=errs, tot=tot, rlogp=rlogp)
+        
+        # original
+        # ###! mod.lo <- loess(rlogp ~ q, df, weights=errs) ###!
+        # mod.lo <- loess(rlogp ~ q, df, weights=tot) ###!
+        # #        mod.lo <- loess(rlogp ~ q, df)
+        
+        # Gulliem Salazar's solution
+        # https://github.com/benjjneb/dada2/issues/938
+        # mod.lo <- loess(rlogp ~ q, df, weights = log10(tot),span = 2)
+        
+        # only change the weights
+        mod.lo <- loess(rlogp ~ q, df, weights = log10(tot))
+        
+        pred <- predict(mod.lo, qq)
+        maxrli <- max(which(!is.na(pred)))
+        minrli <- min(which(!is.na(pred)))
+        pred[seq_along(pred)>maxrli] <- pred[[maxrli]]
+        pred[seq_along(pred)<minrli] <- pred[[minrli]]
+        est <- rbind(est, 10^pred)
+      } # if(nti != ntj)
+    } # for(ntj in c("A","C","G","T"))
+  } # for(nti in c("A","C","G","T"))
+  
+  # HACKY
+  MAX_ERROR_RATE <- 0.25
+  MIN_ERROR_RATE <- 1e-7
+  est[est>MAX_ERROR_RATE] <- MAX_ERROR_RATE
+  est[est<MIN_ERROR_RATE] <- MIN_ERROR_RATE
+  
+  # enforce monotonicity
+  # https://github.com/benjjneb/dada2/issues/791
+  estorig <- est
+  est <- est %>%
+    data.frame() %>%
+    mutate_all(funs(case_when(. < X40 ~ X40,
+                              . >= X40 ~ .))) %>% as.matrix()
+  rownames(est) <- rownames(estorig)
+  colnames(est) <- colnames(estorig)
+  
+  # Expand the err matrix with the self-transition probs
+  err <- rbind(1-colSums(est[1:3,]), est[1:3,],
+               est[4,], 1-colSums(est[4:6,]), est[5:6,],
+               est[7:8,], 1-colSums(est[7:9,]), est[9,],
+               est[10:12,], 1-colSums(est[10:12,]))
+  rownames(err) <- paste0(rep(c("A","C","G","T"), each=4), "2", c("A","C","G","T"))
+  colnames(err) <- colnames(trans)
+  # Return
+  return(err)
+}
+
+# check what this looks like
+errF_3 <- learnErrors(
+  filtFs,
+  multithread = TRUE,
+  nbases = 1e10,
+  errorEstimationFunction = loessErrfun_mod3,
+  verbose = TRUE
+)
+
+
+# check what this looks like
+errR_3 <- learnErrors(
+  filtRs,
+  multithread = TRUE,
+  nbases = 1e10,
+  errorEstimationFunction = loessErrfun_mod3,
+  verbose = TRUE
+)
+```
+
+**Option 4** Alter loess function arguments (weights and span and
+degree, also enforce monotonicity)  
+From Jonalim’s comment in
+<https://github.com/benjjneb/dada2/issues/1307>
+
+``` r
+loessErrfun_mod4 <- function(trans) {
+  qq <- as.numeric(colnames(trans))
+  est <- matrix(0, nrow=0, ncol=length(qq))
+  for(nti in c("A","C","G","T")) {
+    for(ntj in c("A","C","G","T")) {
+      if(nti != ntj) {
+        errs <- trans[paste0(nti,"2",ntj),]
+        tot <- colSums(trans[paste0(nti,"2",c("A","C","G","T")),])
+        rlogp <- log10((errs+1)/tot)  # 1 psuedocount for each err, but if tot=0 will give NA
+        rlogp[is.infinite(rlogp)] <- NA
+        df <- data.frame(q=qq, errs=errs, tot=tot, rlogp=rlogp)
+        
+        # original
+        # ###! mod.lo <- loess(rlogp ~ q, df, weights=errs) ###!
+        # mod.lo <- loess(rlogp ~ q, df, weights=tot) ###!
+        # #        mod.lo <- loess(rlogp ~ q, df)
+        
+        # jonalim's solution
+        # https://github.com/benjjneb/dada2/issues/938
+        mod.lo <- loess(rlogp ~ q, df, weights = log10(tot),degree = 1, span = 0.95)
+        
+        pred <- predict(mod.lo, qq)
+        maxrli <- max(which(!is.na(pred)))
+        minrli <- min(which(!is.na(pred)))
+        pred[seq_along(pred)>maxrli] <- pred[[maxrli]]
+        pred[seq_along(pred)<minrli] <- pred[[minrli]]
+        est <- rbind(est, 10^pred)
+      } # if(nti != ntj)
+    } # for(ntj in c("A","C","G","T"))
+  } # for(nti in c("A","C","G","T"))
+  
+  # HACKY
+  MAX_ERROR_RATE <- 0.25
+  MIN_ERROR_RATE <- 1e-7
+  est[est>MAX_ERROR_RATE] <- MAX_ERROR_RATE
+  est[est<MIN_ERROR_RATE] <- MIN_ERROR_RATE
+  
+  # enforce monotonicity
+  # https://github.com/benjjneb/dada2/issues/791
+  estorig <- est
+  est <- est %>%
+    data.frame() %>%
+    mutate_all(funs(case_when(. < X40 ~ X40,
+                              . >= X40 ~ .))) %>% as.matrix()
+  rownames(est) <- rownames(estorig)
+  colnames(est) <- colnames(estorig)
+  
+  # Expand the err matrix with the self-transition probs
+  err <- rbind(1-colSums(est[1:3,]), est[1:3,],
+               est[4,], 1-colSums(est[4:6,]), est[5:6,],
+               est[7:8,], 1-colSums(est[7:9,]), est[9,],
+               est[10:12,], 1-colSums(est[10:12,]))
+  rownames(err) <- paste0(rep(c("A","C","G","T"), each=4), "2", c("A","C","G","T"))
+  colnames(err) <- colnames(trans)
+  # Return
+  return(err)
+}
+
+# check what this looks like
+errF_4 <- learnErrors(
+  filtFs,
+  multithread = TRUE,
+  nbases = 1e10,
+  errorEstimationFunction = loessErrfun_mod4,
+  verbose = TRUE
+)
+errR_4 <- learnErrors(
+  filtRs,
+  multithread = TRUE,
+  nbases = 1e10,
+  errorEstimationFunction = loessErrfun_mod4,
+  verbose = TRUE
+)
 ```
 
 #### Plot Error Rates
@@ -566,23 +947,29 @@ errR <- learnErrors(filtRs, nbases = 1e8, multithread = TRUE, randomize = TRUE)
 We want to make sure that the machine learning algorithm is learning the
 error rates properly. In the plots below, the red line represents what
 we should expect the learned error rates to look like for each of the 16
-possible base transitions (A-&gt;A, A-&gt;C, A-&gt;G, etc.) and the
-black line and grey dots represent what the observed error rates are. If
-the black line and the red lines are very far off from each other, it
-may be a good idea to increase the `nbases` parameter. This alows the
-machine learning algorthim to train on a larger portion of your data and
-may help imporve the fit.
+possible base transitions (A->A, A->C, A->G, etc.) and the black line
+and grey dots represent what the observed error rates are. If the black
+line and the red lines are very far off from each other, it may be a
+good idea to increase the `nbases` parameter. This allows the machine
+learning algorthim to train on a larger portion of your data and may
+help improve the fit.
+
+If you have NovaSeq data, you will notice a characteristic dip in the
+default error plots and you may have points that are far off of the
+line. This is typical and you will likely want to use one of the other
+options for error rate functions as simply increasing `nbases` will not
+solve this problem. There are four options, none of which will yield
+“ideal” error plots. Instead look for the solution where the black line
+is continuously decreasing (i.e. as quality scores improve on the x-axis
+the predicted error rate (y-axis) goes down) and for plots that have
+points that mostly align with the black lines, although you will likely
+have some points along 0 on the y-axis.
 
 ``` r
+# Original default recommended way (not optimal for NovaSeq data!)
 errF_plot <- plotErrors(errF, nominalQ = TRUE)
 errR_plot <- plotErrors(errR, nominalQ = TRUE)
 
-errF_plot
-errR_plot
-```
-
-``` r
-# write to disk
 saveRDS(errF_plot, paste0(filtpathF, "/errF_plot.rds"))
 saveRDS(errR_plot, paste0(filtpathR, "/errR_plot.rds"))
 
@@ -590,12 +977,60 @@ ggsave(plot = errF_plot, filename = paste0(filtpathF, "/errF_plot.png"),
        width = 10, height = 10, dpi = "retina")
 ggsave(plot = errR_plot, filename = paste0(filtpathF, "/errR_plot.png"), 
        width = 10, height = 10, dpi = "retina")
+
+# Trial 1 (alter span and weight in loess, enforce montonicity)
+errF_plot1 <- plotErrors(errF_1, nominalQ = TRUE)
+errR_plot1 <-plotErrors(errR_1, nominalQ = TRUE)
+
+saveRDS(errF_plot1, paste0(filtpathF, "/errF_plot1.rds"))
+saveRDS(errR_plot1, paste0(filtpathR, "/errR_plot1.rds"))
+
+ggsave(plot = errF_plot1, filename = paste0(filtpathF, "/errF_plot1.png"), 
+       width = 10, height = 10, dpi = "retina")
+ggsave(plot = errR_plot1, filename = paste0(filtpathR, "/errR_plot1.png"), 
+       width = 10, height = 10, dpi = "retina")
+
+# Trial 2 (only enforce monotonicity - don't change the loess function)
+errF_plot2 <- plotErrors(errF_2, nominalQ = TRUE)
+errR_plot2 <-plotErrors(errR_2, nominalQ = TRUE)
+
+saveRDS(errF_plot2, paste0(filtpathF, "/errF_plot2.rds"))
+saveRDS(errR_plot2, paste0(filtpathR, "/errR_plot2.rds"))
+
+ggsave(plot = errF_plot2, filename = paste0(filtpathF, "/errF_plot2.png"), 
+       width = 10, height = 10, dpi = "retina")
+ggsave(plot = errR_plot2, filename = paste0(filtpathR, "/errR_plot2.png"), 
+       width = 10, height = 10, dpi = "retina")
+
+# Trial 3 (alter loess (weights only) and enforce monotonicity)
+errF_plot3 <- plotErrors(errF_3, nominalQ = TRUE)
+errR_plot3 <-plotErrors(errR_3, nominalQ = TRUE)
+
+saveRDS(errF_plot3, paste0(filtpathF, "/errF_plot3.rds"))
+saveRDS(errR_plot3, paste0(filtpathR, "/errR_plot3.rds"))
+
+ggsave(plot = errF_plot3, filename = paste0(filtpathF, "/errF_plot3.png"), 
+       width = 10, height = 10, dpi = "retina")
+ggsave(plot = errR_plot3, filename = paste0(filtpathR, "/errR_plot3.png"), 
+       width = 10, height = 10, dpi = "retina")
+
+# Trial 4 (alter loess (span, weight, and degree) and enforce monotonicity)
+errF_plot4 <- plotErrors(errF_4, nominalQ = TRUE)
+errR_plot4 <-plotErrors(errR_4, nominalQ = TRUE)
+
+saveRDS(errF_plot4, paste0(filtpathF, "/errF_plot4.rds"))
+saveRDS(errR_plot4, paste0(filtpathR, "/errR_plot4.rds"))
+
+ggsave(plot = errF_plot4, filename = paste0(filtpathF, "/errF_plot4.png"),
+       width = 10, height = 10, dpi = "retina")
+ggsave(plot = errR_plot4, filename = paste0(filtpathR, "/errR_plot4.png"),
+       width = 10, height = 10, dpi = "retina")
 ```
 
-| <span>                                                                                                                                                                                                                                           |
-|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **STOP:** If you are running this on Premise, download the plots generated here (errF\_plot.png and errR\_plot.png) and verify that the error plots look appropriate. If not, adjust the learnErrors() function and re-run this step with slurm. |
-| <span>                                                                                                                                                                                                                                           |
+| <span>                                                                                                                                                                                                                                                                                                                                                          |
+|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **STOP - 04_learn_error_rates_dada2_tutorial_16S.R:** If you are running this on Premise, download the plots generated here (They will be found in the 02_filter/preprocessed_F/filter and 02_filter/preprocessed_R/filter folder) and verify that the error plots look appropriate. If not, adjust the learnErrors() function and re-run this step with slurm. |
+| <span>                                                                                                                                                                                                                                                                                                                                                          |
 
 #### Dereplication, sequence inference, and merging of paired-end reads
 
@@ -663,21 +1098,21 @@ swap `pool = TRUE` with `pool = "pseudo"`
 # same steps, not in loop
 
 # Dereplicate forward reads
-derepF.p <- derepFastq(filtFs)
-names(derepF.p) <- sample.names
+#derepF.p <- derepFastq(filtFs)
+#names(derepF.p) <- sample.names
 # Infer sequences for forward reads
-dadaF.p <- dada(derepF.p, err = errF, multithread = TRUE, pool = TRUE)
-names(dadaF.p) <- sample.names
+#dadaF.p <- dada(derepF.p, err = errF, multithread = TRUE, pool = TRUE)
+#names(dadaF.p) <- sample.names
 
 # Dereplicate reverse reads
-derepR.p <- derepFastq(filtRs)
-names(derepR.p) <- sample.names
+#derepR.p <- derepFastq(filtRs)
+#names(derepR.p) <- sample.names
 # Infer sequences for reverse reads
-dadaR.p <- dada(derepR.p, err = errR, multithread = TRUE, pool = TRUE)
-names(dadaR.p) <- sample.names
+#dadaR.p <- dada(derepR.p, err = errR, multithread = TRUE, pool = TRUE)
+#names(dadaR.p) <- sample.names
 
 # Merge reads together
-mergers <- mergePairs(dadaF.p, derepF.p, dadaR.p, derepR.p)
+#mergers <- mergePairs(dadaF.p, derepF.p, dadaR.p, derepR.p)
 ```
 
 #### Construct sequence table
@@ -693,10 +1128,10 @@ dir.create(table.fp)
 saveRDS(seqtab, paste0(table.fp, "/seqtab.rds"))
 ```
 
-| <span>                                                                                                                                                                  |
-|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **STOP:** If you are running this on Premise, decide if you want the pooled or not-pooled option delete the options you don’t want before running this step with slurm. |
-| <span>                                                                                                                                                                  |
+| <span>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **STOP - 05_infer_ASVs_dada2_tutorial_16S.R:** If you are running this on Premise, decide if you want the pooled or not-pooled option delete the options you don’t want before running this step with slurm. Also make sure to change the error rate model being used if you are not using the default errR and errF. You can change it in the `dada()` function option `err`. Make sure that you change it for both the forward and reverse reads. (You will likely need to change it if you have NovaSeq data.) |
+| <span>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
 
 ### 3. REMOVE Chimeras and ASSIGN Taxonomy
 
@@ -710,20 +1145,20 @@ combining left-hand and right-hand segments from two more abundant
 database to train a classifer-algorithm to assign names to our sequence
 variants.
 
-For the tutorial 16S, we will assign taxonomy with Silva db v132, but
+For the tutorial 16S, we will assign taxonomy with Silva db v138, but
 you might want to use other databases for your data. Below are paths to
 some of the databases we use often. (If you are on your own computer you
 can download the database you need from this link
-<https://benjjneb.github.io/dada2/training.html>:)
+<https://benjjneb.github.io/dada2/training.html>):
 
 -   16S bacteria and archaea (SILVA db):
-    /db\_files/dada2/silva\_nr\_v132\_train\_set.fa
+    `/mnt/home/ernakovich/shared/db_files/dada2/silva_nr99_v138_train_set.fa`
 
 -   ITS fungi (UNITE db):
-    /db\_files/dada2/sh\_general\_release\_dynamic\_02.02.2019.fasta
+    `/mnt/home/ernakovich/shared/db_files/dada2/UNITE_sh_general_release_10.05.2021/sh_general_release_dynamic_10.05.2021.fasta`
 
 -   18S protists (PR2 db):
-    /db\_files/dada2/pr2\_version\_4.11.1\_dada2.fasta
+    `/mnt/home/ernakovich/shared/db_files/dada2/pr2_version_4.14.0_SSU_dada2.fasta`
 
 ``` r
 # Read in RDS 
@@ -736,7 +1171,7 @@ seqtab.nochim <- removeBimeraDenovo(st.all, method="consensus", multithread=TRUE
 100*sum(seqtab.nochim)/sum(seqtab)
 
 # Assign taxonomy
-tax <- assignTaxonomy(seqtab.nochim, "/db_files/dada2/silva_nr_v132_train_set.fa", tryRC = TRUE,
+tax <- assignTaxonomy(seqtab.nochim, "/mnt/home/ernakovich/shared/db_files/dada2/silva_nr99_v138_train_set.fa", tryRC = TRUE,
                       multithread=TRUE)
 
 # Write results to disk
@@ -817,11 +1252,11 @@ write.table(tax, file = paste0(table.fp, "/tax_final.txt"),
 
 ### Summary of output files:
 
-1.  seqtab\_final.txt - A tab-delimited sequence-by-sample (i.e. OTU)
+1.  seqtab_final.txt - A tab-delimited sequence-by-sample (i.e. OTU)
     table
-2.  tax\_final.txt - a tab-demilimited file showing the relationship
+2.  tax_final.txt - a tab-demlimited file showing the relationship
     between ASVs, ASV IDs, and their taxonomy
-3.  seqtab\_wTax\_mctoolsr.txt - a tab-delimited file with ASVs as rows,
+3.  seqtab_wTax_mctoolsr.txt - a tab-delimited file with ASVs as rows,
     samples as columns and the final column showing the taxonomy of the
     ASV ID
 4.  repset.fasta - a fasta file with the representative sequence of each
@@ -919,22 +1354,29 @@ track_plot
 saveRDS(track, paste0(project.fp, "/tracking_reads.rds"))
 saveRDS(track_pct, paste0(project.fp, "/tracking_reads_percentage.rds"))
 saveRDS(track_plot, paste0(project.fp, "/tracking_reads_summary_plot.rds"))
+ggsave(plot = track_plot, filename = paste0(project.fp, "/tracking_reads_summary_plot.png"), width = 10, height = 10, dpi = "retina")
 ```
 
-| <span>                                                                                                                                   |
-|:-----------------------------------------------------------------------------------------------------------------------------------------|
-| **STOP:** If you are running this on Premise, make sure that you are using the appropriate database before running this step with slurm. |
-| <span>                                                                                                                                   |
+| <span>                                                                                                                                                                                             |
+|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **STOP - 06_remove_chimeras_assign_taxonomy_dada2_tutorial_16S.R:** If you are running this on Premise, make sure that you are using the appropriate database before running this step with slurm. |
+| <span>                                                                                                                                                                                             |
 
 ## Next Steps
 
 You can now transfer over the output files onto your local computer. The
 table and taxonomy can be read into R with ‘mctoolsr’ package or another
-R package of your choosing. \#\#\# Post-pipeline considerations After
-following this pipeline, you will need to think about the following in
-downstream applications:
+R package of your choosing.
+
+### Post-pipeline considerations
+
+After following this pipeline, you will need to think about the
+following in downstream applications:
 
 1.  Remove mitochondrial and chloroplast sequences
 2.  Remove reads assigned as eukaryotes
-3.  Remove reads that are unassigned at domain level
+3.  Remove reads that are unassigned at domain level (also consider
+    removing those unassigned at phylum level)
 4.  Normalize or rarefy your ASV table
+
+Enjoy your data!

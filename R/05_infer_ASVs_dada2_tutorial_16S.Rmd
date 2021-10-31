@@ -80,21 +80,21 @@ alternative: swap ```pool = TRUE``` with ```pool = "pseudo"```
 # same steps, not in loop
 
 # Dereplicate forward reads
-derepF.p <- derepFastq(filtFs)
-names(derepF.p) <- sample.names
+#derepF.p <- derepFastq(filtFs)
+#names(derepF.p) <- sample.names
 # Infer sequences for forward reads
-dadaF.p <- dada(derepF.p, err = errF, multithread = TRUE, pool = TRUE)
-names(dadaF.p) <- sample.names
+#dadaF.p <- dada(derepF.p, err = errF, multithread = TRUE, pool = TRUE)
+#names(dadaF.p) <- sample.names
 
 # Dereplicate reverse reads
-derepR.p <- derepFastq(filtRs)
-names(derepR.p) <- sample.names
+#derepR.p <- derepFastq(filtRs)
+#names(derepR.p) <- sample.names
 # Infer sequences for reverse reads
-dadaR.p <- dada(derepR.p, err = errR, multithread = TRUE, pool = TRUE)
-names(dadaR.p) <- sample.names
+#dadaR.p <- dada(derepR.p, err = errR, multithread = TRUE, pool = TRUE)
+#names(dadaR.p) <- sample.names
 
 # Merge reads together
-mergers <- mergePairs(dadaF.p, derepF.p, dadaR.p, derepR.p)
+#mergers <- mergePairs(dadaF.p, derepF.p, dadaR.p, derepR.p)
 ````
 
 #### Construct sequence table
@@ -110,7 +110,7 @@ saveRDS(seqtab, paste0(table.fp, "/seqtab.rds"))
 
 | <span> |
 | :--- |
-| **STOP:** If you are running this on Premise, decide if you want the pooled or not-pooled option delete  the options you don't want before running this step with slurm. |
+| **STOP - 05_infer_ASVs_dada2_tutorial_16S.R:** If you are running this on Premise, decide if you want the pooled or not-pooled option delete the options you don't want before running this step with slurm. Also make sure to change the error rate model being used if you are not using the default errR and errF. You can change it in the ```dada()``` function option ```err```. Make sure that you change it for both the forward and reverse reads. (You will likely need to change it if you have NovaSeq data.) |
 | <span> |
 
 ````{r include=FALSE}

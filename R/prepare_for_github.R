@@ -1,5 +1,8 @@
 # Use this file to prepare for github
 # Convert R files to rmarkdown
+# A note about the "weird" comments in these scripts:
+# Throughout these scripts we use Roxygen comments rather than traditional comments. This allows us to have r scripts that can simultaneously be run on slurm and converted (by this script) into Rmarkdown format for display on github as one long tutorial. You can read more about how these work here: [https://bookdown.org/yihui/rmarkdown-cookbook/spin.html](https://bookdown.org/yihui/rmarkdown-cookbook/spin.html). When possible, try not to change them as it may mess with the formatting or the script's ability to be run both on premise and as an r markdown document. Instead use this script to convert the Rscripts into rmarkdown format to make nice reports. 
+
 r_files <- list.files(pattern = '^.*dada2_tutorial_16S.R$', recursive = T)
 
 rmd_files <- lapply(r_files, function(x) {

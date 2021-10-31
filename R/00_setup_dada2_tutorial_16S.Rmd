@@ -17,37 +17,28 @@ cutadapt <- "cutadapt" # CHANGE ME if not on premise; will probably look somethi
 system2(cutadapt, args = "--version") # Check by running shell command from R
 ```
 
-We will now set up the directories for the script. We'll tell the script where our data is, and 
-where we want to put the outputs of the script. We highly recommend NOT putting outputs of this script
-directly into your home directory, or into this directory. A better idea is to create a new project
-output directory for each project you work on.
+We will now set up the directories for the script. We'll tell the script where our data is, and where we want to put the outputs of the script. We highly recommend NOT putting outputs of this script  directly into your home directory, or into this tutorial directory. A better idea is to create a new project directory to hold the output each project you work on.
 
 
 ```{r }
 # Set path to shared data folder and contents
-data.fp <- "/data/shared/2019_02_20_MicrMethods_tutorial"
+data.fp <- "/mnt/home/ernakovich/shared/dada2_tutorial_data/16S"
 
 # List all files in shared folder to check path
 list.files(data.fp)
 
 # Set file paths for barcodes file, map file, and fastqs
 # Barcodes need to have 'N' on the end of each 12bp sequence for compatability
-map.fp <- file.path(data.fp, "Molecular_Methods_18_515fBC_16S_Mapping_File_SHORT_vFinal_Fierer_10252018.txt")
+#map.fp <- file.path(data.fp, "Molecular_Methods_18_515fBC_16S_Mapping_File_SHORT_vFinal_Fierer_10252018.txt")
 ```
 
-| <span> |
-| :--- | 
-| **NOTE:** idemp relies on having a match in length between the index file and and the barcode sequences. Since the index file usually includes a extra linker basepair (making it 13bp long), you should append the barcode sequences with "N" to make sure each is 13bp long. If you are not sure of the length of index reads, check with the sequencing center. If your index reads are 12bp long, you do NOT need to add an "N". |
-| <span> |
-
-**For ITS Sequences:** Depending on how your sequences were run, your barcodes may need to be reverse-complemented. Here is a link to a handy tool, that can help you reverse complement your barcodes: [http://arep.med.harvard.edu/labgc/adnan/projects/Utilities/revcomp.html](http://arep.med.harvard.edu/labgc/adnan/projects/Utilities/revcomp.html)
-
 Set up file paths in YOUR directory where you want data; 
-you do not need to create the subdirectories but they are nice to have
-for organizational purposes. 
+you do not need to create the sub-directories but they are nice to have for organizational purposes. 
 
 ```{r }
-project.fp <- "/data/cwalsh/MicroMethods_dada2_tutorial" # CHANGE ME to project directory; don't append with a "/"
+project.fp <- "~/Downloads/dada2_tutorial_test" # CHANGE ME to project directory; don't append with a "/"
+
+dir.create(project.fp)
 
 # Set up names of sub directories to stay organized
 preprocess.fp <- file.path(project.fp, "01_preprocess")
@@ -59,11 +50,11 @@ table.fp <- file.path(project.fp, "03_tabletax")
 
 | <span> |
 | :--- |
-| **STOP:** If you are running this on Premise, open up the 00_setup_dada2_tutorial_16S.R script with nano (or your favorite terminal text editor) and adjust the variables above appropriately. |
+| **STOP - 00_setup_dada2_tutorial_16S.R:** If you are running this on Premise, open up the 00_setup_dada2_tutorial_16S.R script with nano (or your favorite terminal text editor) and adjust the filepaths above appropriately. |
 | <span> |
 
 ```{r include=FALSE}
-# this is to save the R environment if you are running the pipeline in pieces with slurm
+# this is to save the R environment if you are running the pipeline in pieces with slurm, you can safely either run or ignore this line if you are running on your own computer
 save.image(file = "dada2_ernakovich_Renv.RData")
 ```
 

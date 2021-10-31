@@ -51,9 +51,9 @@ filterAndTrim(fnFs, fnFs.filtN, fnRs, fnRs.filtN, maxN = 0, multithread = TRUE)
 #'
 
 #' #### Prepare the primers sequences and custom functions for analyzing the results from cutadapt
-#' Assign the primers you used to "FWD" and "REV" below. Note primers should be not be reverse complemented ahead of time. Our tutorial data uses 515f and 806br those are the primers below. Change if you sequenced with other primers.
+#' Assign the primers you used to "FWD" and "REV" below. Note primers should be not be reverse complemented ahead of time. Our tutorial data uses 515f and 926r those are the primers below. Change if you sequenced with other primers.
 #' 
-#' **For ITS data:** ```CTTGGTCATTTAGAGGAAGTAA``` is the ITS forward primer sequence (ITS1F) and ```GCTGCGTTCTTCATCGATGC``` is ITS reverse primer sequence (ITS2)
+#' **For ITS data:** ```CTTGGTCATTTAGAGGAAGTAA``` is the ITS forward primer sequence (ITS1F) and ```GCTGCGTTCTTCATCGATGC``` is ITS reverse primer sequence (ITS2). Using cutadapt to remove these primers will allow us to retain ITS sequences of variable biological length. See the dada2 creators' ITS tutorial for more details.
 
 # Set up the primer sequences to pass along to cutadapt
 FWD <- "GTGYCAGCMGCCGCGGTAA"  ## CHANGE ME # this is 515f
@@ -122,7 +122,7 @@ rbind(FWD.ForwardReads = sapply(FWD.orients, primerHits, fn = fnFs.cut[[1]]),
 
 #' | <span> |
 #' | :--- |
-#' | **STOP:** If you are running this on Premise, open up the 01_pre-process_dada2_tutorial_16S.R script with nano (or your favorite terminal text editor) and adjust the primer sequences (if need be) and check the slurm output to make sure that there are no primers still in your samples. |
+#' | **STOP - 01_pre-process_dada2_tutorial_16S.R:** If you are running this on Premise, open up the 01_pre-process_dada2_tutorial_16S.R script with ```nano``` (or your favorite terminal text editor) and adjust the primer sequences (if need be). After running it, check the slurm output to make sure that there are no primers still in your samples. |
 #' | <span> |
 
 #+ include=FALSE

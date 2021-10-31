@@ -61,7 +61,7 @@ if(length(fastqFs) != length(fastqRs)) stop("Forward and reverse files do not ma
 #' It's important to get a feel for the quality of the data that we are using. To do this, we will plot the quality of some of the samples.
 #' 
 #' *From the dada2 tutorial:*
-#' >In gray-scale is a heat map of the frequency of each quality score at each base position. The median quality score at each position is shown by the green line, and the quartiles of the quality score distribution by the orange lines. The red line shows the scaled proportion of reads that extend to at least that position (this is more useful for other sequencing technologies, as Illumina reads are typically all the same lenghth, hence the flat red line).
+#' >In gray-scale is a heat map of the frequency of each quality score at each base position. The median quality score at each position is shown by the green line, and the quartiles of the quality score distribution by the orange lines. The red line shows the scaled proportion of reads that extend to at least that position (this is more useful for other sequencing technologies, as Illumina reads are typically all the same length, hence the flat red line).
 
 # If the number of samples is 20 or less, plot them all, otherwise, just plot 20 randomly selected samples
 if( length(fastqFs) <= 20) {
@@ -92,7 +92,7 @@ ggsave(plot = rev_qual_plots, filename = paste0(filter.fp, "/rev_qual_plots.png"
        width = 10, height = 10, dpi = "retina")
 #' | <span> |
 #' | :--- |
-#' | **STOP:** If you are running this on Premise, download the plots generated here (fwd_qual_plots.png and rev_qual_plots.png) use them to make decisions for your filtering choices in the next step. |
+#' | **STOP - 02_check_quality_dada2_tutorial.R:** If you are running this on Premise, run this script and download the plots generated here (fwd_qual_plots.png and rev_qual_plots.png). These are the pre-filtering plots, you should use them to make decisions for your filtering choices in the next step. |
 #' | <span> |
 
 #+ include=FALSE

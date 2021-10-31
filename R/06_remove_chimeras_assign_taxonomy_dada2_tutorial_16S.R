@@ -32,13 +32,13 @@ load(file = "dada2_ernakovich_Renv.RData")
 #' left-hand and right-hand segments from two more abundant "parent" sequences. After removing chimeras, we will use a taxonomy database to train a classifer-algorithm
 #' to assign names to our sequence variants.
 #' 
-#' For the tutorial 16S, we will assign taxonomy with Silva db v132, but you might want to use other databases for your data. Below are paths to some of the databases we use often. (If you are on your own computer you can download the database you need from this link [https://benjjneb.github.io/dada2/training.html](https://benjjneb.github.io/dada2/training.html):)
+#' For the tutorial 16S, we will assign taxonomy with Silva db v138, but you might want to use other databases for your data. Below are paths to some of the databases we use often. (If you are on your own computer you can download the database you need from this link [https://benjjneb.github.io/dada2/training.html](https://benjjneb.github.io/dada2/training.html)):
 #' 
-#'   - 16S bacteria and archaea (SILVA db): /mnt/home/ernakovich/shared/db_files/dada2/silva_nr99_v138_train_set.fa
+#'   - 16S bacteria and archaea (SILVA db): ```/mnt/home/ernakovich/shared/db_files/dada2/silva_nr99_v138_train_set.fa```
 #' 
-#'   - ITS fungi (UNITE db): /mnt/home/ernakovich/shared/db_files/dada2/UNITE_sh_general_release_10.05.2021/sh_general_release_dynamic_10.05.2021.fasta
+#'   - ITS fungi (UNITE db): ```/mnt/home/ernakovich/shared/db_files/dada2/UNITE_sh_general_release_10.05.2021/sh_general_release_dynamic_10.05.2021.fasta```
 #' 
-#'   - 18S protists (PR2 db): /mnt/home/ernakovich/shared/db_files/dada2/pr2_version_4.14.0_SSU_dada2.fasta
+#'   - 18S protists (PR2 db): ```/mnt/home/ernakovich/shared/db_files/dada2/pr2_version_4.14.0_SSU_dada2.fasta```
 #' 
 
 # Read in RDS 
@@ -128,7 +128,7 @@ write.table(tax, file = paste0(table.fp, "/tax_final.txt"),
 
 #' ### Summary of output files:
 #' 1. seqtab_final.txt - A tab-delimited sequence-by-sample (i.e. OTU) table 
-#' 2. tax_final.txt - a tab-demilimited file showing the relationship between ASVs, ASV IDs, and their taxonomy 
+#' 2. tax_final.txt - a tab-demlimited file showing the relationship between ASVs, ASV IDs, and their taxonomy 
 #' 3. seqtab_wTax_mctoolsr.txt - a tab-delimited file with ASVs as rows, samples as columns and the final column showing the taxonomy of the ASV ID 
 #' 4. repset.fasta - a fasta file with the representative sequence of each ASV. Fasta headers are the ASV ID and taxonomy string.  
 #'
@@ -217,23 +217,27 @@ track_plot
 saveRDS(track, paste0(project.fp, "/tracking_reads.rds"))
 saveRDS(track_pct, paste0(project.fp, "/tracking_reads_percentage.rds"))
 saveRDS(track_plot, paste0(project.fp, "/tracking_reads_summary_plot.rds"))
+ggsave(plot = track_plot, filename = paste0(project.fp, "/tracking_reads_summary_plot.png"), width = 10, height = 10, dpi = "retina")
 
 #' | <span> |
 #' | :--- |
-#' | **STOP:** If you are running this on Premise, make sure that you are using the appropriate database before running this step with slurm. |
+#' | **STOP - 06_remove_chimeras_assign_taxonomy_dada2_tutorial_16S.R:** If you are running this on Premise, make sure that you are using the appropriate database before running this step with slurm. |
 #' | <span> |
 #' 
 #' ## Next Steps
 #' You can now transfer over the output files onto your local computer. 
 #' The table and taxonomy can be read into R with 'mctoolsr' package or another R package of your choosing. 
-
-#' ### Post-pipeline considerations
+#' 
+#' ### Post-pipeline considerations  
 #' After following this pipeline, you will need to think about the following in downstream applications:
 #' 
 #' 1. Remove mitochondrial and chloroplast sequences
 #' 2. Remove reads assigned as eukaryotes
-#' 3. Remove reads that are unassigned at domain level
+#' 3. Remove reads that are unassigned at domain level (also consider removing those unassigned at phylum level)
 #' 4. Normalize or rarefy your ASV table
+#' 
+#' Enjoy your data!
+#' 
 #+ include=FALSE
 # this is to save the R environment if you are running the pipeline in pieces with slurm
 save.image(file = "dada2_ernakovich_Renv.RData")
