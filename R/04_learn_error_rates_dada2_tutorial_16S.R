@@ -1,7 +1,7 @@
 #' ### 2. INFER sequence variants
 #+ include=FALSE
 # some setup options for outputing markdown files; feel free to ignore these
-knitr::opts_chunk$set(eval = FALSE, 
+knitr::opts_chunk$set(eval = TRUE, 
                       include = TRUE, 
                       warning = FALSE, 
                       message = FALSE,

@@ -5,6 +5,19 @@
 
 r_files <- list.files(pattern = '^.*dada2_tutorial_16S.R$', recursive = T)
 
+# Make sure that any eval options are TRUE in individual files:
+sed <- "sed" 
+
+sed_eval_TRUE <- paste("-i", "'s/knitr::opts_chunk$set(eval = FALSE/knitr::opts_chunk$set(eval = TRUE/g'",
+                 r_files)
+
+lapply(sed_eval_TRUE, function(x) {system2(sed, args = x)}) # apply sed command to each of the r_files
+
+sed_eval_FALSE <- paste("-i", "'s/knitr::opts_chunk$set(eval = TRUE/knitr::opts_chunk$set(eval = FALSE/g'",
+                       r_files)
+
+lapply(sed_eval_FALSE, function(x) {system2(sed, args = x)}) # apply sed command to each of the r_files
+
 rmd_files <- lapply(r_files, function(x) {
   o = knitr::spin(x, knit = FALSE)
   return(o)})
