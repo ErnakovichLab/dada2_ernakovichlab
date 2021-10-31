@@ -101,7 +101,7 @@ saveRDS(seqtab, paste0(table.fp, "/seqtab.rds"))
 
 #' | <span> |
 #' | :--- |
-#' | **STOP:** If you are running this on Premise, decide if you want the pooled or not-pooled option delete  the options you don't want before running this step with slurm. |
+#' | **STOP:** If you are running this on Premise, decide if you want the pooled or not-pooled option delete the options you don't want before running this step with slurm. Also make sure to change the error rate model being used if you are not using the default errR and errF. (You will likely need to change it if you have NovaSeq data.) |
 #' | <span> |
 
 #+ include=FALSE
