@@ -33,8 +33,8 @@
 
 ## Normal Slurm options
 ## SBATCH -p shared
-#SBATCH --job-name="06_remove_chimeras_assign_taxonomy_dada2"
-#SBATCH --output="06_remove_chimeras_assign_taxonomy_dada2_%j.output"
+#SBATCH --job-name="07_generate_github_report_dada2"
+#SBATCH --output="07_generate_github_report_dada2_%j.output"
 
 ## Load the appropriate modules first.  Linuxbrew/colsa contains most
 ## programs, though some are contained within the anaconda/colsa
