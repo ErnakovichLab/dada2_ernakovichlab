@@ -14,7 +14,6 @@ library(plotly); packageVersion("plotly") # enables creation of interactive grap
 cutadapt <- "cutadapt" # CHANGE ME if not on premise; will probably look something like this: "/usr/local/Python27/bin/cutadapt"
 system2(cutadapt, args = "--version") # Check by running shell command from R
 
-
 #' We will now set up the directories for the script. We'll tell the script where our data is, and where we want to put the outputs of the script. We highly recommend NOT putting outputs of this script  directly into your home directory, or into this tutorial directory. A better idea is to create a new project directory to hold the output each project you work on.
 #' 
 
