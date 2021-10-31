@@ -33,7 +33,7 @@ load(file = "dada2_ernakovich_Renv.RData")
 #' error rates, dada2 will infer the sequence variants (OTUs) in our data. Finally, 
 #' we will merge the coresponding forward and reverse reads to create a list of the 
 #' fully denoised sequences and create a sequence table from the result.
-
+#'
 #' #### Housekeeping step - set up and verify the file names for the output: 
 #'   
 # File parsing
