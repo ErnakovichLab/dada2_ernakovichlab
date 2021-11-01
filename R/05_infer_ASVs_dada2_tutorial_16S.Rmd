@@ -2,7 +2,7 @@
 
 ````{r include=FALSE}
 # some setup options for outputing markdown files; feel free to ignore these
-knitr::opts_chunk$set(eval = FALSE, 
+knitr::opts_chunk$set(eval = TRUE, 
                       include = TRUE, 
                       warning = FALSE, 
                       message = FALSE,
@@ -57,12 +57,12 @@ for(sam in sample.names) {
   # Dereplicate forward reads
   derepF <- derepFastq(filtFs[[sam]])
   # Infer sequences for forward reads
-  dadaF <- dada(derepF, err = errF, multithread = TRUE)
+  dadaF <- dada(derepF, err = errF_4, multithread = TRUE)
   ddF[[sam]] <- dadaF
   # Dereplicate reverse reads
   derepR <- derepFastq(filtRs[[sam]])
   # Infer sequences for reverse reads
-  dadaR <- dada(derepR, err = errR, multithread = TRUE)
+  dadaR <- dada(derepR, err = errR_4, multithread = TRUE)
   ddR[[sam]] <- dadaR
   # Merge reads together
   merger <- mergePairs(ddF[[sam]], derepF, ddR[[sam]], derepR)

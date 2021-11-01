@@ -2,7 +2,7 @@
 
 ````{r include=FALSE}
 # some setup options for outputing markdown files; feel free to ignore these
-knitr::opts_chunk$set(eval = FALSE, 
+knitr::opts_chunk$set(eval = TRUE, 
                       include = TRUE, 
                       warning = FALSE, 
                       message = FALSE,
@@ -49,9 +49,9 @@ filtFs <- list.files(filtpathF, pattern="fastq.gz", full.names = TRUE)
 filtRs <- list.files(filtpathR, pattern="fastq.gz", full.names = TRUE)
 
 # Sample names in order
-sample.names <- substring(basename(filtFs), regexpr("_", basename(filtFs)) + 1) # doesn't drop fastq.gz
+sample.names <- basename(filtFs) # doesn't drop fastq.gz
 sample.names <- gsub("_R1_001.fastq.gz", "", sample.names)
-sample.namesR <- substring(basename(filtRs), regexpr("_", basename(filtRs)) + 1) # doesn't drop fastq.gz
+sample.namesR <- basename(filtRs) # doesn't drop fastq.gz 
 sample.namesR <- gsub("_R2_001.fastq.gz", "", sample.namesR)
 
 # Double check
@@ -424,17 +424,23 @@ If you have NovaSeq data, you will notice a characteristic dip in the default er
 errF_plot <- plotErrors(errF, nominalQ = TRUE)
 errR_plot <- plotErrors(errR, nominalQ = TRUE)
 
+errF_plot
+errR_plot
+
 saveRDS(errF_plot, paste0(filtpathF, "/errF_plot.rds"))
 saveRDS(errR_plot, paste0(filtpathR, "/errR_plot.rds"))
 
 ggsave(plot = errF_plot, filename = paste0(filtpathF, "/errF_plot.png"), 
        width = 10, height = 10, dpi = "retina")
-ggsave(plot = errR_plot, filename = paste0(filtpathF, "/errR_plot.png"), 
+ggsave(plot = errR_plot, filename = paste0(filtpathR, "/errR_plot.png"), 
        width = 10, height = 10, dpi = "retina")
 
 # Trial 1 (alter span and weight in loess, enforce montonicity)
 errF_plot1 <- plotErrors(errF_1, nominalQ = TRUE)
 errR_plot1 <-plotErrors(errR_1, nominalQ = TRUE)
+
+errF_plot1
+errR_plot1
 
 saveRDS(errF_plot1, paste0(filtpathF, "/errF_plot1.rds"))
 saveRDS(errR_plot1, paste0(filtpathR, "/errR_plot1.rds"))
@@ -448,6 +454,9 @@ ggsave(plot = errR_plot1, filename = paste0(filtpathR, "/errR_plot1.png"),
 errF_plot2 <- plotErrors(errF_2, nominalQ = TRUE)
 errR_plot2 <-plotErrors(errR_2, nominalQ = TRUE)
 
+errF_plot2
+errR_plot2
+
 saveRDS(errF_plot2, paste0(filtpathF, "/errF_plot2.rds"))
 saveRDS(errR_plot2, paste0(filtpathR, "/errR_plot2.rds"))
 
@@ -460,6 +469,9 @@ ggsave(plot = errR_plot2, filename = paste0(filtpathR, "/errR_plot2.png"),
 errF_plot3 <- plotErrors(errF_3, nominalQ = TRUE)
 errR_plot3 <-plotErrors(errR_3, nominalQ = TRUE)
 
+errF_plot3
+errR_plot3
+
 saveRDS(errF_plot3, paste0(filtpathF, "/errF_plot3.rds"))
 saveRDS(errR_plot3, paste0(filtpathR, "/errR_plot3.rds"))
 
@@ -471,6 +483,9 @@ ggsave(plot = errR_plot3, filename = paste0(filtpathR, "/errR_plot3.png"),
 # Trial 4 (alter loess (span, weight, and degree) and enforce monotonicity)
 errF_plot4 <- plotErrors(errF_4, nominalQ = TRUE)
 errR_plot4 <-plotErrors(errR_4, nominalQ = TRUE)
+
+errF_plot4
+errR_plot4
 
 saveRDS(errF_plot4, paste0(filtpathF, "/errF_plot4.rds"))
 saveRDS(errR_plot4, paste0(filtpathR, "/errR_plot4.rds"))
