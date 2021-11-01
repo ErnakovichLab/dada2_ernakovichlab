@@ -1,7 +1,7 @@
 #' ### 2. INFER sequence variants
 #+ include=FALSE
 # some setup options for outputing markdown files; feel free to ignore these
-knitr::opts_chunk$set(eval = FALSE, 
+knitr::opts_chunk$set(eval = TRUE, 
                       include = TRUE, 
                       warning = FALSE, 
                       message = FALSE,
@@ -78,7 +78,7 @@ saveRDS(errR, paste0(filtpathR, "/errR.rds"))
 #' 
 #' **Option 1** from JacobRPrice alter loess arguments (weights and span and enforce monotonicity)  
 #' [https://github.com/benjjneb/dada2/issues/1307](https://github.com/benjjneb/dada2/issues/1307)
-loessErrfun_mod_1 <- function(trans) {
+loessErrfun_mod1 <- function(trans) {
   qq <- as.numeric(colnames(trans))
   est <- matrix(0, nrow=0, ncol=length(qq))
   for(nti in c("A","C","G","T")) {
