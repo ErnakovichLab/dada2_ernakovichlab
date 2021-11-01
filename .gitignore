@@ -6,4 +6,4 @@ dada2_ernakovichlab.Rproj
 slurm/*.output
 slurm/*.RData
 slurm/*.pdf
-R/*.Rdata
+R/*.RData
