@@ -186,12 +186,19 @@ Load DADA2 and required packages
 
 ``` r
 library(dada2); packageVersion("dada2") # the dada2 pipeline
+## [1] '1.20.0'
 library(ShortRead); packageVersion("ShortRead") # dada2 depends on this
+## [1] '1.50.0'
 library(dplyr); packageVersion("dplyr") # for manipulating data
+## [1] '1.0.7'
 library(tidyr); packageVersion("tidyr") # for creating the final graph at the end of the pipeline
+## [1] '1.1.4'
 library(Hmisc); packageVersion("Hmisc") # for creating the final graph at the end of the pipeline
+## [1] '4.6.0'
 library(ggplot2); packageVersion("ggplot2") # for creating the final graph at the end of the pipeline
+## [1] '3.3.5'
 library(plotly); packageVersion("plotly") # enables creation of interactive graphs, especially helpful for quality plots
+## [1] '4.10.0'
 
 # Set up pathway to cutadapt (primer trimming tool) and test
 cutadapt <- "cutadapt" # CHANGE ME if not on premise; will probably look something like this: "/usr/local/Python27/bin/cutadapt"
@@ -211,6 +218,20 @@ data.fp <- "/mnt/home/ernakovich/shared/dada2_tutorial_data/16S"
 
 # List all files in shared folder to check path
 list.files(data.fp)
+##  [1] "1aT_9-8_16S_S6_L002_R1_001.fastq.gz" 
+##  [2] "1aT_9-8_16S_S6_L002_R2_001.fastq.gz" 
+##  [3] "1b_9-17_16S_S2_L002_R1_001.fastq.gz" 
+##  [4] "1b_9-17_16S_S2_L002_R2_001.fastq.gz" 
+##  [5] "1c_9-17_16S_S3_L002_R1_001.fastq.gz" 
+##  [6] "1c_9-17_16S_S3_L002_R2_001.fastq.gz" 
+##  [7] "1cT_9-3_16S_S8_L002_R1_001.fastq.gz" 
+##  [8] "1cT_9-3_16S_S8_L002_R2_001.fastq.gz" 
+##  [9] "1d_9-17_16S_S4_L002_R1_001.fastq.gz" 
+## [10] "1d_9-17_16S_S4_L002_R2_001.fastq.gz" 
+## [11] "1dT_9-3_16S_S9_L002_R1_001.fastq.gz" 
+## [12] "1dT_9-3_16S_S9_L002_R2_001.fastq.gz" 
+## [13] "1eT_9-3_16S_S10_L002_R1_001.fastq.gz"
+## [14] "1eT_9-3_16S_S10_L002_R2_001.fastq.gz"
 
 # Set file paths for barcodes file, map file, and fastqs
 # Barcodes need to have 'N' on the end of each 12bp sequence for compatability
@@ -222,7 +243,7 @@ to create the sub-directories but they are nice to have for
 organizational purposes.
 
 ``` r
-project.fp <- "~/Downloads/dada2_tutorial_test" # CHANGE ME to project directory; don't append with a "/"
+project.fp <- "~/dada2_tutorial_test" # CHANGE ME to project directory; don't append with a "/"
 
 dir.create(project.fp)
 
@@ -301,6 +322,10 @@ allOrients <- function(primer) {
 FWD.orients <- allOrients(FWD)
 REV.orients <- allOrients(REV)
 FWD.orients
+##               Forward            Complement               Reverse 
+## "GTGYCAGCMGCCGCGGTAA" "CACRGTCGKCGGCGCCATT" "AATGGCGCCGMCGACYGTG" 
+##               RevComp 
+## "TTACCGCGGCKGCTGRCAC"
 
 # Write a function that counts how many time primers appear in a sequence
 primerHits <- function(primer, fn) {
@@ -319,6 +344,11 @@ rbind(FWD.ForwardReads = sapply(FWD.orients, primerHits, fn = fnFs.filtN[[1]]),
       FWD.ReverseReads = sapply(FWD.orients, primerHits, fn = fnRs.filtN[[1]]), 
       REV.ForwardReads = sapply(REV.orients, primerHits, fn = fnFs.filtN[[1]]), 
       REV.ReverseReads = sapply(REV.orients, primerHits, fn = fnRs.filtN[[1]]))
+##                  Forward Complement Reverse RevComp
+## FWD.ForwardReads  248774          0       0       0
+## FWD.ReverseReads       0          0       0      59
+## REV.ForwardReads       0          0       0      60
+## REV.ReverseReads  245351          0       0       0
 ```
 
 #### Remove primers with cutadapt and assess the output
@@ -353,6 +383,11 @@ rbind(FWD.ForwardReads = sapply(FWD.orients, primerHits, fn = fnFs.cut[[1]]),
       FWD.ReverseReads = sapply(FWD.orients, primerHits, fn = fnRs.cut[[1]]), 
       REV.ForwardReads = sapply(REV.orients, primerHits, fn = fnFs.cut[[1]]), 
       REV.ReverseReads = sapply(REV.orients, primerHits, fn = fnRs.cut[[1]]))
+##                  Forward Complement Reverse RevComp
+## FWD.ForwardReads       0          0       0       0
+## FWD.ReverseReads       0          0       0       0
+## REV.ForwardReads       0          0       0       0
+## REV.ReverseReads       0          0       0       0
 ```
 
 | <span>                                                                                                                                                                                                                                                                                                                                              |
@@ -374,7 +409,9 @@ dir.create(subR.fp)
 fnFs.Q <- file.path(subF.fp,  basename(fnFs)) 
 fnRs.Q <- file.path(subR.fp,  basename(fnRs))
 file.copy(from = fnFs.cut, to = fnFs.Q)
+## [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 file.copy(from = fnRs.cut, to = fnRs.Q)
+## [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 
 # File parsing; create file names and make sure that forward and reverse files match
 filtpathF <- file.path(subF.fp, "filtered") # files go into preprocessed_F/filtered/
@@ -439,8 +476,15 @@ if( length(fastqFs) <= 20) {
 }
 
 fwd_qual_plots
+```
+
+<img src="dada2_tutorial_16S_all_files/figure-gfm/unnamed-chunk-17-1.png" width="98%" height="98%" />
+
+``` r
 rev_qual_plots
 ```
+
+<img src="dada2_tutorial_16S_all_files/figure-gfm/unnamed-chunk-17-2.png" width="98%" height="98%" />
 
 ``` r
 # Or, to make these quality plots interactive, just call the plots through plotly
@@ -479,6 +523,13 @@ filt_out <- filterAndTrim(fwd=file.path(subF.fp, fastqFs), filt=file.path(filtpa
 
 # look at how many reads were kept
 head(filt_out)
+##                                     reads.in reads.out
+## 1aT_9-8_16S_S6_L002_R1_001.fastq.gz   257533    204288
+## 1b_9-17_16S_S2_L002_R1_001.fastq.gz   251087    196135
+## 1c_9-17_16S_S3_L002_R1_001.fastq.gz   139919    109428
+## 1cT_9-3_16S_S8_L002_R1_001.fastq.gz   225774    176224
+## 1d_9-17_16S_S4_L002_R1_001.fastq.gz   244042    196681
+## 1dT_9-3_16S_S9_L002_R1_001.fastq.gz   289003    228879
 
 # summary of samples in filt_out by percentage
 filt_out %>% 
@@ -490,6 +541,8 @@ filt_out %>%
             median_remaining = paste0(round(median(percent_kept), 2), "%"),
             mean_remaining = paste0(round(mean(percent_kept), 2), "%"), 
             max_remaining = paste0(round(max(percent_kept), 2), "%"))
+##   min_remaining median_remaining mean_remaining max_remaining
+## 1        72.97%           78.21%         78.07%        80.59%
 ```
 
 Plot the quality of the filtered fastq files.
@@ -515,8 +568,17 @@ if( length(fastqFs) <= 20) {
 }
 
 fwd_qual_plots_filt
-rev_qual_plots_filt
+```
 
+<img src="dada2_tutorial_16S_all_files/figure-gfm/unnamed-chunk-23-1.png" width="98%" height="98%" />
+
+``` r
+rev_qual_plots_filt
+```
+
+<img src="dada2_tutorial_16S_all_files/figure-gfm/unnamed-chunk-23-2.png" width="98%" height="98%" />
+
+``` r
 # write plots to disk
 saveRDS(fwd_qual_plots_filt, paste0(filter.fp, "/fwd_qual_plots_filt.rds"))
 saveRDS(rev_qual_plots_filt, paste0(filter.fp, "/rev_qual_plots_filt.rds"))
@@ -542,8 +604,8 @@ sequences”. Then, using the dereplicated data and error rates, dada2
 will infer the sequence variants (OTUs) in our data. Finally, we will
 merge the coresponding forward and reverse reads to create a list of the
 fully denoised sequences and create a sequence table from the result.
-#### Housekeeping step - set up and verify the file names for the
-output:
+
+#### Housekeeping step - set up and verify the file names for the output:
 
 ``` r
 # File parsing
@@ -551,9 +613,9 @@ filtFs <- list.files(filtpathF, pattern="fastq.gz", full.names = TRUE)
 filtRs <- list.files(filtpathR, pattern="fastq.gz", full.names = TRUE)
 
 # Sample names in order
-sample.names <- substring(basename(filtFs), regexpr("_", basename(filtFs)) + 1) # doesn't drop fastq.gz
+sample.names <- basename(filtFs) # doesn't drop fastq.gz
 sample.names <- gsub("_R1_001.fastq.gz", "", sample.names)
-sample.namesR <- substring(basename(filtRs), regexpr("_", basename(filtRs)) + 1) # doesn't drop fastq.gz
+sample.namesR <- basename(filtRs) # doesn't drop fastq.gz 
 sample.namesR <- gsub("_R2_001.fastq.gz", "", sample.namesR)
 
 # Double check
@@ -603,9 +665,11 @@ set.seed(100) # set seed to ensure that randomized steps are replicatable
 ``` r
 # Learn forward error rates (Notes: randomize default is FALSE)
 errF <- learnErrors(filtFs, nbases = 1e10, multithread = TRUE, randomize = TRUE)
+## 287310600 total bases in 1276936 reads from 7 samples will be used for learning the error rates.
 
 # Learn reverse error rates
 errR <- learnErrors(filtRs, nbases = 1e10, multithread = TRUE, randomize = TRUE)
+## 280925920 total bases in 1276936 reads from 7 samples will be used for learning the error rates.
 
 saveRDS(errF, paste0(filtpathF, "/errF.rds"))
 saveRDS(errR, paste0(filtpathR, "/errR.rds"))
@@ -618,7 +682,7 @@ and enforce monotonicity)
 <https://github.com/benjjneb/dada2/issues/1307>
 
 ``` r
-loessErrfun_mod_1 <- function(trans) {
+loessErrfun_mod1 <- function(trans) {
   qq <- as.numeric(colnames(trans))
   est <- matrix(0, nrow=0, ncol=length(qq))
   for(nti in c("A","C","G","T")) {
@@ -684,6 +748,18 @@ errF_1 <- learnErrors(
   errorEstimationFunction = loessErrfun_mod1,
   verbose = TRUE
 )
+## 287310600 total bases in 1276936 reads from 7 samples will be used for learning the error rates.
+## Initializing error rates to maximum possible estimate.
+## selfConsist step 1 .......
+##    selfConsist step 2
+##    selfConsist step 3
+##    selfConsist step 4
+##    selfConsist step 5
+##    selfConsist step 6
+##    selfConsist step 7
+##    selfConsist step 8
+##    selfConsist step 9
+##    selfConsist step 10
 errR_1 <- learnErrors(
   filtRs,
   multithread = TRUE,
@@ -691,6 +767,18 @@ errR_1 <- learnErrors(
   errorEstimationFunction = loessErrfun_mod1,
   verbose = TRUE
 )
+## 280925920 total bases in 1276936 reads from 7 samples will be used for learning the error rates.
+## Initializing error rates to maximum possible estimate.
+## selfConsist step 1 .......
+##    selfConsist step 2
+##    selfConsist step 3
+##    selfConsist step 4
+##    selfConsist step 5
+##    selfConsist step 6
+##    selfConsist step 7
+##    selfConsist step 8
+##    selfConsist step 9
+##    selfConsist step 10
 ```
 
 **Option 2** enforce monotonicity only.  
@@ -765,6 +853,17 @@ errF_2 <- learnErrors(
   errorEstimationFunction = loessErrfun_mod2,
   verbose = TRUE
 )
+## 287310600 total bases in 1276936 reads from 7 samples will be used for learning the error rates.
+## Initializing error rates to maximum possible estimate.
+## selfConsist step 1 .......
+##    selfConsist step 2
+##    selfConsist step 3
+##    selfConsist step 4
+##    selfConsist step 5
+##    selfConsist step 6
+##    selfConsist step 7
+##    selfConsist step 8
+## Convergence after  8  rounds.
 
 errR_2 <- learnErrors(
   filtRs,
@@ -773,6 +872,16 @@ errR_2 <- learnErrors(
   errorEstimationFunction = loessErrfun_mod2,
   verbose = TRUE
 )
+## 280925920 total bases in 1276936 reads from 7 samples will be used for learning the error rates.
+## Initializing error rates to maximum possible estimate.
+## selfConsist step 1 .......
+##    selfConsist step 2
+##    selfConsist step 3
+##    selfConsist step 4
+##    selfConsist step 5
+##    selfConsist step 6
+##    selfConsist step 7
+## Convergence after  7  rounds.
 ```
 
 **Option 3** alter loess function (weights only) and enforce
@@ -849,6 +958,18 @@ errF_3 <- learnErrors(
   errorEstimationFunction = loessErrfun_mod3,
   verbose = TRUE
 )
+## 287310600 total bases in 1276936 reads from 7 samples will be used for learning the error rates.
+## Initializing error rates to maximum possible estimate.
+## selfConsist step 1 .......
+##    selfConsist step 2
+##    selfConsist step 3
+##    selfConsist step 4
+##    selfConsist step 5
+##    selfConsist step 6
+##    selfConsist step 7
+##    selfConsist step 8
+##    selfConsist step 9
+## Convergence after  9  rounds.
 
 
 # check what this looks like
@@ -859,6 +980,18 @@ errR_3 <- learnErrors(
   errorEstimationFunction = loessErrfun_mod3,
   verbose = TRUE
 )
+## 280925920 total bases in 1276936 reads from 7 samples will be used for learning the error rates.
+## Initializing error rates to maximum possible estimate.
+## selfConsist step 1 .......
+##    selfConsist step 2
+##    selfConsist step 3
+##    selfConsist step 4
+##    selfConsist step 5
+##    selfConsist step 6
+##    selfConsist step 7
+##    selfConsist step 8
+##    selfConsist step 9
+##    selfConsist step 10
 ```
 
 **Option 4** Alter loess function arguments (weights and span and
@@ -933,6 +1066,18 @@ errF_4 <- learnErrors(
   errorEstimationFunction = loessErrfun_mod4,
   verbose = TRUE
 )
+## 287310600 total bases in 1276936 reads from 7 samples will be used for learning the error rates.
+## Initializing error rates to maximum possible estimate.
+## selfConsist step 1 .......
+##    selfConsist step 2
+##    selfConsist step 3
+##    selfConsist step 4
+##    selfConsist step 5
+##    selfConsist step 6
+##    selfConsist step 7
+##    selfConsist step 8
+##    selfConsist step 9
+##    selfConsist step 10
 errR_4 <- learnErrors(
   filtRs,
   multithread = TRUE,
@@ -940,6 +1085,17 @@ errR_4 <- learnErrors(
   errorEstimationFunction = loessErrfun_mod4,
   verbose = TRUE
 )
+## 280925920 total bases in 1276936 reads from 7 samples will be used for learning the error rates.
+## Initializing error rates to maximum possible estimate.
+## selfConsist step 1 .......
+##    selfConsist step 2
+##    selfConsist step 3
+##    selfConsist step 4
+##    selfConsist step 5
+##    selfConsist step 6
+##    selfConsist step 7
+##    selfConsist step 8
+## Convergence after  8  rounds.
 ```
 
 #### Plot Error Rates
@@ -970,18 +1126,42 @@ have some points along 0 on the y-axis.
 errF_plot <- plotErrors(errF, nominalQ = TRUE)
 errR_plot <- plotErrors(errR, nominalQ = TRUE)
 
+errF_plot
+```
+
+<img src="dada2_tutorial_16S_all_files/figure-gfm/unnamed-chunk-34-1.png" width="98%" height="98%" />
+
+``` r
+errR_plot
+```
+
+<img src="dada2_tutorial_16S_all_files/figure-gfm/unnamed-chunk-34-2.png" width="98%" height="98%" />
+
+``` r
 saveRDS(errF_plot, paste0(filtpathF, "/errF_plot.rds"))
 saveRDS(errR_plot, paste0(filtpathR, "/errR_plot.rds"))
 
 ggsave(plot = errF_plot, filename = paste0(filtpathF, "/errF_plot.png"), 
        width = 10, height = 10, dpi = "retina")
-ggsave(plot = errR_plot, filename = paste0(filtpathF, "/errR_plot.png"), 
+ggsave(plot = errR_plot, filename = paste0(filtpathR, "/errR_plot.png"), 
        width = 10, height = 10, dpi = "retina")
 
 # Trial 1 (alter span and weight in loess, enforce montonicity)
 errF_plot1 <- plotErrors(errF_1, nominalQ = TRUE)
 errR_plot1 <-plotErrors(errR_1, nominalQ = TRUE)
 
+errF_plot1
+```
+
+<img src="dada2_tutorial_16S_all_files/figure-gfm/unnamed-chunk-34-3.png" width="98%" height="98%" />
+
+``` r
+errR_plot1
+```
+
+<img src="dada2_tutorial_16S_all_files/figure-gfm/unnamed-chunk-34-4.png" width="98%" height="98%" />
+
+``` r
 saveRDS(errF_plot1, paste0(filtpathF, "/errF_plot1.rds"))
 saveRDS(errR_plot1, paste0(filtpathR, "/errR_plot1.rds"))
 
@@ -994,6 +1174,18 @@ ggsave(plot = errR_plot1, filename = paste0(filtpathR, "/errR_plot1.png"),
 errF_plot2 <- plotErrors(errF_2, nominalQ = TRUE)
 errR_plot2 <-plotErrors(errR_2, nominalQ = TRUE)
 
+errF_plot2
+```
+
+<img src="dada2_tutorial_16S_all_files/figure-gfm/unnamed-chunk-34-5.png" width="98%" height="98%" />
+
+``` r
+errR_plot2
+```
+
+<img src="dada2_tutorial_16S_all_files/figure-gfm/unnamed-chunk-34-6.png" width="98%" height="98%" />
+
+``` r
 saveRDS(errF_plot2, paste0(filtpathF, "/errF_plot2.rds"))
 saveRDS(errR_plot2, paste0(filtpathR, "/errR_plot2.rds"))
 
@@ -1006,6 +1198,18 @@ ggsave(plot = errR_plot2, filename = paste0(filtpathR, "/errR_plot2.png"),
 errF_plot3 <- plotErrors(errF_3, nominalQ = TRUE)
 errR_plot3 <-plotErrors(errR_3, nominalQ = TRUE)
 
+errF_plot3
+```
+
+<img src="dada2_tutorial_16S_all_files/figure-gfm/unnamed-chunk-34-7.png" width="98%" height="98%" />
+
+``` r
+errR_plot3
+```
+
+<img src="dada2_tutorial_16S_all_files/figure-gfm/unnamed-chunk-34-8.png" width="98%" height="98%" />
+
+``` r
 saveRDS(errF_plot3, paste0(filtpathF, "/errF_plot3.rds"))
 saveRDS(errR_plot3, paste0(filtpathR, "/errR_plot3.rds"))
 
@@ -1018,6 +1222,18 @@ ggsave(plot = errR_plot3, filename = paste0(filtpathR, "/errR_plot3.png"),
 errF_plot4 <- plotErrors(errF_4, nominalQ = TRUE)
 errR_plot4 <-plotErrors(errR_4, nominalQ = TRUE)
 
+errF_plot4
+```
+
+<img src="dada2_tutorial_16S_all_files/figure-gfm/unnamed-chunk-34-9.png" width="98%" height="98%" />
+
+``` r
+errR_plot4
+```
+
+<img src="dada2_tutorial_16S_all_files/figure-gfm/unnamed-chunk-34-10.png" width="98%" height="98%" />
+
+``` r
 saveRDS(errF_plot4, paste0(filtpathF, "/errF_plot4.rds"))
 saveRDS(errR_plot4, paste0(filtpathR, "/errR_plot4.rds"))
 
@@ -1074,17 +1290,38 @@ for(sam in sample.names) {
   # Dereplicate forward reads
   derepF <- derepFastq(filtFs[[sam]])
   # Infer sequences for forward reads
-  dadaF <- dada(derepF, err = errF, multithread = TRUE)
+  dadaF <- dada(derepF, err = errF_4, multithread = TRUE)
   ddF[[sam]] <- dadaF
   # Dereplicate reverse reads
   derepR <- derepFastq(filtRs[[sam]])
   # Infer sequences for reverse reads
-  dadaR <- dada(derepR, err = errR, multithread = TRUE)
+  dadaR <- dada(derepR, err = errR_4, multithread = TRUE)
   ddR[[sam]] <- dadaR
   # Merge reads together
   merger <- mergePairs(ddF[[sam]], derepF, ddR[[sam]], derepR)
   mergers[[sam]] <- merger
 }
+## Processing: 1aT_9-8_16S_S6_L002 
+## Sample 1 - 204288 reads in 65927 unique sequences.
+## Sample 1 - 204288 reads in 69382 unique sequences.
+## Processing: 1b_9-17_16S_S2_L002 
+## Sample 1 - 196135 reads in 66859 unique sequences.
+## Sample 1 - 196135 reads in 72441 unique sequences.
+## Processing: 1c_9-17_16S_S3_L002 
+## Sample 1 - 109428 reads in 58057 unique sequences.
+## Sample 1 - 109428 reads in 57262 unique sequences.
+## Processing: 1cT_9-3_16S_S8_L002 
+## Sample 1 - 176224 reads in 78112 unique sequences.
+## Sample 1 - 176224 reads in 83305 unique sequences.
+## Processing: 1d_9-17_16S_S4_L002 
+## Sample 1 - 196681 reads in 92604 unique sequences.
+## Sample 1 - 196681 reads in 88559 unique sequences.
+## Processing: 1dT_9-3_16S_S9_L002 
+## Sample 1 - 228879 reads in 99732 unique sequences.
+## Sample 1 - 228879 reads in 97465 unique sequences.
+## Processing: 1eT_9-3_16S_S10_L002 
+## Sample 1 - 165301 reads in 106549 unique sequences.
+## Sample 1 - 165301 reads in 82211 unique sequences.
 
 rm(derepF); rm(derepR)
 ```
@@ -1152,7 +1389,7 @@ can download the database you need from this link
 <https://benjjneb.github.io/dada2/training.html>):
 
 -   16S bacteria and archaea (SILVA db):
-    `/mnt/home/ernakovich/shared/db_files/dada2/silva_nr99_v138_train_set.fa`
+    `/mnt/home/ernakovich/shared/db_files/dada2/silva_nr99_v138.1_train_set.fa`
 
 -   ITS fungi (UNITE db):
     `/mnt/home/ernakovich/shared/db_files/dada2/UNITE_sh_general_release_10.05.2021/sh_general_release_dynamic_10.05.2021.fasta`
@@ -1169,9 +1406,10 @@ seqtab.nochim <- removeBimeraDenovo(st.all, method="consensus", multithread=TRUE
 
 # Print percentage of our seqences that were not chimeric.
 100*sum(seqtab.nochim)/sum(seqtab)
+## [1] 93.41858
 
 # Assign taxonomy
-tax <- assignTaxonomy(seqtab.nochim, "/mnt/home/ernakovich/shared/db_files/dada2/silva_nr99_v138_train_set.fa", tryRC = TRUE,
+tax <- assignTaxonomy(seqtab.nochim, "/mnt/home/ernakovich/shared/db_files/dada2/silva_nr99_v138.1_train_set.fa", tryRC = TRUE,
                       multithread=TRUE)
 
 # Write results to disk
@@ -1275,7 +1513,7 @@ getN <- function(x) sum(getUniques(x)) # function to grab sequence counts from o
 # tracking reads by counts
 filt_out_track <- filt_out %>%
   data.frame() %>%
-  mutate(Sample = gsub("(R1\\_)(.{1,})(\\.fastq\\.gz)","\\2",rownames(.))) %>%
+  mutate(Sample = gsub("(\\_R1\\_)(.{1,})(\\.fastq\\.gz)","",rownames(.))) %>%
   rename(input = reads.in, filtered = reads.out)
 rownames(filt_out_track) <- filt_out_track$Sample
 
@@ -1297,6 +1535,20 @@ track <- left_join(filt_out_track, ddF_track, by = "Sample") %>%
   select(Sample, everything())
 row.names(track) <- track$Sample
 head(track)
+##                                  Sample  input filtered denoisedF denoisedR
+## 1aT_9-8_16S_S6_L002 1aT_9-8_16S_S6_L002 257533   204288    198979    200462
+## 1b_9-17_16S_S2_L002 1b_9-17_16S_S2_L002 251087   196135    187264    185780
+## 1c_9-17_16S_S3_L002 1c_9-17_16S_S3_L002 139919   109428    102696    101079
+## 1cT_9-3_16S_S8_L002 1cT_9-3_16S_S8_L002 225774   176224    168506    165256
+## 1d_9-17_16S_S4_L002 1d_9-17_16S_S4_L002 244042   196681    186363    185292
+## 1dT_9-3_16S_S9_L002 1dT_9-3_16S_S9_L002 289003   228879    220815    215807
+##                     merged nonchim
+## 1aT_9-8_16S_S6_L002 149955  146443
+## 1b_9-17_16S_S2_L002 106564   99233
+## 1c_9-17_16S_S3_L002  63915   60152
+## 1cT_9-3_16S_S8_L002 111910   95982
+## 1d_9-17_16S_S4_L002 142399  135121
+## 1dT_9-3_16S_S9_L002 155287  143658
 
 # tracking reads by percentage
 track_pct <- track %>% 
@@ -1314,11 +1566,23 @@ track_pct <- track %>%
 track_pct_avg <- track_pct %>% summarize_at(vars(ends_with("_pct")), 
                                             list(avg = mean))
 head(track_pct_avg)
+##   filtered_pct_avg denoisedF_pct_avg denoisedR_pct_avg merged_pct_avg
+## 1         78.06504          95.63161          94.46501       69.34133
+##   nonchim_pct_avg total_pct_avg
+## 1        93.23626      48.06406
 
 track_pct_med <- track_pct %>% summarize_at(vars(ends_with("_pct")), 
                                             list(avg = stats::median))
 head(track_pct_avg)
+##   filtered_pct_avg denoisedF_pct_avg denoisedR_pct_avg merged_pct_avg
+## 1         78.06504          95.63161          94.46501       69.34133
+##   nonchim_pct_avg total_pct_avg
+## 1        93.23626      48.06406
 head(track_pct_med)
+##   filtered_pct_avg denoisedF_pct_avg denoisedR_pct_avg merged_pct_avg
+## 1         78.20811          95.62035          94.20941       71.13109
+##   nonchim_pct_avg total_pct_avg
+## 1        94.11249      49.48421
 
 # Plotting each sample's reads through the pipeline
 track_plot <- track %>% 
@@ -1348,6 +1612,8 @@ track_plot <- track %>%
 
 track_plot
 ```
+
+<img src="dada2_tutorial_16S_all_files/figure-gfm/unnamed-chunk-46-1.png" width="98%" height="98%" />
 
 ``` r
 # Write results to disk
