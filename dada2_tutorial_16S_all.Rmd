@@ -1,0 +1,18 @@
+
+
+```{r setup, include=FALSE}
+# some setup options for outputing markdown files; feel free to ignore these
+knitr::opts_chunk$set(eval = TRUE, 
+                      include = TRUE, 
+                      warning = FALSE, 
+                      message = FALSE,
+                      collapse = TRUE,
+                      dpi = 300,
+                      fig.dim = c(9, 9),
+                      out.width = '98%',
+                      out.height = '98%')
+
+```
+```{r steps, child = c("R/00_install_dada2_tutorial_16S.Rmd", "R/00_setup_dada2_tutorial_16S.Rmd", "R/01_pre-process_dada2_tutorial_16S.Rmd", "R/02_check_quality_dada2_tutorial_16S.Rmd", "R/03_filter_reads_dada2_tutorial_16S.Rmd", "R/04_learn_error_rates_dada2_tutorial_16S.Rmd", "R/05_infer_ASVs_dada2_tutorial_16S.Rmd", "R/06_remove_chimeras_assign_taxonomy_dada2_tutorial_16S.Rmd")}
+```
+
