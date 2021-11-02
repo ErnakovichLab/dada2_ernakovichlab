@@ -65,10 +65,10 @@ set.seed(100) # set seed to ensure that randomized steps are replicatable
 
 #' ##### Traditional way of learning error rates
 # Learn forward error rates (Notes: randomize default is FALSE)
-errF <- learnErrors(filtFs, nbases = 1e10, multithread = TRUE, randomize = TRUE)
+errF <- learnErrors(filtFs, nbases = 1e8, multithread = TRUE, randomize = TRUE)
 
 # Learn reverse error rates
-errR <- learnErrors(filtRs, nbases = 1e10, multithread = TRUE, randomize = TRUE)
+errR <- learnErrors(filtRs, nbases = 1e8, multithread = TRUE, randomize = TRUE)
 
 saveRDS(errF, paste0(filtpathF, "/errF.rds"))
 saveRDS(errR, paste0(filtpathR, "/errR.rds"))
@@ -140,14 +140,14 @@ loessErrfun_mod1 <- function(trans) {
 errF_1 <- learnErrors(
   filtFs,
   multithread = TRUE,
-  nbases = 1e10,
+  nbases = 1e8,
   errorEstimationFunction = loessErrfun_mod1,
   verbose = TRUE
 )
 errR_1 <- learnErrors(
   filtRs,
   multithread = TRUE,
-  nbases = 1e10,
+  nbases = 1e8,
   errorEstimationFunction = loessErrfun_mod1,
   verbose = TRUE
 )
@@ -217,7 +217,7 @@ loessErrfun_mod2 <- function(trans) {
 errF_2 <- learnErrors(
   filtFs,
   multithread = TRUE,
-  nbases = 1e10,
+  nbases = 1e8,
   errorEstimationFunction = loessErrfun_mod2,
   verbose = TRUE
 )
@@ -225,7 +225,7 @@ errF_2 <- learnErrors(
 errR_2 <- learnErrors(
   filtRs,
   multithread = TRUE,
-  nbases = 1e10,
+  nbases = 1e8,
   errorEstimationFunction = loessErrfun_mod2,
   verbose = TRUE
 )
@@ -297,7 +297,7 @@ loessErrfun_mod3 <- function(trans) {
 errF_3 <- learnErrors(
   filtFs,
   multithread = TRUE,
-  nbases = 1e10,
+  nbases = 1e8,
   errorEstimationFunction = loessErrfun_mod3,
   verbose = TRUE
 )
@@ -307,7 +307,7 @@ errF_3 <- learnErrors(
 errR_3 <- learnErrors(
   filtRs,
   multithread = TRUE,
-  nbases = 1e10,
+  nbases = 1e8,
   errorEstimationFunction = loessErrfun_mod3,
   verbose = TRUE
 )
@@ -376,14 +376,14 @@ loessErrfun_mod4 <- function(trans) {
 errF_4 <- learnErrors(
   filtFs,
   multithread = TRUE,
-  nbases = 1e10,
+  nbases = 1e8,
   errorEstimationFunction = loessErrfun_mod4,
   verbose = TRUE
 )
 errR_4 <- learnErrors(
   filtRs,
   multithread = TRUE,
-  nbases = 1e10,
+  nbases = 1e8,
   errorEstimationFunction = loessErrfun_mod4,
   verbose = TRUE
 )
