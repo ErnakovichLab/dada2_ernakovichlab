@@ -41,6 +41,7 @@
 ## module.  Refer to http://premise.sr.unh.edu for more info.
 module purge
 module load anaconda/colsa
+source /mnt/home/ernakovich/shared/software/miniconda3/bin/activate
 conda activate /mnt/home/ernakovich/shared/software/miniconda3/envs/dada2_ernakovich
 
 
