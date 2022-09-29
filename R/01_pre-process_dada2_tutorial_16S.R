@@ -89,7 +89,7 @@ rbind(FWD.ForwardReads = sapply(FWD.orients, primerHits, fn = fnFs.filtN[[1]]),
       REV.ReverseReads = sapply(REV.orients, primerHits, fn = fnRs.filtN[[1]]))
 
 #' #### Remove primers with cutadapt and assess the output
-
+#' In this cutadapt command, we also use the `--nextseq-trim` option to remove strings of G's caused by 2-color chemistry. See [here](https://cutadapt.readthedocs.io/en/stable/guide.html?highlight=nextseq#quality-trimming-of-reads-using-two-color-chemistry-nextseq) for more details
 # Create directory to hold the output from cutadapt
 if (!dir.exists(trimmed.fp)) dir.create(trimmed.fp)
 fnFs.cut <- file.path(trimmed.fp, basename(fnFs))
@@ -108,7 +108,7 @@ R2.flags <- paste("-G", REV, "-A", FWD.RC, "--minimum-length 50")
 
 # Run Cutadapt
 for (i in seq_along(fnFs)) {
-  system2(cutadapt, args = c("-j", 0, R1.flags, R2.flags, "-n", 2, # -n 2 required to remove FWD and REV from reads
+  system2(cutadapt, args = c("-j", 0, "--nextseq-trim=50", R1.flags, R2.flags, "-n", 2, # -n 2 required to remove FWD and REV from reads
                              "-o", fnFs.cut[i], "-p", fnRs.cut[i], # output files
                              fnFs.filtN[i], fnRs.filtN[i])) # input files
 }

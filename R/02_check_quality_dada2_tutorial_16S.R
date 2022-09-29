@@ -76,12 +76,6 @@ if( length(fastqFs) <= 20) {
 fwd_qual_plots
 rev_qual_plots
 
-#+ plotly quality plots, eval = FALSE, include=TRUE
-# Or, to make these quality plots interactive, just call the plots through plotly
-ggplotly(fwd_qual_plots)
-ggplotly(rev_qual_plots)
-
-#'
 # write plots to disk
 saveRDS(fwd_qual_plots, paste0(filter.fp, "/fwd_qual_plots.rds"))
 saveRDS(rev_qual_plots, paste0(filter.fp, "/rev_qual_plots.rds"))
