@@ -18,7 +18,7 @@ system2(cutadapt, args = "--version") # Check by running shell command from R
 #' 
 
 # Set path to shared data folder and contents
-data.fp <- "/mnt/home/ernakovich/shared/dada2_tutorial_data/16S"
+data.fp <- "/mnt/home/ernakovich/shared/dada2_tutorial_data"
 
 # List all files in shared folder to check path
 list.files(data.fp)
