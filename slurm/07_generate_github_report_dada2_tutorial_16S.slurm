@@ -36,13 +36,15 @@
 #SBATCH --job-name="07_generate_github_report_dada2"
 #SBATCH --output="07_generate_github_report_dada2_%j.output"
 
+## Email user
+#SBATCH --mail-user=$USER@unh.edu
+#SBATCH --mail-type=ALL
 ## Load the appropriate modules first.  Linuxbrew/colsa contains most
 ## programs, though some are contained within the anaconda/colsa
 ## module.  Refer to http://premise.sr.unh.edu for more info.
 module purge
 module load anaconda/colsa
-source /mnt/home/ernakovich/shared/software/miniconda3/bin/activate
-conda activate /mnt/home/ernakovich/shared/software/miniconda3/envs/dada2_ernakovich
+conda activate /mnt/lz01/ernakovich/$USER/.conda/envs/dada2_ernakovich
 
 ## Instruct your program to make use of the number of desired threads.
 ## As your job will be allocated an entire node, this should normally
