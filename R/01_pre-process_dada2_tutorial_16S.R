@@ -2,7 +2,7 @@
 #' 
 #+ include=FALSE
 # some setup options for outputing markdown files; feel free to ignore these
-knitr::opts_chunk$set(eval = FALSE, 
+knitr::opts_chunk$set(eval = TRUE, 
                       include = TRUE, 
                       warning = FALSE, 
                       message = FALSE,
@@ -53,7 +53,7 @@ filterAndTrim(fnFs, fnFs.filtN, fnRs, fnRs.filtN, maxN = 0, multithread = TRUE)
 #' #### Prepare the primers sequences and custom functions for analyzing the results from cutadapt
 #' Assign the primers you used to "FWD" and "REV" below. Note primers should be not be reverse complemented ahead of time. Our tutorial data uses 515f and 926r those are the primers below. Change if you sequenced with other primers.
 #' 
-#' **For ITS data:** ```CTTGGTCATTTAGAGGAAGTAA``` is the ITS forward primer sequence (ITS1F) and ```GCTGCGTTCTTCATCGATGC``` is ITS reverse primer sequence (ITS2). Using cutadapt to remove these primers will allow us to retain ITS sequences of variable biological length. See the dada2 creators' ITS tutorial for more details.
+#' **For ITS data:** Depending on how your sequences were run, your barcodes may need to be reverse-complemented. Here is a link to a handy tool, that can help you reverse complement your barcodes: [http://arep.med.harvard.edu/labgc/adnan/projects/Utilities/revcomp.html](http://arep.med.harvard.edu/labgc/adnan/projects/Utilities/revcomp.html). Using cutadapt to remove these primers will allow us to retain ITS sequences of variable biological length. See the dada2 creators' ITS tutorial for more details. Below are several common ITS primers that you might have used: ```AYTTAAGCATATCAATAAGCGGAGGCT``` is ITS4-Fun (reverse complemented, forward primer), ```AGWGATCCRTTGYYRAAAGTT``` is 5.8S-Fun (reverse complemented, reverse primer). ```CTTGGTCATTTAGAGGAAGTAA``` is ITS1F (forward primer sequence, not reverse complemented) and ```GCTGCGTTCTTCATCGATGC``` is ITS2 (reverse primer sequence, not reverse complemented). 
 
 # Set up the primer sequences to pass along to cutadapt
 FWD <- "GTGYCAGCMGCCGCGGTAA"  ## CHANGE ME # this is 515f
@@ -108,7 +108,7 @@ R2.flags <- paste("-G", REV, "-A", FWD.RC, "--minimum-length 50")
 
 # Run Cutadapt
 for (i in seq_along(fnFs)) {
-  system2(cutadapt, args = c("-j", 0, "--nextseq-trim=50", R1.flags, R2.flags, "-n", 2, # -n 2 required to remove FWD and REV from reads
+  system2(cutadapt, args = c("-j", 0, "--nextseq-trim=20", R1.flags, R2.flags, "-n", 2, # -n 2 required to remove FWD and REV from reads
                              "-o", fnFs.cut[i], "-p", fnRs.cut[i], # output files
                              fnFs.filtN[i], fnRs.filtN[i])) # input files
 }
