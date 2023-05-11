@@ -31,7 +31,9 @@ load(file = "dada2_ernakovich_Renv.RData")
 # Forward and reverse fastq filenames have format: 
 fnFs <- sort(list.files(data.fp, pattern="R1_", full.names = TRUE))
 fnRs <- sort(list.files(data.fp, pattern="R2_", full.names = TRUE))
-
+#'
+#' **Note:** If your file names contain the pattern "R1_" anywhere *other* than the part specifying the read direction, you will need to modify the pattern above, so that the files are not incorrectly categorized as read 1 or read 2. This often happens when file names contain "R1" or "R2" in their names in reference to replicates or site IDS. Simply making the pattern recognition longer, often solves the problem.
+#'
 #' #### Pre-filter to remove sequence reads with Ns
 #' Ambiguous bases will make it hard for cutadapt to find short primer sequences in the reads.
 #' To solve this problem, we will remove sequences with ambiguous bases (Ns)
