@@ -2,10 +2,15 @@
 # dada2 tutorial with NovaSeq dataset for Ernakovich Lab
 
 *This tutorial originally created by Angela Oliverio and Hannah
-Holland-Moritz. It has been updated for the Ernakovich Lab. Other
+Holland-Moritz. It has been updated for the Ernakovich Lab compute
+environment (UNH’s HPC Premise) by Hannah Holland-Moritz. Other
 contributors to this pipeline include: Corinne Walsh, Matt Gebert, and
-Kunkun Fan*  
-*Updated October 28, 2021*
+Kunkun Fan*
+
+*If you find this tutorial helpful or useful, please let us know, it
+really helps us out to know how many people are finding it useful,
+thanks!*  
+*Updated May 11, 2023*
 
 This pipeline runs the dada2 workflow for Big Data (paired-end) with
 modifications for NovaSeq sequencing base calls
@@ -128,8 +133,8 @@ If you are running it on your own computer (runs slower!):
     file to create an environment with cutadapt and all the necessary R
     packages pre-installed
 
-    -   cutadapt can be installed from here:
-        <https://cutadapt.readthedocs.io/en/stable/installation.html>
+    - cutadapt can be installed from here:
+      <https://cutadapt.readthedocs.io/en/stable/installation.html>
 
 4.  Download the dada2-formatted reference database of your choice. Link
     to download here: <https://benjjneb.github.io/dada2/training.html>
@@ -186,19 +191,19 @@ Load DADA2 and required packages
 
 ``` r
 library(dada2); packageVersion("dada2") # the dada2 pipeline
-## [1] '1.20.0'
+## [1] '1.26.0'
 library(ShortRead); packageVersion("ShortRead") # dada2 depends on this
-## [1] '1.50.0'
+## [1] '1.56.0'
 library(dplyr); packageVersion("dplyr") # for manipulating data
-## [1] '1.0.7'
+## [1] '1.1.2'
 library(tidyr); packageVersion("tidyr") # for creating the final graph at the end of the pipeline
-## [1] '1.1.4'
+## [1] '1.3.0'
 library(Hmisc); packageVersion("Hmisc") # for creating the final graph at the end of the pipeline
-## [1] '4.6.0'
+## [1] '5.1.0'
 library(ggplot2); packageVersion("ggplot2") # for creating the final graph at the end of the pipeline
-## [1] '3.3.5'
+## [1] '3.4.2'
 library(plotly); packageVersion("plotly") # enables creation of interactive graphs, especially helpful for quality plots
-## [1] '4.10.0'
+## [1] '4.10.1'
 
 # Set up pathway to cutadapt (primer trimming tool) and test
 cutadapt <- "cutadapt" # CHANGE ME if not on premise; will probably look something like this: "/usr/local/Python27/bin/cutadapt"
@@ -214,28 +219,67 @@ work on.
 
 ``` r
 # Set path to shared data folder and contents
-data.fp <- "/mnt/home/ernakovich/shared/dada2_tutorial_data/16S"
+data.fp <- "/mnt/home/ernakovich/shared/dada2_tutorial_data"
 
 # List all files in shared folder to check path
 list.files(data.fp)
-##  [1] "1aT_9-8_16S_S6_L002_R1_001.fastq.gz" 
-##  [2] "1aT_9-8_16S_S6_L002_R2_001.fastq.gz" 
-##  [3] "1b_9-17_16S_S2_L002_R1_001.fastq.gz" 
-##  [4] "1b_9-17_16S_S2_L002_R2_001.fastq.gz" 
-##  [5] "1c_9-17_16S_S3_L002_R1_001.fastq.gz" 
-##  [6] "1c_9-17_16S_S3_L002_R2_001.fastq.gz" 
-##  [7] "1cT_9-3_16S_S8_L002_R1_001.fastq.gz" 
-##  [8] "1cT_9-3_16S_S8_L002_R2_001.fastq.gz" 
-##  [9] "1d_9-17_16S_S4_L002_R1_001.fastq.gz" 
-## [10] "1d_9-17_16S_S4_L002_R2_001.fastq.gz" 
-## [11] "1dT_9-3_16S_S9_L002_R1_001.fastq.gz" 
-## [12] "1dT_9-3_16S_S9_L002_R2_001.fastq.gz" 
-## [13] "1eT_9-3_16S_S10_L002_R1_001.fastq.gz"
-## [14] "1eT_9-3_16S_S10_L002_R2_001.fastq.gz"
+##  [1] "A1-TS_S1_L001_R1_001.fastq.gz"  "A1-TS_S1_L001_R2_001.fastq.gz" 
+##  [3] "A2-TS_S9_L001_R1_001.fastq.gz"  "A2-TS_S9_L001_R2_001.fastq.gz" 
+##  [5] "A3-TS_S17_L001_R1_001.fastq.gz" "A3-TS_S17_L001_R2_001.fastq.gz"
+##  [7] "A4-TS_S25_L001_R1_001.fastq.gz" "A4-TS_S25_L001_R2_001.fastq.gz"
+##  [9] "B1-TS_S2_L001_R1_001.fastq.gz"  "B1-TS_S2_L001_R2_001.fastq.gz" 
+## [11] "B2-TS_S10_L001_R1_001.fastq.gz" "B2-TS_S10_L001_R2_001.fastq.gz"
+## [13] "B3-TS_S18_L001_R1_001.fastq.gz" "B3-TS_S18_L001_R2_001.fastq.gz"
+## [15] "B4-TS_S26_L001_R1_001.fastq.gz" "B4-TS_S26_L001_R2_001.fastq.gz"
+## [17] "C1-TS_S3_L001_R1_001.fastq.gz"  "C1-TS_S3_L001_R2_001.fastq.gz" 
+## [19] "C2-TS_S11_L001_R1_001.fastq.gz" "C2-TS_S11_L001_R2_001.fastq.gz"
+## [21] "C3-TS_S19_L001_R1_001.fastq.gz" "C3-TS_S19_L001_R2_001.fastq.gz"
+## [23] "C4-TS_S27_L001_R1_001.fastq.gz" "C4-TS_S27_L001_R2_001.fastq.gz"
+## [25] "D1-TS_S4_L001_R1_001.fastq.gz"  "D1-TS_S4_L001_R2_001.fastq.gz" 
+## [27] "D2-TS_S12_L001_R1_001.fastq.gz" "D2-TS_S12_L001_R2_001.fastq.gz"
+## [29] "D3-TS_S20_L001_R1_001.fastq.gz" "D3-TS_S20_L001_R2_001.fastq.gz"
+## [31] "D4-TS_S28_L001_R1_001.fastq.gz" "D4-TS_S28_L001_R2_001.fastq.gz"
+## [33] "E1-TS_S5_L001_R1_001.fastq.gz"  "E1-TS_S5_L001_R2_001.fastq.gz" 
+## [35] "E2-TS_S13_L001_R1_001.fastq.gz" "E2-TS_S13_L001_R2_001.fastq.gz"
+## [37] "E3-TS_S21_L001_R1_001.fastq.gz" "E3-TS_S21_L001_R2_001.fastq.gz"
+## [39] "E4-TS_S29_L001_R1_001.fastq.gz" "E4-TS_S29_L001_R2_001.fastq.gz"
+## [41] "F1-TS_S6_L001_R1_001.fastq.gz"  "F1-TS_S6_L001_R2_001.fastq.gz" 
+## [43] "F2-TS_S14_L001_R1_001.fastq.gz" "F2-TS_S14_L001_R2_001.fastq.gz"
+## [45] "F3-TS_S22_L001_R1_001.fastq.gz" "F3-TS_S22_L001_R2_001.fastq.gz"
+## [47] "F4-TS_S30_L001_R1_001.fastq.gz" "F4-TS_S30_L001_R2_001.fastq.gz"
+## [49] "G1-TS_S7_L001_R1_001.fastq.gz"  "G1-TS_S7_L001_R2_001.fastq.gz" 
+## [51] "G2-TS_S15_L001_R1_001.fastq.gz" "G2-TS_S15_L001_R2_001.fastq.gz"
+## [53] "G3-TS_S23_L001_R1_001.fastq.gz" "G3-TS_S23_L001_R2_001.fastq.gz"
+## [55] "G4-TS_S31_L001_R1_001.fastq.gz" "G4-TS_S31_L001_R2_001.fastq.gz"
+## [57] "H1-TS_S8_L001_R1_001.fastq.gz"  "H1-TS_S8_L001_R2_001.fastq.gz" 
+## [59] "H2-TS_S16_L001_R1_001.fastq.gz" "H2-TS_S16_L001_R2_001.fastq.gz"
+## [61] "H3-TS_S24_L001_R1_001.fastq.gz" "H3-TS_S24_L001_R2_001.fastq.gz"
+## [63] "H4-TS_S32_L001_R1_001.fastq.gz" "H4-TS_S32_L001_R2_001.fastq.gz"
 
 # Set file paths for barcodes file, map file, and fastqs
 # Barcodes need to have 'N' on the end of each 12bp sequence for compatability
 #map.fp <- file.path(data.fp, "Molecular_Methods_18_515fBC_16S_Mapping_File_SHORT_vFinal_Fierer_10252018.txt")
+```
+
+For the tutorial 16S, we will assign taxonomy with Silva db v138, but
+you might want to use other databases for your data. Below are paths to
+some of the databases we use often. (If you are on your own computer you
+can download the database you need from this link
+<https://benjjneb.github.io/dada2/training.html>):
+
+- 16S bacteria and archaea (SILVA db):
+  `/mnt/lz01/ernakovich/shared/db_files/dada2/silva_nr99_v138.1_train_set.fa`
+
+- ITS fungi (UNITE db):
+  `/mnt/lz01/ernakovich/shared/db_files/dada2/UNITE_sh_general_release_10.05.2021/sh_general_release_dynamic_10.05.2021.fasta`
+
+- 18S protists (PR2 db):
+  `/mnt/lz01/ernakovich/shared/db_files/dada2/pr2_version_4.14.0_SSU_dada2.fasta`
+
+Set file path for the taxonomy database you will use in step 06
+
+``` r
+db_fp <- "/mnt/lz01/ernakovich/shared/db_files/dada2/silva_nr99_v138.1_train_set.fa" # CHANGE ME, this is silva 138.1, suitable for 16S only
 ```
 
 Set up file paths in YOUR directory where you want data; you do not need
@@ -269,6 +313,13 @@ fnFs <- sort(list.files(data.fp, pattern="R1_", full.names = TRUE))
 fnRs <- sort(list.files(data.fp, pattern="R2_", full.names = TRUE))
 ```
 
+**Note:** If your file names contain the pattern “R1\_” anywhere *other*
+than the part specifying the read direction, you will need to modify the
+pattern above, so that the files are not incorrectly categorized as read
+1 or read 2. This often happens when file names contain “R1” or “R2” in
+their names in reference to replicates or site IDS. Simply making the
+pattern recognition longer, often solves the problem.
+
 #### Pre-filter to remove sequence reads with Ns
 
 Ambiguous bases will make it hard for cutadapt to find short primer
@@ -297,11 +348,19 @@ should be not be reverse complemented ahead of time. Our tutorial data
 uses 515f and 926r those are the primers below. Change if you sequenced
 with other primers.
 
-**For ITS data:** `CTTGGTCATTTAGAGGAAGTAA` is the ITS forward primer
-sequence (ITS1F) and `GCTGCGTTCTTCATCGATGC` is ITS reverse primer
-sequence (ITS2). Using cutadapt to remove these primers will allow us to
-retain ITS sequences of variable biological length. See the dada2
-creators’ ITS tutorial for more details.
+**For ITS data:** Depending on how your sequences were run, your
+barcodes may need to be reverse-complemented. Here is a link to a handy
+tool, that can help you reverse complement your barcodes:
+<http://arep.med.harvard.edu/labgc/adnan/projects/Utilities/revcomp.html>.
+Using cutadapt to remove these primers will allow us to retain ITS
+sequences of variable biological length. See the dada2 creators’ ITS
+tutorial for more details. Below are several common ITS primers that you
+might have used: `AYTTAAGCATATCAATAAGCGGAGGCT` is ITS4-Fun (reverse
+complemented, forward primer), `AGWGATCCRTTGYYRAAAGTT` is 5.8S-Fun
+(reverse complemented, reverse primer). `CTTGGTCATTTAGAGGAAGTAA` is
+ITS1F (forward primer sequence, not reverse complemented) and
+`GCTGCGTTCTTCATCGATGC` is ITS2 (reverse primer sequence, not reverse
+complemented).
 
 ``` r
 # Set up the primer sequences to pass along to cutadapt
@@ -345,13 +404,18 @@ rbind(FWD.ForwardReads = sapply(FWD.orients, primerHits, fn = fnFs.filtN[[1]]),
       REV.ForwardReads = sapply(REV.orients, primerHits, fn = fnFs.filtN[[1]]), 
       REV.ReverseReads = sapply(REV.orients, primerHits, fn = fnRs.filtN[[1]]))
 ##                  Forward Complement Reverse RevComp
-## FWD.ForwardReads  248774          0       0       0
-## FWD.ReverseReads       0          0       0      59
-## REV.ForwardReads       0          0       0      60
-## REV.ReverseReads  245351          0       0       0
+## FWD.ForwardReads  524235          0       0       0
+## FWD.ReverseReads       0          0       0    1236
+## REV.ForwardReads       0          0       0    1248
+## REV.ReverseReads  511355          0       0       0
 ```
 
 #### Remove primers with cutadapt and assess the output
+
+In this cutadapt command, we also use the `--nextseq-trim` option to
+remove strings of G’s caused by 2-color chemistry. See
+[here](https://cutadapt.readthedocs.io/en/stable/guide.html?highlight=nextseq#quality-trimming-of-reads-using-two-color-chemistry-nextseq)
+for more details
 
 ``` r
 # Create directory to hold the output from cutadapt
@@ -372,7 +436,7 @@ R2.flags <- paste("-G", REV, "-A", FWD.RC, "--minimum-length 50")
 
 # Run Cutadapt
 for (i in seq_along(fnFs)) {
-  system2(cutadapt, args = c("-j", 0, R1.flags, R2.flags, "-n", 2, # -n 2 required to remove FWD and REV from reads
+  system2(cutadapt, args = c("-j", 0, "--nextseq-trim=20", R1.flags, R2.flags, "-n", 2, # -n 2 required to remove FWD and REV from reads
                              "-o", fnFs.cut[i], "-p", fnRs.cut[i], # output files
                              fnFs.filtN[i], fnRs.filtN[i])) # input files
 }
@@ -408,10 +472,14 @@ dir.create(subR.fp)
 # Move R1 and R2 from trimmed to separate forward/reverse sub-directories
 fnFs.Q <- file.path(subF.fp,  basename(fnFs)) 
 fnRs.Q <- file.path(subR.fp,  basename(fnRs))
-file.copy(from = fnFs.cut, to = fnFs.Q)
-## [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-file.copy(from = fnRs.cut, to = fnRs.Q)
-## [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+file.symlink(from = fnFs.cut, to = fnFs.Q)
+##  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## [13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## [25] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+file.symlink(from = fnRs.cut, to = fnRs.Q)
+##  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## [13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## [25] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 
 # File parsing; create file names and make sure that forward and reverse files match
 filtpathF <- file.path(subF.fp, "filtered") # files go into preprocessed_F/filtered/
@@ -471,36 +539,34 @@ if( length(fastqFs) <= 20) {
   rev_qual_plots <- plotQualityProfile(paste0(subR.fp, "/", fastqRs))
 } else {
   rand_samples <- sample(size = 20, 1:length(fastqFs)) # grab 20 random samples to plot
+  writeLines(paste0("Samples being plotted are \n", paste(sort(fastqFs[rand_samples]), collapse = ", ")))
   fwd_qual_plots <- plotQualityProfile(paste0(subF.fp, "/", fastqFs[rand_samples]))
   rev_qual_plots <- plotQualityProfile(paste0(subR.fp, "/", fastqRs[rand_samples]))
 }
+## Samples being plotted are 
+## A1-TS_S1_L001_R1_001.fastq.gz, A2-TS_S9_L001_R1_001.fastq.gz, A4-TS_S25_L001_R1_001.fastq.gz, B1-TS_S2_L001_R1_001.fastq.gz, B2-TS_S10_L001_R1_001.fastq.gz, B3-TS_S18_L001_R1_001.fastq.gz, B4-TS_S26_L001_R1_001.fastq.gz, C2-TS_S11_L001_R1_001.fastq.gz, D2-TS_S12_L001_R1_001.fastq.gz, D3-TS_S20_L001_R1_001.fastq.gz, E1-TS_S5_L001_R1_001.fastq.gz, E3-TS_S21_L001_R1_001.fastq.gz, E4-TS_S29_L001_R1_001.fastq.gz, F2-TS_S14_L001_R1_001.fastq.gz, F4-TS_S30_L001_R1_001.fastq.gz, G1-TS_S7_L001_R1_001.fastq.gz, G3-TS_S23_L001_R1_001.fastq.gz, G4-TS_S31_L001_R1_001.fastq.gz, H3-TS_S24_L001_R1_001.fastq.gz, H4-TS_S32_L001_R1_001.fastq.gz
 
 fwd_qual_plots
 ```
 
-<img src="dada2_tutorial_16S_all_files/figure-gfm/unnamed-chunk-17-1.png" width="98%" height="98%" />
+<img src="dada2_tutorial_16S_all_files/figure-gfm/unnamed-chunk-18-1.png" width="98%" height="98%" />
 
 ``` r
 rev_qual_plots
 ```
 
-<img src="dada2_tutorial_16S_all_files/figure-gfm/unnamed-chunk-17-2.png" width="98%" height="98%" />
+<img src="dada2_tutorial_16S_all_files/figure-gfm/unnamed-chunk-18-2.png" width="98%" height="98%" />
 
 ``` r
-# Or, to make these quality plots interactive, just call the plots through plotly
-ggplotly(fwd_qual_plots)
-ggplotly(rev_qual_plots)
-```
 
-``` r
 # write plots to disk
 saveRDS(fwd_qual_plots, paste0(filter.fp, "/fwd_qual_plots.rds"))
 saveRDS(rev_qual_plots, paste0(filter.fp, "/rev_qual_plots.rds"))
 
 ggsave(plot = fwd_qual_plots, filename = paste0(filter.fp, "/fwd_qual_plots.png"), 
-       width = 10, height = 10, dpi = "retina")
+       width = 12, height = 10, dpi = "retina")
 ggsave(plot = rev_qual_plots, filename = paste0(filter.fp, "/rev_qual_plots.png"), 
-       width = 10, height = 10, dpi = "retina")
+       width = 12, height = 10, dpi = "retina")
 ```
 
 | <span>                                                                                                                                                                                                                                                                                                     |
@@ -523,13 +589,13 @@ filt_out <- filterAndTrim(fwd=file.path(subF.fp, fastqFs), filt=file.path(filtpa
 
 # look at how many reads were kept
 head(filt_out)
-##                                     reads.in reads.out
-## 1aT_9-8_16S_S6_L002_R1_001.fastq.gz   257533    204288
-## 1b_9-17_16S_S2_L002_R1_001.fastq.gz   251087    196135
-## 1c_9-17_16S_S3_L002_R1_001.fastq.gz   139919    109428
-## 1cT_9-3_16S_S8_L002_R1_001.fastq.gz   225774    176224
-## 1d_9-17_16S_S4_L002_R1_001.fastq.gz   244042    196681
-## 1dT_9-3_16S_S9_L002_R1_001.fastq.gz   289003    228879
+##                                reads.in reads.out
+## A1-TS_S1_L001_R1_001.fastq.gz    530215    482685
+## A2-TS_S9_L001_R1_001.fastq.gz     19919     18190
+## A3-TS_S17_L001_R1_001.fastq.gz    24740     22372
+## A4-TS_S25_L001_R1_001.fastq.gz   398733    361859
+## B1-TS_S2_L001_R1_001.fastq.gz   3280463   2967452
+## B2-TS_S10_L001_R1_001.fastq.gz   128302    115834
 
 # summary of samples in filt_out by percentage
 filt_out %>% 
@@ -542,7 +608,7 @@ filt_out %>%
             mean_remaining = paste0(round(mean(percent_kept), 2), "%"), 
             max_remaining = paste0(round(max(percent_kept), 2), "%"))
 ##   min_remaining median_remaining mean_remaining max_remaining
-## 1        72.97%           78.21%         78.07%        80.59%
+## 1        64.29%           90.53%         89.81%        92.16%
 ```
 
 Plot the quality of the filtered fastq files.
@@ -579,6 +645,7 @@ rev_qual_plots_filt
 <img src="dada2_tutorial_16S_all_files/figure-gfm/unnamed-chunk-23-2.png" width="98%" height="98%" />
 
 ``` r
+
 # write plots to disk
 saveRDS(fwd_qual_plots_filt, paste0(filter.fp, "/fwd_qual_plots_filt.rds"))
 saveRDS(rev_qual_plots_filt, paste0(filter.fp, "/rev_qual_plots_filt.rds"))
@@ -635,10 +702,10 @@ assigning them a number between 0 and 40, they are instead assigned to 4
 different quality scores, typically 0-40 scores are converted as shown
 below:
 
-0-2 -> 2  
-3-14 -> 11  
-15-30 -> 25  
-31-40 -> 37
+0-2 -\> 2  
+3-14 -\> 11  
+15-30 -\> 25  
+31-40 -\> 37
 
 This means that the `learnErrors` function has 1/10th of the information
 that it usually uses to learn the appropriate error function, which
@@ -664,12 +731,12 @@ set.seed(100) # set seed to ensure that randomized steps are replicatable
 
 ``` r
 # Learn forward error rates (Notes: randomize default is FALSE)
-errF <- learnErrors(filtFs, nbases = 1e10, multithread = TRUE, randomize = TRUE)
-## 287310600 total bases in 1276936 reads from 7 samples will be used for learning the error rates.
+errF <- learnErrors(filtFs, nbases = 1e8, multithread = TRUE, randomize = TRUE)
+## 320845950 total bases in 1425982 reads from 4 samples will be used for learning the error rates.
 
 # Learn reverse error rates
-errR <- learnErrors(filtRs, nbases = 1e10, multithread = TRUE, randomize = TRUE)
-## 280925920 total bases in 1276936 reads from 7 samples will be used for learning the error rates.
+errR <- learnErrors(filtRs, nbases = 1e8, multithread = TRUE, randomize = TRUE)
+## 207969080 total bases in 945314 reads from 2 samples will be used for learning the error rates.
 
 saveRDS(errF, paste0(filtpathF, "/errF.rds"))
 saveRDS(errR, paste0(filtpathR, "/errR.rds"))
@@ -744,32 +811,30 @@ loessErrfun_mod1 <- function(trans) {
 errF_1 <- learnErrors(
   filtFs,
   multithread = TRUE,
-  nbases = 1e10,
+  nbases = 1e8,
   errorEstimationFunction = loessErrfun_mod1,
   verbose = TRUE
 )
-## 287310600 total bases in 1276936 reads from 7 samples will be used for learning the error rates.
+## 108604125 total bases in 482685 reads from 1 samples will be used for learning the error rates.
 ## Initializing error rates to maximum possible estimate.
-## selfConsist step 1 .......
+## selfConsist step 1 .
 ##    selfConsist step 2
 ##    selfConsist step 3
 ##    selfConsist step 4
 ##    selfConsist step 5
 ##    selfConsist step 6
 ##    selfConsist step 7
-##    selfConsist step 8
-##    selfConsist step 9
-##    selfConsist step 10
+## Convergence after  7  rounds.
 errR_1 <- learnErrors(
   filtRs,
   multithread = TRUE,
-  nbases = 1e10,
+  nbases = 1e8,
   errorEstimationFunction = loessErrfun_mod1,
   verbose = TRUE
 )
-## 280925920 total bases in 1276936 reads from 7 samples will be used for learning the error rates.
+## 106190700 total bases in 482685 reads from 1 samples will be used for learning the error rates.
 ## Initializing error rates to maximum possible estimate.
-## selfConsist step 1 .......
+## selfConsist step 1 .
 ##    selfConsist step 2
 ##    selfConsist step 3
 ##    selfConsist step 4
@@ -849,32 +914,13 @@ loessErrfun_mod2 <- function(trans) {
 errF_2 <- learnErrors(
   filtFs,
   multithread = TRUE,
-  nbases = 1e10,
+  nbases = 1e8,
   errorEstimationFunction = loessErrfun_mod2,
   verbose = TRUE
 )
-## 287310600 total bases in 1276936 reads from 7 samples will be used for learning the error rates.
+## 108604125 total bases in 482685 reads from 1 samples will be used for learning the error rates.
 ## Initializing error rates to maximum possible estimate.
-## selfConsist step 1 .......
-##    selfConsist step 2
-##    selfConsist step 3
-##    selfConsist step 4
-##    selfConsist step 5
-##    selfConsist step 6
-##    selfConsist step 7
-##    selfConsist step 8
-## Convergence after  8  rounds.
-
-errR_2 <- learnErrors(
-  filtRs,
-  multithread = TRUE,
-  nbases = 1e10,
-  errorEstimationFunction = loessErrfun_mod2,
-  verbose = TRUE
-)
-## 280925920 total bases in 1276936 reads from 7 samples will be used for learning the error rates.
-## Initializing error rates to maximum possible estimate.
-## selfConsist step 1 .......
+## selfConsist step 1 .
 ##    selfConsist step 2
 ##    selfConsist step 3
 ##    selfConsist step 4
@@ -882,6 +928,23 @@ errR_2 <- learnErrors(
 ##    selfConsist step 6
 ##    selfConsist step 7
 ## Convergence after  7  rounds.
+
+errR_2 <- learnErrors(
+  filtRs,
+  multithread = TRUE,
+  nbases = 1e8,
+  errorEstimationFunction = loessErrfun_mod2,
+  verbose = TRUE
+)
+## 106190700 total bases in 482685 reads from 1 samples will be used for learning the error rates.
+## Initializing error rates to maximum possible estimate.
+## selfConsist step 1 .
+##    selfConsist step 2
+##    selfConsist step 3
+##    selfConsist step 4
+##    selfConsist step 5
+##    selfConsist step 6
+## Convergence after  6  rounds.
 ```
 
 **Option 3** alter loess function (weights only) and enforce
@@ -954,35 +1017,13 @@ loessErrfun_mod3 <- function(trans) {
 errF_3 <- learnErrors(
   filtFs,
   multithread = TRUE,
-  nbases = 1e10,
+  nbases = 1e8,
   errorEstimationFunction = loessErrfun_mod3,
   verbose = TRUE
 )
-## 287310600 total bases in 1276936 reads from 7 samples will be used for learning the error rates.
+## 108604125 total bases in 482685 reads from 1 samples will be used for learning the error rates.
 ## Initializing error rates to maximum possible estimate.
-## selfConsist step 1 .......
-##    selfConsist step 2
-##    selfConsist step 3
-##    selfConsist step 4
-##    selfConsist step 5
-##    selfConsist step 6
-##    selfConsist step 7
-##    selfConsist step 8
-##    selfConsist step 9
-## Convergence after  9  rounds.
-
-
-# check what this looks like
-errR_3 <- learnErrors(
-  filtRs,
-  multithread = TRUE,
-  nbases = 1e10,
-  errorEstimationFunction = loessErrfun_mod3,
-  verbose = TRUE
-)
-## 280925920 total bases in 1276936 reads from 7 samples will be used for learning the error rates.
-## Initializing error rates to maximum possible estimate.
-## selfConsist step 1 .......
+## selfConsist step 1 .
 ##    selfConsist step 2
 ##    selfConsist step 3
 ##    selfConsist step 4
@@ -992,6 +1033,26 @@ errR_3 <- learnErrors(
 ##    selfConsist step 8
 ##    selfConsist step 9
 ##    selfConsist step 10
+
+
+# check what this looks like
+errR_3 <- learnErrors(
+  filtRs,
+  multithread = TRUE,
+  nbases = 1e8,
+  errorEstimationFunction = loessErrfun_mod3,
+  verbose = TRUE
+)
+## 106190700 total bases in 482685 reads from 1 samples will be used for learning the error rates.
+## Initializing error rates to maximum possible estimate.
+## selfConsist step 1 .
+##    selfConsist step 2
+##    selfConsist step 3
+##    selfConsist step 4
+##    selfConsist step 5
+##    selfConsist step 6
+##    selfConsist step 7
+## Convergence after  7  rounds.
 ```
 
 **Option 4** Alter loess function arguments (weights and span and
@@ -1062,32 +1123,29 @@ loessErrfun_mod4 <- function(trans) {
 errF_4 <- learnErrors(
   filtFs,
   multithread = TRUE,
-  nbases = 1e10,
+  nbases = 1e8,
   errorEstimationFunction = loessErrfun_mod4,
   verbose = TRUE
 )
-## 287310600 total bases in 1276936 reads from 7 samples will be used for learning the error rates.
+## 108604125 total bases in 482685 reads from 1 samples will be used for learning the error rates.
 ## Initializing error rates to maximum possible estimate.
-## selfConsist step 1 .......
+## selfConsist step 1 .
 ##    selfConsist step 2
 ##    selfConsist step 3
 ##    selfConsist step 4
 ##    selfConsist step 5
 ##    selfConsist step 6
-##    selfConsist step 7
-##    selfConsist step 8
-##    selfConsist step 9
-##    selfConsist step 10
+## Convergence after  6  rounds.
 errR_4 <- learnErrors(
   filtRs,
   multithread = TRUE,
-  nbases = 1e10,
+  nbases = 1e8,
   errorEstimationFunction = loessErrfun_mod4,
   verbose = TRUE
 )
-## 280925920 total bases in 1276936 reads from 7 samples will be used for learning the error rates.
+## 106190700 total bases in 482685 reads from 1 samples will be used for learning the error rates.
 ## Initializing error rates to maximum possible estimate.
-## selfConsist step 1 .......
+## selfConsist step 1 .
 ##    selfConsist step 2
 ##    selfConsist step 3
 ##    selfConsist step 4
@@ -1103,7 +1161,7 @@ errR_4 <- learnErrors(
 We want to make sure that the machine learning algorithm is learning the
 error rates properly. In the plots below, the red line represents what
 we should expect the learned error rates to look like for each of the 16
-possible base transitions (A->A, A->C, A->G, etc.) and the black line
+possible base transitions (A-\>A, A-\>C, A-\>G, etc.) and the black line
 and grey dots represent what the observed error rates are. If the black
 line and the red lines are very far off from each other, it may be a
 good idea to increase the `nbases` parameter. This allows the machine
@@ -1138,6 +1196,7 @@ errR_plot
 <img src="dada2_tutorial_16S_all_files/figure-gfm/unnamed-chunk-34-2.png" width="98%" height="98%" />
 
 ``` r
+
 saveRDS(errF_plot, paste0(filtpathF, "/errF_plot.rds"))
 saveRDS(errR_plot, paste0(filtpathR, "/errR_plot.rds"))
 
@@ -1162,6 +1221,7 @@ errR_plot1
 <img src="dada2_tutorial_16S_all_files/figure-gfm/unnamed-chunk-34-4.png" width="98%" height="98%" />
 
 ``` r
+
 saveRDS(errF_plot1, paste0(filtpathF, "/errF_plot1.rds"))
 saveRDS(errR_plot1, paste0(filtpathR, "/errR_plot1.rds"))
 
@@ -1186,6 +1246,7 @@ errR_plot2
 <img src="dada2_tutorial_16S_all_files/figure-gfm/unnamed-chunk-34-6.png" width="98%" height="98%" />
 
 ``` r
+
 saveRDS(errF_plot2, paste0(filtpathF, "/errF_plot2.rds"))
 saveRDS(errR_plot2, paste0(filtpathR, "/errR_plot2.rds"))
 
@@ -1210,6 +1271,7 @@ errR_plot3
 <img src="dada2_tutorial_16S_all_files/figure-gfm/unnamed-chunk-34-8.png" width="98%" height="98%" />
 
 ``` r
+
 saveRDS(errF_plot3, paste0(filtpathF, "/errF_plot3.rds"))
 saveRDS(errR_plot3, paste0(filtpathR, "/errR_plot3.rds"))
 
@@ -1234,6 +1296,7 @@ errR_plot4
 <img src="dada2_tutorial_16S_all_files/figure-gfm/unnamed-chunk-34-10.png" width="98%" height="98%" />
 
 ``` r
+
 saveRDS(errF_plot4, paste0(filtpathF, "/errF_plot4.rds"))
 saveRDS(errR_plot4, paste0(filtpathR, "/errR_plot4.rds"))
 
@@ -1301,27 +1364,102 @@ for(sam in sample.names) {
   merger <- mergePairs(ddF[[sam]], derepF, ddR[[sam]], derepR)
   mergers[[sam]] <- merger
 }
-## Processing: 1aT_9-8_16S_S6_L002 
-## Sample 1 - 204288 reads in 65927 unique sequences.
-## Sample 1 - 204288 reads in 69382 unique sequences.
-## Processing: 1b_9-17_16S_S2_L002 
-## Sample 1 - 196135 reads in 66859 unique sequences.
-## Sample 1 - 196135 reads in 72441 unique sequences.
-## Processing: 1c_9-17_16S_S3_L002 
-## Sample 1 - 109428 reads in 58057 unique sequences.
-## Sample 1 - 109428 reads in 57262 unique sequences.
-## Processing: 1cT_9-3_16S_S8_L002 
-## Sample 1 - 176224 reads in 78112 unique sequences.
-## Sample 1 - 176224 reads in 83305 unique sequences.
-## Processing: 1d_9-17_16S_S4_L002 
-## Sample 1 - 196681 reads in 92604 unique sequences.
-## Sample 1 - 196681 reads in 88559 unique sequences.
-## Processing: 1dT_9-3_16S_S9_L002 
-## Sample 1 - 228879 reads in 99732 unique sequences.
-## Sample 1 - 228879 reads in 97465 unique sequences.
-## Processing: 1eT_9-3_16S_S10_L002 
-## Sample 1 - 165301 reads in 106549 unique sequences.
-## Sample 1 - 165301 reads in 82211 unique sequences.
+## Processing: A1-TS_S1_L001 
+## Sample 1 - 482685 reads in 117323 unique sequences.
+## Sample 1 - 482685 reads in 140061 unique sequences.
+## Processing: A2-TS_S9_L001 
+## Sample 1 - 18190 reads in 8297 unique sequences.
+## Sample 1 - 18190 reads in 9218 unique sequences.
+## Processing: A3-TS_S17_L001 
+## Sample 1 - 22372 reads in 11238 unique sequences.
+## Sample 1 - 22372 reads in 12112 unique sequences.
+## Processing: A4-TS_S25_L001 
+## Sample 1 - 361859 reads in 130927 unique sequences.
+## Sample 1 - 361859 reads in 149638 unique sequences.
+## Processing: B1-TS_S2_L001 
+## Sample 1 - 2967452 reads in 570000 unique sequences.
+## Sample 1 - 2967452 reads in 695919 unique sequences.
+## Processing: B2-TS_S10_L001 
+## Sample 1 - 115834 reads in 43103 unique sequences.
+## Sample 1 - 115834 reads in 47970 unique sequences.
+## Processing: B3-TS_S18_L001 
+## Sample 1 - 84791 reads in 28002 unique sequences.
+## Sample 1 - 84791 reads in 33055 unique sequences.
+## Processing: B4-TS_S26_L001 
+## Sample 1 - 709382 reads in 211847 unique sequences.
+## Sample 1 - 709382 reads in 241340 unique sequences.
+## Processing: C1-TS_S3_L001 
+## Sample 1 - 1845042 reads in 486467 unique sequences.
+## Sample 1 - 1845042 reads in 560897 unique sequences.
+## Processing: C2-TS_S11_L001 
+## Sample 1 - 5159 reads in 2870 unique sequences.
+## Sample 1 - 5159 reads in 3149 unique sequences.
+## Processing: C3-TS_S19_L001 
+## Sample 1 - 970487 reads in 355132 unique sequences.
+## Sample 1 - 970487 reads in 390933 unique sequences.
+## Processing: C4-TS_S27_L001 
+## Sample 1 - 1874933 reads in 433406 unique sequences.
+## Sample 1 - 1874933 reads in 530438 unique sequences.
+## Processing: D1-TS_S4_L001 
+## Sample 1 - 97907 reads in 30527 unique sequences.
+## Sample 1 - 97907 reads in 34879 unique sequences.
+## Processing: D2-TS_S12_L001 
+## Sample 1 - 76628 reads in 35052 unique sequences.
+## Sample 1 - 76628 reads in 39153 unique sequences.
+## Processing: D3-TS_S20_L001 
+## Sample 1 - 477284 reads in 152079 unique sequences.
+## Sample 1 - 477284 reads in 177439 unique sequences.
+## Processing: D4-TS_S28_L001 
+## Sample 1 - 1178539 reads in 288076 unique sequences.
+## Sample 1 - 1178539 reads in 351514 unique sequences.
+## Processing: E1-TS_S5_L001 
+## Sample 1 - 3278 reads in 1664 unique sequences.
+## Sample 1 - 3278 reads in 1860 unique sequences.
+## Processing: E2-TS_S13_L001 
+## Sample 1 - 5282 reads in 3140 unique sequences.
+## Sample 1 - 5282 reads in 3287 unique sequences.
+## Processing: E3-TS_S21_L001 
+## Sample 1 - 960130 reads in 341496 unique sequences.
+## Sample 1 - 960130 reads in 381106 unique sequences.
+## Processing: E4-TS_S29_L001 
+## Sample 1 - 1034215 reads in 263684 unique sequences.
+## Sample 1 - 1034215 reads in 312598 unique sequences.
+## Processing: F1-TS_S6_L001 
+## Sample 1 - 579061 reads in 168721 unique sequences.
+## Sample 1 - 579061 reads in 202261 unique sequences.
+## Processing: F2-TS_S14_L001 
+## Sample 1 - 3463 reads in 1707 unique sequences.
+## Sample 1 - 3463 reads in 1861 unique sequences.
+## Processing: F3-TS_S22_L001 
+## Sample 1 - 126450 reads in 48216 unique sequences.
+## Sample 1 - 126450 reads in 55248 unique sequences.
+## Processing: F4-TS_S30_L001 
+## Sample 1 - 721504 reads in 202168 unique sequences.
+## Sample 1 - 721504 reads in 242235 unique sequences.
+## Processing: G1-TS_S7_L001 
+## Sample 1 - 668516 reads in 181069 unique sequences.
+## Sample 1 - 668516 reads in 213965 unique sequences.
+## Processing: G2-TS_S15_L001 
+## Sample 1 - 44689 reads in 16071 unique sequences.
+## Sample 1 - 44689 reads in 17927 unique sequences.
+## Processing: G3-TS_S23_L001 
+## Sample 1 - 18 reads in 16 unique sequences.
+## Sample 1 - 18 reads in 17 unique sequences.
+## Processing: G4-TS_S31_L001 
+## Sample 1 - 794791 reads in 284380 unique sequences.
+## Sample 1 - 794791 reads in 319161 unique sequences.
+## Processing: H1-TS_S8_L001 
+## Sample 1 - 520928 reads in 142861 unique sequences.
+## Sample 1 - 520928 reads in 178869 unique sequences.
+## Processing: H2-TS_S16_L001 
+## Sample 1 - 880446 reads in 245078 unique sequences.
+## Sample 1 - 880446 reads in 290589 unique sequences.
+## Processing: H3-TS_S24_L001 
+## Sample 1 - 32383 reads in 8975 unique sequences.
+## Sample 1 - 32383 reads in 10676 unique sequences.
+## Processing: H4-TS_S32_L001 
+## Sample 1 - 366253 reads in 136740 unique sequences.
+## Sample 1 - 366253 reads in 154100 unique sequences.
 
 rm(derepF); rm(derepR)
 ```
@@ -1388,14 +1526,14 @@ some of the databases we use often. (If you are on your own computer you
 can download the database you need from this link
 <https://benjjneb.github.io/dada2/training.html>):
 
--   16S bacteria and archaea (SILVA db):
-    `/mnt/home/ernakovich/shared/db_files/dada2/silva_nr99_v138.1_train_set.fa`
+- 16S bacteria and archaea (SILVA db):
+  `/mnt/home/ernakovich/shared/db_files/dada2/silva_nr99_v138.1_train_set.fa`
 
--   ITS fungi (UNITE db):
-    `/mnt/home/ernakovich/shared/db_files/dada2/UNITE_sh_general_release_10.05.2021/sh_general_release_dynamic_10.05.2021.fasta`
+- ITS fungi (UNITE db):
+  `/mnt/home/ernakovich/shared/db_files/dada2/UNITE_sh_general_release_10.05.2021/sh_general_release_dynamic_10.05.2021.fasta`
 
--   18S protists (PR2 db):
-    `/mnt/home/ernakovich/shared/db_files/dada2/pr2_version_4.14.0_SSU_dada2.fasta`
+- 18S protists (PR2 db):
+  `/mnt/home/ernakovich/shared/db_files/dada2/pr2_version_4.14.0_SSU_dada2.fasta`
 
 ``` r
 # Read in RDS 
@@ -1406,10 +1544,10 @@ seqtab.nochim <- removeBimeraDenovo(st.all, method="consensus", multithread=TRUE
 
 # Print percentage of our seqences that were not chimeric.
 100*sum(seqtab.nochim)/sum(seqtab)
-## [1] 93.41858
+## [1] 66.62523
 
 # Assign taxonomy
-tax <- assignTaxonomy(seqtab.nochim, "/mnt/home/ernakovich/shared/db_files/dada2/silva_nr99_v138.1_train_set.fa", tryRC = TRUE,
+tax <- assignTaxonomy(seqtab.nochim, db_fp, tryRC = TRUE,
                       multithread=TRUE)
 
 # Write results to disk
@@ -1535,20 +1673,20 @@ track <- left_join(filt_out_track, ddF_track, by = "Sample") %>%
   select(Sample, everything())
 row.names(track) <- track$Sample
 head(track)
-##                                  Sample  input filtered denoisedF denoisedR
-## 1aT_9-8_16S_S6_L002 1aT_9-8_16S_S6_L002 257533   204288    198979    200462
-## 1b_9-17_16S_S2_L002 1b_9-17_16S_S2_L002 251087   196135    187264    185780
-## 1c_9-17_16S_S3_L002 1c_9-17_16S_S3_L002 139919   109428    102696    101079
-## 1cT_9-3_16S_S8_L002 1cT_9-3_16S_S8_L002 225774   176224    168506    165256
-## 1d_9-17_16S_S4_L002 1d_9-17_16S_S4_L002 244042   196681    186363    185292
-## 1dT_9-3_16S_S9_L002 1dT_9-3_16S_S9_L002 289003   228879    220815    215807
-##                     merged nonchim
-## 1aT_9-8_16S_S6_L002 149955  146443
-## 1b_9-17_16S_S2_L002 106564   99233
-## 1c_9-17_16S_S3_L002  63915   60152
-## 1cT_9-3_16S_S8_L002 111910   95982
-## 1d_9-17_16S_S4_L002 142399  135121
-## 1dT_9-3_16S_S9_L002 155287  143658
+##                        Sample   input filtered denoisedF denoisedR  merged
+## A1-TS_S1_L001   A1-TS_S1_L001  530215   482685    472074    471027  405706
+## A2-TS_S9_L001   A2-TS_S9_L001   19919    18190     16544     16230   11287
+## A3-TS_S17_L001 A3-TS_S17_L001   24740    22372     19627     19324   11930
+## A4-TS_S25_L001 A4-TS_S25_L001  398733   361859    341818    341172  246432
+## B1-TS_S2_L001   B1-TS_S2_L001 3280463  2967452   2921579   2927376 2608809
+## B2-TS_S10_L001 B2-TS_S10_L001  128302   115834    108959    108610   80758
+##                nonchim
+## A1-TS_S1_L001   312751
+## A2-TS_S9_L001     9352
+## A3-TS_S17_L001   10036
+## A4-TS_S25_L001  152277
+## B1-TS_S2_L001  1860194
+## B2-TS_S10_L001   58214
 
 # tracking reads by percentage
 track_pct <- track %>% 
@@ -1567,22 +1705,22 @@ track_pct_avg <- track_pct %>% summarize_at(vars(ends_with("_pct")),
                                             list(avg = mean))
 head(track_pct_avg)
 ##   filtered_pct_avg denoisedF_pct_avg denoisedR_pct_avg merged_pct_avg
-## 1         78.06504          95.63161          94.46501       69.34133
+## 1         89.80601          91.70902          92.03842       75.66029
 ##   nonchim_pct_avg total_pct_avg
-## 1        93.23626      48.06406
+## 1        74.68421      46.56619
 
 track_pct_med <- track_pct %>% summarize_at(vars(ends_with("_pct")), 
                                             list(avg = stats::median))
 head(track_pct_avg)
 ##   filtered_pct_avg denoisedF_pct_avg denoisedR_pct_avg merged_pct_avg
-## 1         78.06504          95.63161          94.46501       69.34133
+## 1         89.80601          91.70902          92.03842       75.66029
 ##   nonchim_pct_avg total_pct_avg
-## 1        93.23626      48.06406
+## 1        74.68421      46.56619
 head(track_pct_med)
 ##   filtered_pct_avg denoisedF_pct_avg denoisedR_pct_avg merged_pct_avg
-## 1         78.20811          95.62035          94.20941       71.13109
+## 1         90.53239           95.5243          95.27904       75.87245
 ##   nonchim_pct_avg total_pct_avg
-## 1        94.11249      49.48421
+## 1        71.79844      45.99255
 
 # Plotting each sample's reads through the pipeline
 track_plot <- track %>% 
