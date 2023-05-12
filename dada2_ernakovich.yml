@@ -6,7 +6,7 @@ channels:
 dependencies:
   - python>=3.6
   - cutadapt
-  - r-base
+  - r-base>=4.2.2
   - r-essentials
   - r-hmisc
   - r-ggplot2

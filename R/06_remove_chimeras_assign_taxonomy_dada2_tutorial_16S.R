@@ -51,7 +51,7 @@ seqtab.nochim <- removeBimeraDenovo(st.all, method="consensus", multithread=TRUE
 100*sum(seqtab.nochim)/sum(seqtab)
 
 # Assign taxonomy
-tax <- assignTaxonomy(seqtab.nochim, "/mnt/home/ernakovich/shared/db_files/dada2/silva_nr99_v138.1_train_set.fa", tryRC = TRUE,
+tax <- assignTaxonomy(seqtab.nochim, db_fp, tryRC = TRUE,
                       multithread=TRUE)
 
 # Write results to disk

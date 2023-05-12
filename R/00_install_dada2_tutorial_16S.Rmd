@@ -1,6 +1,8 @@
 # dada2 tutorial with NovaSeq dataset for Ernakovich Lab 
-*This tutorial originally created by Angela Oliverio and Hannah Holland-Moritz. It has been updated for the Ernakovich Lab. Other contributors to this pipeline include: Corinne Walsh, Matt Gebert, and Kunkun Fan*     
-*Updated October 28, 2021*
+*This tutorial originally created by Angela Oliverio and Hannah Holland-Moritz. It has been updated for the Ernakovich Lab compute environment (UNH's HPC Premise) by Hannah Holland-Moritz. Other contributors to this pipeline include: Corinne Walsh, Matt Gebert, and Kunkun Fan*
+
+*If you find this tutorial helpful or useful, please let us know, it really helps us out to know how many people are finding it useful, thanks!*     
+*Updated May 11, 2023*
 
 ````{r include=FALSE}
 # some setup options for outputing markdown files; feel free to ignore these

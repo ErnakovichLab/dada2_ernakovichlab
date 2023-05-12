@@ -22,7 +22,6 @@ library(dplyr); packageVersion("dplyr") # for manipulating data
 library(tidyr); packageVersion("tidyr") # for creating the final graph at the end of the pipeline
 library(Hmisc); packageVersion("Hmisc") # for creating the final graph at the end of the pipeline
 library(ggplot2); packageVersion("ggplot2") # for creating the final graph at the end of the pipeline
-library(plotly); packageVersion("plotly") # enables creation of interactive graphs, especially helpful for quality plots
 
 load(file = "dada2_ernakovich_Renv.RData")
 #'
