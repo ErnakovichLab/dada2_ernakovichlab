@@ -1,0 +1,11 @@
+url_path,views_total,views_unique
+/ErnakovichLab/dada2_ernakovichlab/tree/split_for_premise,28,7
+/ErnakovichLab/dada2_ernakovichlab,23,7
+/ErnakovichLab/dada2_ernakovichlab/tree/split_for_premise/R,6,2
+/ErnakovichLab/dada2_ernakovichlab/tree/split_for_premise/slurm,5,1
+/ErnakovichLab/dada2_ernakovichlab/blob/split_for_premise/R/00_install_dada2_tutorial_16S.R,3,2
+/ErnakovichLab/dada2_ernakovichlab/blob/split_for_premise/R/00_setup_dada2_tutorial_16S.R,3,2
+/ErnakovichLab/dada2_ernakovichlab/blob/split_for_premise/slurm/00_setup_dada2_tutorial_16S.slurm,3,2
+/ErnakovichLab/dada2_ernakovichlab/blob/split_for_premise/R/01_pre-process_dada2_tutorial_16S.R,2,1
+/ErnakovichLab/dada2_ernakovichlab/blob/split_for_premise/slurm/01_pre-process_dada2_tutorial_16S.slurm,2,1
+/ErnakovichLab/dada2_ernakovichlab/blob/split_for_premise/slurm/02_check_quality_dada2_tutorial_16S.slurm,2,1
