@@ -1,0 +1,50 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: dada2 tutorial with NovaSeq dataset for Ernakovich Lab
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Hannah
+    family-names: Holland-Moritz
+    email: hhollandmoritz@gmail.com
+    affiliation: University of New Hampshire
+    orcid: 'https://orcid.org/0000-0002-0854-872X'
+  - given-names: Angela
+    family-names: Oliverio
+    email: amoliver@syr.edu
+    affiliation: Syracuse University
+    orcid: 'https://orcid.org/0000-0002-0261-0393'
+  - given-names: Corinne
+    family-names: Walsh
+    orcid: 'https://orcid.org/0000-0003-2116-4859'
+    affiliation: 'University of Colorado, Boulder'
+    email: corinne.walsh@colorado.edu
+  - given-names: Matthew
+    family-names: Gebert
+    email: matthew.gebert@colorado.edu
+    affiliation: 'University of Colorado, Boulder'
+  - given-names: Kunkun
+    family-names: Fan
+    email: kkfan@issas.ac.cn
+    affiliation: ' Institute of Soil Science, Chinese Academy of Sciences'
+  - given-names: Jessica
+    family-names: Ernakovich
+    email: jessica.ernakovich@unh.edu
+    affiliation: University of New Hampshire
+    orcid: 'https://orcid.org/0000-0002-4493-2489'
+identifiers:
+  - type: url
+    value: 'https://github.com/ErnakovichLab/dada2_ernakovichlab'
+    description: Github Repository for Ernakovich Lab Dada2 tutorial
+repository-code: 'https://github.com/ErnakovichLab/dada2_ernakovichlab'
+abstract: >-
+  This pipeline runs the dada2 workflow for Big Data
+  (paired-end) with modifications for NovaSeq sequencing
+  base calls
+keywords:
+  - 'dada2, amplicon sequencing, novaseq, error model'
+license: CC-BY-NC-SA-4.0
