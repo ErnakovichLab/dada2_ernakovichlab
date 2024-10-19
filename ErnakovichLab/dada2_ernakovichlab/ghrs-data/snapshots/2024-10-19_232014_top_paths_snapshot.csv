@@ -1,0 +1,11 @@
+url_path,views_total,views_unique
+/ErnakovichLab/dada2_ernakovichlab,81,37
+/ErnakovichLab/dada2_ernakovichlab/tree/main/R,6,3
+/ErnakovichLab/dada2_ernakovichlab/tree/main/slurm,6,3
+/ErnakovichLab/dada2_ernakovichlab/blob/main/slurm/00_setup_dada2_tutorial_16S.slurm,6,2
+/ErnakovichLab/dada2_ernakovichlab/blob/main/R/00_install_dada2_tutorial_16S.Rmd,6,1
+/ErnakovichLab/dada2_ernakovichlab/blob/main/dada2_tutorial_16S_all.html,5,3
+/ErnakovichLab/dada2_ernakovichlab/blob/main/slurm/01_pre-process_dada2_tutorial_16S.slurm,5,2
+/ErnakovichLab/dada2_ernakovichlab/blob/main/slurm/04_learn_error_rates_dada2_tutorial_16S.slurm,5,2
+/ErnakovichLab/dada2_ernakovichlab/blob/main/slurm/02_check_quality_dada2_tutorial_16S.slurm,4,2
+/ErnakovichLab/dada2_ernakovichlab/blob/main/README.md,4,1
